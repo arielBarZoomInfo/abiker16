@@ -12,18 +12,30 @@ import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
 
+import { AccountModule } from './account/account.module';
+import { UsersModule } from './users/users.module';
+
+import { LangKeybModule } from './lang-keyb/lang-keyb.module';
+
 @NgModule({
+    declarations: [
+        AppComponent,
+        AlertComponent,
+        HomeComponent,
+       
+    ],
     imports: [
         BrowserModule,
         ReactiveFormsModule,
         HttpClientModule,
-        AppRoutingModule
+        AppRoutingModule,
+       LangKeybModule,
+       
+        AccountModule,
+        UsersModule,
+        
     ],
-    declarations: [
-        AppComponent,
-        AlertComponent,
-        HomeComponent
-    ],
+   
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
