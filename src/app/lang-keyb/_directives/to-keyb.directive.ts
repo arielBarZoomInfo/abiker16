@@ -2,14 +2,7 @@ import { Directive, ElementRef, HostBinding, HostListener, Input, OnDestroy, OnI
 //import {  TLangNames } from '../interfaces';
 import { FormControl, FormControlName, NgControl } from '@angular/forms';
 /// !!! Important Back Door for Keyb :-)
-export function GGetCurrentInpit(): FormControl | undefined{
-  const that  = ToKeybDirective.Attached?.f;
-  return that;
-}
-export function GGetCurrentInpitName(): string{
-  const name  = '' + ToKeybDirective.Attached?.name;
-  return name;
-}
+
 
 @Directive({
   selector: '[to-keyb]'

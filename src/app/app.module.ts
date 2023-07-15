@@ -15,7 +15,7 @@ import { HomeComponent } from './home';
 import { AccountModule } from './account/account.module';
 import { UsersModule } from './users/users.module';
 
-import { LangKeybModule } from './lang-keyb/lang-keyb.module';
+import { ToKeybModule } from './lang-keyb/to-keyb.module';
 
 @NgModule({
     declarations: [
@@ -29,7 +29,7 @@ import { LangKeybModule } from './lang-keyb/lang-keyb.module';
         ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule,
-       LangKeybModule,
+       ToKeybModule,
        
         AccountModule,
         UsersModule,

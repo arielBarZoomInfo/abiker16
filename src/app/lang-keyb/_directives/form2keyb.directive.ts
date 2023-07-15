@@ -1,6 +1,7 @@
 import { AfterViewInit, Directive, ElementRef, HostListener, Injector, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { GGetCurrentInpit, GGetCurrentInpitName } from './to-keyb.directive';
+import { GKeybLanGlobal as G } from '../keyb-lan.global';
+
 
 @Directive({
   selector: '[form2keyb]'
@@ -40,7 +41,7 @@ implements OnInit , AfterViewInit, OnDestroy{
 
   @HostListener("keyup.enter")
   OnKeyEnter(): void { 
-    const cname: string = GGetCurrentInpitName();
+    const cname: string = G.AttachedControlName;
    // debugger;
    if(cname.length > 0){
     const ctrl =  this.searchNewFocus(cname);

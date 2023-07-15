@@ -18,4 +18,4 @@ import { Form2keybDirective } from './_directives/form2keyb.directive';
     Form2keybDirective
   ]
 })
-export class LangKeybModule { }
+export class ToKeybModule { }

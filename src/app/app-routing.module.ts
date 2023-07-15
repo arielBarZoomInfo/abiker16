@@ -11,14 +11,13 @@ const usersModule = () =>AccountModule;
 // const usersModule = () => import('./users/users.module').then(x => x.UsersModule);
 
 const routes: Routes = [ 
-//    { path: '', component: HomeComponent },
-    { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+    //{ path: '', component: HomeComponent },
+    { path: 'home', component: HomeComponent,canActivate: [AuthGuard]},
     { path: 'users', loadChildren: accountModule, canActivate: [AuthGuard] },
     { path: 'account', loadChildren: usersModule },
-   /// { path: 'lang-keyb', loadChildren: () => import('./lang-keyb/lang-keyb.module').then(m => m.LangKeybModule) },
-
+ 
     // otherwise redirect to home
-    { path: '**', redirectTo: 'home' }
+    { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({
