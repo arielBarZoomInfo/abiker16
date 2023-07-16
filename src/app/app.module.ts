@@ -16,6 +16,7 @@ import { AccountModule } from './account/account.module';
 import { UsersModule } from './users/users.module';
 
 import { ToKeybModule } from './lang-keyb/to-keyb.module';
+import { KeyboardModule } from './keyboard/keyboard.module';
 
 @NgModule({
     declarations: [
@@ -29,10 +30,11 @@ import { ToKeybModule } from './lang-keyb/to-keyb.module';
         ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule,
-       ToKeybModule,
+        ToKeybModule,
        
         AccountModule,
         UsersModule,
+        KeyboardModule,
         
     ],
    

@@ -17,6 +17,8 @@ export interface IKeybLanGlobal{
   sendKeyboadChar(ch:string):void;
   ref: {
     lang:string;
+    keybVisible:boolean;
+    //caps: boolean;
     // attachedName:string;
     // attached?:FormControl;
   }
@@ -26,7 +28,7 @@ export interface IKeybLanGlobal{
 
 
 
-class CKeybLanGlobal implements IKeybLanGlobal{
+export class CKeybLanGlobal implements IKeybLanGlobal{
 
   constructor(private lang0:string){
 
@@ -34,7 +36,8 @@ class CKeybLanGlobal implements IKeybLanGlobal{
 
   ref = 
   { 
-    lang: this.lang0
+    lang: this.lang0,
+    keybVisible:false
     // attachedName:'',
     // attached: undefined 
   };
@@ -48,6 +51,9 @@ class CKeybLanGlobal implements IKeybLanGlobal{
     const name  = '' + ToKeybDirective.Attached?.name;
     return name;
   }
+  // attach(f:FormControl ){
+  //   ToKeybDirective.Attached
+  // }
   //#endregion
 
   //#region KeyboardEnter
@@ -112,12 +118,12 @@ class CKeybLanGlobal implements IKeybLanGlobal{
     }
     
   }
-//#endregion
+  //#endregion
 
   //#region Keyboard 
 
   _KeyboardVisible$: BehaviorSubject<boolean> = 
-    new BehaviorSubject<boolean>(false);
+    new BehaviorSubject<boolean>(this.ref.keybVisible);
   get KeyboardVisible$(): Observable<boolean> {
     return this._KeyboardVisible$.asObservable();
   }
@@ -126,6 +132,7 @@ class CKeybLanGlobal implements IKeybLanGlobal{
   }
   set KeyboardVisible(ft: boolean) {
    if(this.KeyboardVisible != ft){
+    this.ref.keybVisible = ft;
     this._KeyboardVisible$.next(ft);
    }
   }
@@ -160,4 +167,4 @@ class CKeybLanGlobal implements IKeybLanGlobal{
   //#endregion
 }
 
-export const GKeybLanGlobal: IKeybLanGlobal = new CKeybLanGlobal('en')
+export const GKeybLanGlobal:CKeybLanGlobal = new CKeybLanGlobal('en')

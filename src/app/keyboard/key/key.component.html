@@ -1,0 +1,17 @@
+<button type="button"
+    [id] = "kbdId"
+    class="keyboard__key" 
+    [class.key--hidden]="isHidden"
+    [class.keyboard__key--wide]="isWide"
+    [class.keyboard__key--extra-wide]="isExtraWide"
+    [class.keyboard__key--activatable]="isCapsKey"
+    [class.keyboard__key--active]="caps && isCapsKey"
+    (click)="keyPress($event)"
+    >
+    <ng-container *ngIf="!hasIcon" > {{keyText}}</ng-container>
+    <ng-container *ngIf="hasIcon"> 
+            <i class="material-icons">{{iconName}}</i>
+    </ng-container>
+    
+    
+</button>

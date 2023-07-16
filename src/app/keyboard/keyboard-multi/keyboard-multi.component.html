@@ -1,0 +1,24 @@
+
+<!-- {{'refVisible.visible:' + refVisible.visible}} -->
+
+<div class="keyboard" [class.keyboard--hidden]="!ref.keybVisible">
+
+    <div [hidden]="!(Lang =='en')" >
+        <akb-lang-keyboard [lang]="'en'"></akb-lang-keyboard>
+    </div>
+
+
+    <div [hidden]="!(Lang =='ru')">
+        <akb-lang-keyboard [lang]="'ru'"></akb-lang-keyboard>
+    </div>
+    <div [hidden]="!(Lang =='ar')">
+        <akb-lang-keyboard [lang]="'ar'"></akb-lang-keyboard>
+    </div>
+    <div [hidden]="!( Lang =='he')">
+        <akb-lang-keyboard [lang]="'he'"></akb-lang-keyboard>
+    </div>
+
+    <div [hidden]="!( Lang =='dg')">
+        <akb-lang-keyboard [lang]="'dg'"></akb-lang-keyboard>
+    </div>
+</div>

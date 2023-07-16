@@ -1,0 +1,53 @@
+
+<!-- <label for="ch1"><strong>CAPS</strong> </label> -->
+<!-- <input type="checkbox" name="ch1" id="ch1"  [(ngModel)]="caps"> -->
+
+<div>
+    <div  class="keyboard__keys" *ngFor="let keysRow of keyLayout; 
+            let row= index" >
+        <ng-container div *ngFor="let key of keysRow; let col= index " >
+         
+            <akb-key [row]=row  [col]=col 
+                [lang]="Lang" 
+                [charInit]=key
+                [capsLock]="capsLock$" >
+                (click)="KeyPress($event)"
+           </akb-key>   
+ 
+            <!-- <ng-container *ngIf="key=='caps'";else noCapsKey>
+                <akb-key [row]=row  [col]=col  [charInit]=key 
+                    (KeyPress)="onCapsPress(me.keyText)"  [lang]="Lang" #me>
+                </akb-key>   
+            </ng-container>
+
+            <ng-template #noCapsKey>
+                
+                    <akb-key [row]=row  [col]=col [lang]="Lang" [charInit]=key
+                     [caps] = "LangCaps"
+                        (KeyPress)="onKeyPress(me.keyText)"  #me>
+                    </akb-key>   
+               
+            </ng-template> -->
+
+            <!-- <ng-template #noCapsKey>
+                <ng-container *ngIf="keyHasCase(key)";else hasNoCase>
+                    <akb-key [row]=row  [col]=col [lang]="Lang" [charInit]=key [caps] = "LangCaps"
+                        (KeyPress)="onKeyPress(me.keyText)"  #me>
+                    </akb-key>   
+                </ng-container>
+            </ng-template> -->
+
+<!-- 
+            <ng-template #hasNoCase >
+          
+                <akb-key [row]=row  [col]=col  [charInit]=key 
+                    (KeyPress)="onKeyPress(me.keyText)"  #me>
+                </akb-key>   
+
+            </ng-template>
+           -->
+            
+        </ng-container>
+    </div> 
+</div>
+  

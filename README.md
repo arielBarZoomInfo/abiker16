@@ -1,5 +1,6 @@
 # Abike16
 ng generate module lang-keyb --route lang-keyb --module app.module
+ng generate module keyboard --module app.module
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.7.
 

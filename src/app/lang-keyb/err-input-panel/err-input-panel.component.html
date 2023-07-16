@@ -1,0 +1,5 @@
+<div class="err-input-panel" [style.display]="isErrs?'block' :'none'">
+    <div  class="invalid-feedback" *ngFor="let err of errArr" style="display: block;" >
+        {{err.lang}}
+    </div>
+</div>
