@@ -1,9 +1,10 @@
 import { AbstractControl,FormGroup,ValidationErrors,ValidatorFn,Validators } from '@angular/forms';
-import {  TLang, TLangNames } from '../interfaces/interfaces';
-import { GetGlobalLang } from '../keyb-data/keyb.data';
+import { TLangNames,TLang } from './interfaces';
+import { GKeybLanGlobal as G} from './lang-keyb.global';
+//import { GetGlobalLang } from '../keyb-data/keyb.data';
 
 
-const TO_LOG = true;
+const TO_LOG = false;
 export function nullValidator(control: AbstractControl): ValidationErrors|null {
     return null;
 }
@@ -40,8 +41,7 @@ export const luhnCheck = (cardNumber: string): boolean => {
    
      // 6. Calculate modulo 10 of the sum from step 5. and the last digit. If it's 0, you have a valid card number :)
      return ((sum + lastDigit) % 10 === 0);
- }
-
+}
 
 function hasValidLength(value: any): boolean {
     // non-strict comparison is intentional, to check for both `null` and `undefined` values
@@ -76,8 +76,8 @@ function isEmptyInputValue(value: any): boolean {
 export class LangValidator{
     
    // static  _Lang : TLangNames = 'en';
-     static get Lang() : TLangNames {
-        return GetGlobalLang();
+    static get Lang() : TLangNames {
+        return G.Lang ;
     }
     // static  set Lang(v : TLangNames) {
     //     LangValidator._Lang = v;
@@ -112,7 +112,7 @@ export class LangValidator{
         return ret;
 
     }
-    static requiredLang(controlName: string): ValidatorFn {
+    static required(controlName: string): ValidatorFn {
 
        
         const _patternLangs: TLang<string> = {
@@ -141,7 +141,7 @@ export class LangValidator{
      }
 
 
-    static requiredTrueLang(controlName: string): ValidatorFn {
+    static requiredTrue(controlName: string): ValidatorFn {
 
     
     const _patternLangs: TLang<string> = {
@@ -172,7 +172,7 @@ export class LangValidator{
 
     }
 
-    static emailLang(controlName: string): ValidatorFn {
+    static email(controlName: string): ValidatorFn {
 
         //const errName = 'email';
         const _patternLangs: TLang<string> = {
@@ -200,7 +200,7 @@ export class LangValidator{
             }
         }
     }
-    static numberLang(controlName: string,
+    static number(controlName: string,
         minDigits:number = 7,maxDigits:number=12): ValidatorFn {
         
         // const name = controlName;
@@ -243,7 +243,7 @@ export class LangValidator{
             };
     }
 
-    static patternLang(controlName: string,patternRegex:string|RegExp): ValidatorFn {
+    static pattern(controlName: string,patternRegex:string|RegExp): ValidatorFn {
 
         const _patternLangs: TLang<string> = {
 
@@ -275,7 +275,7 @@ export class LangValidator{
         }
      };
     }
-    static  minLengthLang(controlName:string,minLength: number): ValidatorFn {
+    static  minLength(controlName:string,minLength: number): ValidatorFn {
 
         const errName = 'minLength';
         const _patternLangs: TLang<string> = {
@@ -311,7 +311,7 @@ export class LangValidator{
           
         };
    }
-   static  maxLengthLang(controlName:string,maxLength: number): ValidatorFn {
+   static  maxLength(controlName:string,maxLength: number): ValidatorFn {
      
         const _patternLangs: TLang<string> = {
 
@@ -346,7 +346,7 @@ export class LangValidator{
         }
    }
 
-   static  teudatZehutLang(controlName:string): ValidatorFn {
+   static  teudatZehut(controlName:string): ValidatorFn {
     
         const _patternLangs: TLang<string> = {
 
@@ -384,7 +384,7 @@ export class LangValidator{
     }
 
 
-    static  creditCardLuhnLang(controlName:string): ValidatorFn {
+    static  creditCardLuhn(controlName:string): ValidatorFn {
     
         const _patternLangs: TLang<string> = {
 
@@ -421,7 +421,7 @@ export class LangValidator{
 
     
 
-    static cardExpiredLang(controlName:string): ValidatorFn {
+    static cardExpired(controlName:string): ValidatorFn {
 
      
         return (control: AbstractControl): ValidationErrors|null => {
@@ -496,3 +496,4 @@ export class LangValidator{
 
 }
  
+Validators

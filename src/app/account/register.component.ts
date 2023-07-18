@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { first } from 'rxjs/operators';
 
 import { AccountService, AlertService } from '@app/_services';
+import { LangValidator } from '@app/lang-keyb/lang.validators';
 
 @Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {
@@ -21,10 +22,16 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.formBuilder.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            username: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6)]]
+            firstName: ['', LangValidator.required('firstName')],
+            lastName: ['', LangValidator.required('lastName')],
+            username: ['', LangValidator.required('username')],
+            password: ['', [LangValidator.required('password'),
+                            LangValidator.minLength('password',6)]],
+            email: ['', [LangValidator.required('email'),
+                         LangValidator.email('email')  ]],
+            phone: ['', LangValidator.required('phone')],
+            address: ['', LangValidator.required('address')]
+
         });
     }
 

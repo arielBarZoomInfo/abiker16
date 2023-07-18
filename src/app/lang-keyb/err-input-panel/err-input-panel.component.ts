@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, ValidationErrors } from '@angular/forms';
+import { animationFrameScheduler } from 'rxjs';
 export type TErrLang = {name:string,lang:string};
-const TO_LOG = true;
+const TO_LOG = false;
 
 @Component({
   selector: 'and-err-input-panel',
@@ -22,7 +23,10 @@ export class ErrInputPanelComponent implements OnInit{
   }
   get isErrs() {
     const ft = this.control.touched && !!this.control.errors;
-    console.log(`isErrs(${this.controlName})=${ft}`);
+    if(TO_LOG){
+      console.log(`isErrs(${this.controlName})=${ft}`);
+    }
+   
     return ft;
   }
   get errArr():TErrLang[]{

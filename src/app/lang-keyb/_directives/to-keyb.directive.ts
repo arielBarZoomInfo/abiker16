@@ -2,6 +2,8 @@ import { Directive, ElementRef, HostBinding, HostListener, Input, OnDestroy, OnI
 //import {  TLangNames } from '../interfaces';
 import { FormControl, FormControlName, NgControl } from '@angular/forms';
 /// !!! Important Back Door for Keyb :-)
+const TO_LOG_ATTACH = false;
+const TO_LOG_DETACH = false;
 
 
 @Directive({
@@ -49,7 +51,10 @@ export class ToKeybDirective implements OnInit , OnDestroy{
       ToKeybDirective._Atttached = this;
       this.hostElt.nativeElement.classList.add('attached-to-keyb');
       this.hostElt.nativeElement.setAttribute("attached","");
-      console.log(`@attach: ${this.name} value:"${this.f.value}"` );
+      if(TO_LOG_ATTACH){
+        console.log(`@attach: ${this.name} value:"${this.f.value}"` );
+      }
+    
     }
   
 
@@ -60,7 +65,9 @@ export class ToKeybDirective implements OnInit , OnDestroy{
       if(that){
          that.hostElt.nativeElement.classList.remove('attached-to-keyb');
         this.hostElt.nativeElement.removeAttribute("attached");
-        console.log(`@detach: ${that._id} value:"${that.f.value}"` );
+        if(TO_LOG_DETACH){
+          console.log(`@detach: ${that._id} value:"${that.f.value}"` );
+        }
       }
  
     }

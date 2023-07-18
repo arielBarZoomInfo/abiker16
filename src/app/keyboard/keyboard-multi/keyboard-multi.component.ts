@@ -10,7 +10,7 @@ import { GKeybLanGlobal  as G} from '@app/lang-keyb/lang-keyb.global';
 //type TAlterLang = TLangNames | '';
 
 @Component({
-  selector: 'akb-keyboard-multi',
+  selector: 'and-keyboard-multi',
   templateUrl: './keyboard-multi.component.html',
   styleUrls: ['../keyboard.scss']
 })

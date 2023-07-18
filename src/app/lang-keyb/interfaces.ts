@@ -1,7 +1,7 @@
 import { ElementRef } from "@angular/core";
 import { FormControl } from "@angular/forms";
 
-export type TLangNames = 'en' | 'ru' | 'he' | 'ar' | 'dg';
+export type TLangNames = 'en' | 'ru' | 'he' | 'ar'| 'dg';
 export type TDirection = 'ltr' | 'rtl';
 export interface ILang{
     lang: TLangNames;
@@ -9,6 +9,7 @@ export interface ILang{
     descr?:string;
 
 };
+export type TLang<T = string> = Record<TLangNames,T >;
 export interface ITMultiLang<T = string>{
     en:T;
     ru:T;
