@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, ElementRef, HostListener, Injector, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GKeybLanGlobal as G } from '../lang-keyb.global';
-
+const TO_LOG = true;
 
 @Directive({
   selector: '[form2keyb]'
@@ -15,18 +15,20 @@ implements OnInit , AfterViewInit, OnDestroy{
     public renderer: Renderer2
     
     ) {
-    //  this.subs.push(
-    //   this._dispatcher.onKeybEnter$.subscribe(intr=>this.OnKeyEnter(intr))
-    //  );
+      this.subs.push(
+        G.KeyboardEnter$.subscribe(intr=>this.OnKeyEnter(intr))
+      )
     
+    
+  }
+  ngOnDestroy(): void {
+    this.subs.forEach(subs=>subs.unsubscribe());
   }
   ngOnInit(): void {
 
       
   }
-  ngOnDestroy(): void {
-    this.subs.forEach(subs=>subs.unsubscribe());
-  }
+
   ngAfterViewInit(){
     
     const native = this.hostElt.nativeElement as HTMLElement;
@@ -39,13 +41,14 @@ implements OnInit , AfterViewInit, OnDestroy{
 
   }
 
-  @HostListener("keyup.enter")
-  OnKeyEnter(): void { 
+ // @HostListener("keyup.enter")
+  OnKeyEnter(intr:string): void { 
     const cname: string = G.AttachedControlName;
    // debugger;
    if(cname.length > 0){
     const ctrl =  this.searchNewFocus(cname);
     ctrl?.focus();
+    console.log(`[form2keyb]OnKeyEnter(${intr}): ctrl:${cname}`)
  
    }
  

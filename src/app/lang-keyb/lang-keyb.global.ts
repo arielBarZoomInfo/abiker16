@@ -1,22 +1,28 @@
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ToKeybDirective } from './_directives/to-keyb.directive';
 import { FormControl } from '@angular/forms';
+import { TLangNames } from './interfaces';
+
 
 export interface IKeybLanGlobal{
   get AttachedeControl() : FormControl | undefined;
   get AttachedControlName(): string;
   get KeyboardEnter$(): Observable<string>;// string is name of 
   fireKeyboardEnter$(ctrlName:string):void;
-  get Lang$():Observable<string>;
-  get Lang() : string;
-  setLang(lan:string):void;
-  setAlterLang(lan:string):void;
+  get Lang$():Observable<TLangNames>;
+  get Lang() : TLangNames;
+  get KeybLang$():Observable<TLangNames>;
+  get KeybLang() : TLangNames;
+  setLang(TLangNames:string):void;
+  setAlterLang(TLangNames:string):void;
+  clearAlterLang():void;
   get KeyboardVisible$():Observable<boolean>;
   get KeyboardVisible() : boolean;
   set KeyboardVisible(ft:boolean);
   sendKeyboadChar(ch:string):void;
   ref: {
-    lang:string;
+    lang:TLangNames;
+    keybLang:TLangNames;
     keybVisible:boolean;
     //caps: boolean;
     // attachedName:string;
@@ -30,13 +36,15 @@ export interface IKeybLanGlobal{
 
 export class CKeybLanGlobal implements IKeybLanGlobal{
 
-  constructor(private lang0:string){
+  constructor(private lang0:TLangNames = 'en'){
 
   }
 
   ref = 
   { 
     lang: this.lang0,
+    keybLang:this.lang0,
+    
     keybVisible:false
     // attachedName:'',
     // attached: undefined 
@@ -75,49 +83,69 @@ export class CKeybLanGlobal implements IKeybLanGlobal{
  //#endregion
   
   //#region Lang
-  _Lang$: BehaviorSubject<string> = 
-      new BehaviorSubject<string>(this.lang0);
+  _Lang$: BehaviorSubject<TLangNames> = 
+      new BehaviorSubject<TLangNames>(this.lang0);
 
-  get Lang$(): Observable<string> {
+  get Lang$(): Observable<TLangNames> {
     return this._Lang$.asObservable();
   }
-  get Lang(): string {
+  get Lang(): TLangNames {
     return this._Lang$.value;
   }
+
+  
+  private _isAlterLang:boolean = false;
+  setLang(lang: TLangNames): void {
+    if(this._Lang$.value != lang){
+      this._Lang$.next(lang);
+      this.ref.lang = lang;
+    }
+    if(!this._isAlterLang){
+      this._KeybLang$.next(lang);
+      this.ref.keybLang = lang;
+    }
+  }
  
-  _oldAlterLang:string = '';
+   _KeybLang$: BehaviorSubject<TLangNames> = 
+      new BehaviorSubject<TLangNames>(this.lang0);
+    get KeybLang$(): Observable<TLangNames> {
+      return this._KeybLang$.asObservable();
+    }
+    
+    get KeybLang(): TLangNames {
+      return this._KeybLang$.value;
+    }
+  
  
 
-  _setLang(lang:string, alterLang:string){
-    if(lang.length == 2  ){
-      this._oldAlterLang = '';
-      if(lang != this._Lang$.value)
-      {
-        this._Lang$.next(this.ref.lang = lang)
-      }
-    } else if(lang.length == 0 && alterLang.length == 2){
-      if(alterLang != this._Lang$.value)
-      {
-        this._Lang$.next(this._oldAlterLang = alterLang)
-      }
+  setAlterLang(alterLang: TLangNames ): void {
+    if(this._KeybLang$.value != alterLang){
+      this._isAlterLang = true;
+      this._KeybLang$.next(this.Lang);
+      this.ref.keybLang = this.Lang;
+    }  
+  }
 
-    } 
+
+
+  clearAlterLang( ): void {
+     if(this._KeybLang$.value != this.Lang){
+        this._isAlterLang = false;
+        this.ref.keybLang = this.Lang;
+        this._KeybLang$.next(this.Lang);
+         
+    }
        
   }
 
-  setLang(lang: string): void {
-   
-    this._setLang(lang,'');
-  }
-  setAlterLang(lang: string): void {
-    if(lang.length === 2){
-      this._setLang('',lang);
-    } else if(lang.length < 2){
-      this._oldAlterLang = '';
-      this._setLang(this.ref.lang,'');
-    }
-    
-  }
+
+
+ 
+ 
+
+
+ 
+ 
   //#endregion
 
   //#region Keyboard 
