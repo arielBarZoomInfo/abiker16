@@ -1,10 +1,35 @@
 ﻿<div class="card col-12" [style.direction]="flds.direction"
-     style="background-color: antiquewhite;">
-     <h4 class="card-header"><strong>Register {{flds.direction}}</strong></h4> 
-    <div class="card-body">
+     style="background-color: #e0e0e0;">
+
+
+     <div class="container">
+        <div class="row">
+            <div class="col-md-10 stackem">
+                <div>
+                    <h4 class="card-header"><strong> 
+                        {{flds.title}}</strong>
+                   </h4> 
+       
+                </div>
+                <div>
+                    <h6 class="card-header" style="color:blue"> 
+                        <strong>{{flds.title2}}</strong></h6> 
+                </div>
+             </div>
+            <div class="col-md-2">
+                <img src="assets/logoBikeBox.png" alt="BikeBox" style="height:100px">
+  
+            </div>
+        </div>
+    </div>
+
+
+ 
+ 
+     <div class="card-body"> 
         <form form2keyb [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="row">
-                <div class="col-12 ">
+                <div class="col-6 no-gutters">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-firstName">
                                 <strong>{{flds.firstName.label}}</strong></span>
@@ -18,7 +43,7 @@
                     
                </div>
             
-               <div class="col-12 ">
+               <div class="col-6 ">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-lastName">
                                 <strong>{{flds.lastName.label}}</strong></span>
@@ -35,7 +60,7 @@
 
             </div>
             <div class="row">
-                <div class="col-12 ">
+                <div class="col-6 ">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-userName">
                                 <strong>{{flds.userName.label}}</strong></span>
@@ -47,7 +72,7 @@
                     </div>
                     <and-err-input-panel name="userName" [f]="f"> </and-err-input-panel>
                 </div>
-               <div class="col-12 ">
+               <div class="col-6 ">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-passport">
                                 <strong>{{flds.passport.label}}</strong></span>
@@ -61,7 +86,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 ">
+                <div class="col-6 ">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-email">
                                 <strong>{{flds.email.label}}</strong></span>
@@ -73,7 +98,7 @@
                     </div>
                     <and-err-input-panel name="email" [f]="f"></and-err-input-panel>
                 </div>
-                <div class="col-12 ">
+                <div class="col-6 ">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-phone">
                                 <strong>{{flds.phone.label}}</strong></span>
@@ -89,7 +114,7 @@
            </div>     
 
              <div class="row">
-                <div class="col-12">
+                <div class="col-6">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-address">
                             <strong>{{flds.address.label}}</strong></span>
@@ -101,7 +126,98 @@
                         </div>
                         <and-err-input-panel name="address" [f]="f"></and-err-input-panel>
                  </div>
+                 <div class="col-6">
+                    <div class="input-group">
+                        <span class="input-group-text" id="id-label-ravkav">
+                            <strong>>{{flds.ravkav.label}}</strong></span>
+                        <input to-keyb  type="text" formControlName="ravkav" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['ravkav'].errors }"
+                            [placeholder]="flds.ravkav.placeholder" 
+                            aria-describedby="id-label-ravkav"/>
+                       <and-err-input-panel name="ravkav" [f]="f"> </and-err-input-panel>
+   
+                    </div>
+               </div>
+
             </div>
+
+            <div class="row" style="padding-top:8px;">
+ <!--------IAMAGREE TERMS---------->
+                <div class="form-group input-group row" >
+                    <div class="col-12">
+                        <span class="input-group-text" 
+                       
+                    ><strong>{{flds.iamagree.label}}</strong>
+                    <div style="padding-left: 8px;padding-right: 8px;">
+                        <label class="switch" >
+                        <input type="checkbox" >
+                        <span class="slider round" ></span>
+                      </label>
+                    </div >   
+                      
+                    
+                            <!-- <mat-slide-toggle 
+                                formControlName="imagreeTerms" 
+                                
+                                id="imagreeTermsId"  
+                                type="checkbox" 
+                                class="form-check-input check-im-agree"
+                                name="imagreeTerms"
+                            > 
+                            
+                            </mat-slide-toggle>
+                            <a  class="link-primary" href="http://google.com">
+                                {{flds.pay.terms.text}}
+                            </a> -->
+
+                        <div class="check-error">
+                            <and-err-input-panel name="imagreeTerms" [f]="f"></and-err-input-panel>
+                        </div>
+            
+                    </span>
+                    </div>
+            
+                
+                </div> 
+            </div>
+                <!--------IAMAGREE POLICY---------->
+            <!-- <div class="row">
+
+
+                <div class="form-group input-group row" >
+                    <div class="col-12" style="background-color: white;">
+                        <span class="input-group-text" 
+                            style="background-color: white;">{{flds.iamagree.label}}
+                        
+                                <mat-slide-toggle 
+                                    formControlName="imagreePolicy" 
+                                    
+                                    id="imagreePolicyId"  
+                                    type="checkbox" 
+                                    class="form-check-input check-im-agree"
+                                    name="imagreePolicy"
+                                    (change)="OnSliderChange('imagreePolicy')"
+                                    
+                                > 
+                                
+                                </mat-slide-toggle>
+                                <a  class="link-primary" href="http://google.com">
+                                    {{flds.pay.policy.text}}
+                                </a>
+                                <div class="check-error">
+                                    <and-err-dialog-control-panel 
+                                            name="imagreePolicy" [control]="c('imagreePolicy')">
+                                    </and-err-dialog-control-panel>           
+                    
+                                </div>
+                            
+                         
+                        </span>
+                    </div>
+                    
+                </div> 
+
+            </div> -->
 
             <button [disabled]="loading" class="btn btn-primary">
                 <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>

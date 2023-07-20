@@ -95,7 +95,7 @@ const REGISTR_EN : IUserDetailsFieldsData = {
    address:{
       name: 'address',
       //type: 'text',
-      label:'residential address',
+      label:'Address',
       //required: true,//default true
       //pattern: '',
       placeholder:'',
@@ -248,7 +248,7 @@ const REGISTR_RU : IUserDetailsFieldsData = {
          text:'политика конфиденциальности'
       },
    }      
-};
+};  
 const REGISTR_HE : IUserDetailsFieldsData = {
    lang:'he',
    direction:'rtl',

@@ -93,8 +93,11 @@ export class RegisterComponent implements OnInit ,OnDestroy{
             LangValidator.required("phone"),
             LangValidator.number("phone",7,12)
           ]),
-        address:  new FormControl<string>('', [
+          address:  new FormControl<string>('', [
             LangValidator.required("address")
+          ]),
+          ravkav:  new FormControl<string>('', [
+           // LangValidator.required("address")
           ]),
 
       //  ravkav: new FormControl('',[]),
