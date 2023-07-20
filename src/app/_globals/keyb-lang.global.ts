@@ -1,7 +1,7 @@
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { ToKeybDirective } from './_directives/to-keyb.directive';
+import { ToKeybDirective } from '@app/_directives/to-keyb.directive';
 import { FormControl } from '@angular/forms';
-import { TLangNames } from './interfaces';
+import { TLangNames, TLangNames2 } from '../_interfaces/interfaces';
 
 
 export interface IKeybLanGlobal{
@@ -11,10 +11,10 @@ export interface IKeybLanGlobal{
   fireKeyboardEnter$(ctrlName:string):void;
   get Lang$():Observable<TLangNames>;
   get Lang() : TLangNames;
-  get KeybLang$():Observable<TLangNames>;
-  get KeybLang() : TLangNames;
+  get KeybLang$():Observable<TLangNames2>;
+  get KeybLang() : TLangNames2;
   setLang(TLangNames:string):void;
-  setAlterLang(TLangNames:string):void;
+  setAlterLang(TLangNames2:string):void;
   clearAlterLang():void;
   get KeyboardVisible$():Observable<boolean>;
   get KeyboardVisible() : boolean;
@@ -58,6 +58,11 @@ export class CKeybLanGlobal implements IKeybLanGlobal{
   get AttachedControlName(): string {
     const name  = '' + ToKeybDirective.Attached?.name;
     return name;
+  }
+
+  DETACH(){
+    ToKeybDirective.Attached?.detachKeyboard();
+    
   }
   // attach(f:FormControl ){
   //   ToKeybDirective.Attached
@@ -105,24 +110,26 @@ export class CKeybLanGlobal implements IKeybLanGlobal{
       this.ref.keybLang = lang;
     }
   }
- 
-   _KeybLang$: BehaviorSubject<TLangNames> = 
-      new BehaviorSubject<TLangNames>(this.lang0);
-    get KeybLang$(): Observable<TLangNames> {
+ //IMPORTANT KeybLang 
+   _KeybLang$: BehaviorSubject<TLangNames2> = 
+      new BehaviorSubject<TLangNames2>(this.lang0);
+    get KeybLang$(): Observable<TLangNames2> {
       return this._KeybLang$.asObservable();
     }
     
-    get KeybLang(): TLangNames {
+    get KeybLang(): TLangNames2 {
       return this._KeybLang$.value;
     }
   
- 
+  //IMPORTANT 
 
-  setAlterLang(alterLang: TLangNames ): void {
-    if(this._KeybLang$.value != alterLang){
+  setAlterLang(alterLang: TLangNames2 ): void {
+  //  const _keybLang = (alterLang.length < 1) ? this.KeybLang : alterLang;
+    if(alterLang != this._KeybLang$.value){
       this._isAlterLang = true;
-      this._KeybLang$.next(this.Lang);
+      this._KeybLang$.next(alterLang);
       this.ref.keybLang = this.Lang;
+      console.log(` setAlterLang(${alterLang} )`)
     }  
   }
 
@@ -133,18 +140,11 @@ export class CKeybLanGlobal implements IKeybLanGlobal{
         this._isAlterLang = false;
         this.ref.keybLang = this.Lang;
         this._KeybLang$.next(this.Lang);
-         
+        console.log(` clearAlterLang( ) Lang=${this.Lang}`)
     }
        
   }
 
-
-
- 
- 
-
-
- 
  
   //#endregion
 

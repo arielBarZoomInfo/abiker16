@@ -22,7 +22,7 @@ export class ErrInputPanelComponent implements OnInit{
    // throw new Error('Method not implemented.');
   }
   get isErrs() {
-    const ft = this.control.touched && !!this.control.errors;
+    const ft = this.control && this.control?.touched && !!this.control.errors;
     if(TO_LOG){
       console.log(`isErrs(${this.controlName})=${ft}`);
     }

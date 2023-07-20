@@ -1,96 +1,114 @@
-﻿<div class="card col-12">
-    <h4 class="card-header">Register</h4>
+﻿<div class="card col-12" [style.direction]="flds.direction"
+     style="background-color: antiquewhite;">
+     <h4 class="card-header"><strong>Register {{flds.direction}}</strong></h4> 
     <div class="card-body">
         <form form2keyb [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="row">
-                <div class="col-6">
-                    <label class="form-label"><strong>First Name</strong></label>
-                    <input to-keyb  type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }" />
-                    <!-- <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
-                        <div *ngIf="f['firstName'].errors['required']">First Name is required</div>
-                    </div> -->
-                    <and-err-input-panel 
-                        name="firstName" [f]="f">
-                    </and-err-input-panel>
-                </div>
+                <div class="col-12 ">
+                    <div class="input-group">
+                        <span class="input-group-text" id="id-label-firstName">
+                                <strong>{{flds.firstName.label}}</strong></span>
+                        <input to-keyb  type="text" formControlName="firstName"
+                            class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }"
+                            [placeholder]="flds.firstName.placeholder" 
+                            aria-describedby="id-label-firstName"/>
+                    </div>
+                    <and-err-input-panel name="firstName" [f]="f"></and-err-input-panel>
+                    
+               </div>
             
-                <div class="col-6">
-                    <label class="form-label"><strong>Last Name</strong></label>
-                    <input to-keyb  type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }" />
-                    <!-- <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
-                        <div *ngIf="f['lastName'].errors['required']">Last Name is required</div>
-                    </div> -->
-                    <and-err-input-panel name="lastName" [f]="f"></and-err-input-panel>
-    
+               <div class="col-12 ">
+                    <div class="input-group">
+                        <span class="input-group-text" id="id-label-lastName">
+                                <strong>{{flds.lastName.label}}</strong></span>
+                        <input to-keyb  type="text" formControlName="lastName" 
+                            class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }"
+                            [placeholder]="flds.lastName.placeholder" 
+                            aria-describedby="id-label-lastName"/>
+                    </div>
+               
+                    <and-err-input-panel  name="lastName" [f]="f"></and-err-input-panel>
+
                 </div>
 
-
-            </div>
-            <div class="row">
-                <div class="col-6 ">
-                    <label class="form-label"><strong>Username</strong></label>
-                    <input to-keyb  type="text" formControlName="username" class="form-control" 
-                    [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" />
-                    <!-- <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
-                        <div *ngIf="f['username'].errors['required']">Username is required</div>
-                    </div> -->
-                    <and-err-input-panel name="username" [f]="f"></and-err-input-panel>
-                </div>
-                <div class="col-6 ">
-                    <label class="form-label"><strong>Password</strong></label>
-                    <input to-keyb  type="password" formControlName="password" class="form-control"
-                     [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
-                    <!-- <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
-                        <div *ngIf="f['password'].errors['required']">Password is required</div>
-                        <div *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</div>
-                    </div> -->
-                    <and-err-input-panel  name="password" [f]="f"></and-err-input-panel>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-6 ">
-                    <label class="form-label"><strong>Email</strong></label>
-                    <input to-keyb="en"  type="text" formControlName="email" class="form-control"
-                     [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
-                    <!-- <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-                        <div *ngIf="f['email'].errors['required']">Password is required</div>
-                        <div *ngIf="f['email'].errors['minlength']">Password must be at least 6 characters</div>
-                    </div> -->
-                    <and-err-input-panel  name="email" [f]="f"></and-err-input-panel>
-                </div>                
-                <div class="col-6 ">
-                    <label class="form-label"><strong>Phone</strong></label>
-                    <input to-keyb="dg"  type="text" formControlName="phone" class="form-control" 
-                    [ngClass]="{ 'is-invalid': submitted && f['phone'].errors }" />
-                    <!-- <div *ngIf="submitted && f['phone'].errors" class="invalid-feedback">
-                        <div *ngIf="f['phone'].errors['required']">phone is required</div>
-                    </div> -->
-                    <and-err-input-panel name="phone" [f]="f"></and-err-input-panel>
-                </div>
-      
             </div>
             <div class="row">
                 <div class="col-12 ">
-                    <label class="form-label"><strong>Address</strong></label>
-                    <input to-keyb  type="text" formControlName="address" class="form-control" 
-                    [ngClass]="{ 'is-invalid': submitted && f['address'].errors }" />
-                    <!-- <div *ngIf="submitted && f['address'].errors" class="invalid-feedback">
-                        <div *ngIf="f['address'].errors['required']">address is required</div>
-                    </div> -->
-                    <and-err-input-panel name="address" [f]="f"></and-err-input-panel>
+                    <div class="input-group">
+                        <span class="input-group-text" id="id-label-userName">
+                                <strong>{{flds.userName.label}}</strong></span>
+                        <input to-keyb  type="text" formControlName="userName" 
+                            class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['userName'].errors }"
+                            [placeholder]="flds.userName.placeholder" 
+                            aria-describedby="id-label-userName"/>
+                    </div>
+                    <and-err-input-panel name="userName" [f]="f"> </and-err-input-panel>
                 </div>
-    
+               <div class="col-12 ">
+                    <div class="input-group">
+                        <span class="input-group-text" id="id-label-passport">
+                                <strong>{{flds.passport.label}}</strong></span>
+                        <input to-keyb="dg"  type="number" formControlName="passport" 
+                            class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['passport'].errors }"
+                            [placeholder]="flds.passport.placeholder" 
+                            aria-describedby="id-label-passport"/>
+                       </div>
+                    <and-err-input-panel name="passport" [f]="f"></and-err-input-panel>
+                </div>
             </div>
-          
-  
-            <div>
-                <button [disabled]="loading" class="btn btn-primary">
-                    <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
-                    Register
-                </button>
-                <a routerLink="../login" class="btn btn-link">Cancel</a>
+            <div class="row">
+                <div class="col-12 ">
+                    <div class="input-group">
+                        <span class="input-group-text" id="id-label-email">
+                                <strong>{{flds.email.label}}</strong></span>
+                        <input to-keyb="en"  type="email" formControlName="email"
+                             class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+                            [placeholder]="flds.email.placeholder" 
+                            aria-describedby="id-label-email"/>
+                    </div>
+                    <and-err-input-panel name="email" [f]="f"></and-err-input-panel>
+                </div>
+                <div class="col-12 ">
+                    <div class="input-group">
+                        <span class="input-group-text" id="id-label-phone">
+                                <strong>{{flds.phone.label}}</strong></span>
+                        <input to-keyb="dg"  type="number" formControlName="phone" 
+                            class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['phone'].errors }"
+                            [placeholder]="flds.phone.placeholder" 
+                            aria-describedby="id-label-phone"/>
+                     </div>
+                     <and-err-input-panel name="phone" [f]="f"></and-err-input-panel>
+            
+                </div> 
+           </div>     
+
+             <div class="row">
+                <div class="col-12">
+                    <div class="input-group">
+                        <span class="input-group-text" id="id-label-address">
+                            <strong>{{flds.address.label}}</strong></span>
+                        <input to-keyb  type="text" formControlName="address" 
+                            class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['address'].errors }"
+                            [placeholder]="flds.address.placeholder" 
+                            aria-describedby="id-label-address"/>
+                        </div>
+                        <and-err-input-panel name="address" [f]="f"></and-err-input-panel>
+                 </div>
             </div>
+
+            <button [disabled]="loading" class="btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                Register
+            </button>
+            <a routerLink="../login" class="btn btn-link">Cancel</a>
+           
         </form>
     </div>
 </div>

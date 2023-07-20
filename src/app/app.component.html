@@ -1,19 +1,26 @@
-﻿<!-- nav -->
+﻿<!-- nav --> 
 <nav class="navbar navbar-expand navbar-dark bg-dark px-3" *ngIf="true || user">
-    <div class="navbar-nav">
+    <div class="navbar-nav">   
         <a class="nav-item nav-link" routerLink="/" routerLinkActive="active"
              [routerLinkActiveOptions]="{exact: true}">Home</a>
         <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>
+        <button class="btn nav-item nav-link" (click)="setLang('en')">English</button>
+        <button class="btn nav-item nav-link" (click)="setLang('he')">עברית</button>
+        <button class="btn nav-item nav-link" (click)="setLang('ru')">Русский</button>
+        <button class="btn nav-item nav-link" (click)="setLang('ar')">عربي</button>
+        <button class="btn nav-item nav-link">{{ref.lang}}</button>
+       
+        <button class="btn btn-sm btn-primary me-1" (click)="toShowKeyb()">show keyb</button>   
+        <button class="btn btn-sm btn-primary me-1" (click)="toHidewKeyb()">hide keyb</button> 
         <ng-container  *ngIf="user">
-            <button class="btn btn-link nav-item nav-link" (click)="logout()">Logout</button>
+            <button class="btn btn-link nav-item nav-link" (click)="logout()">Logout </button>
         </ng-container>
     </div>
 </nav>
-<button class="btn btn-sm btn-primary me-1" (click)="toShowKeyb()">show keyb</button>   
-<button class="btn btn-sm btn-primary me-1" (click)="toHidewKeyb()">hide keyb</button>
+
 
 <!-- main app container -->
-<div class="app-container" [ngClass]="{ 'bg-light': user }">
+<div class="app-container " [ngClass]="{ 'bg-light2': user }">
     <alert></alert>
     <router-outlet></router-outlet>
     <and-keyboard-multi></and-keyboard-multi>

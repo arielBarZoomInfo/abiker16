@@ -1,6 +1,6 @@
 import { AbstractControl,FormGroup,ValidationErrors,ValidatorFn,Validators } from '@angular/forms';
-import { TLangNames,TLang } from './interfaces';
-import { GKeybLanGlobal as G} from './lang-keyb.global';
+import { TLangNames,TLang } from '../_interfaces/interfaces';
+import { GKeybLanGlobal as G} from '../_globals/keyb-lang.global';
 //import { GetGlobalLang } from '../keyb-data/keyb.data';
 
 
@@ -118,7 +118,7 @@ export class LangValidator{
         const _patternLangs: TLang<string> = {
 
         en: `"${controlName}" field must be filled`,
-        dg: `"${controlName}" field must be filled`,
+        //dg: `"${controlName}" field must be filled`,
         ru: `Поле "${controlName}" должно быть заполнено`,
         he: `"${controlName}" יש למלא את השדה`,
         ar: `"${controlName}" يجب ملء حقل `
@@ -147,7 +147,7 @@ export class LangValidator{
     const _patternLangs: TLang<string> = {
 
         en: `"${controlName}" field must be checked`,
-        dg: `"${controlName}" field must be checked`,
+        //dg: `"${controlName}" field must be checked`,
         ru: `Поле "${controlName}" должно быть отмечено`,
         he: `"${controlName}" יש לסמן את השדה`,
         ar: `"${controlName}" يجب تحديد الحقل`
@@ -178,7 +178,7 @@ export class LangValidator{
         const _patternLangs: TLang<string> = {
 
             en: `Enter valid email format for field: "${controlName}"`,
-            dg: `Enter valid email format for field: "${controlName}"`,
+            //dg: `Enter valid email format for field: "${controlName}"`,
             ru: `Введите правильный email формат для поля "${controlName}"`,
             he: `"${controlName}"  הזן את פורמט הדוא"ל הנכון עבור השדה `,
             ar: `"${controlName}" أدخل تنسيق البريد الإلكتروني الصحيح للحقل `
@@ -217,7 +217,7 @@ export class LangValidator{
             ru: `Введите правильный номер только ${minDigits}-${maxDigits} цифр допустимы : "${controlName}"`,
             he: `"${controlName}" : נא להזין מספר חוקי רק ספרות ${minDigits}-${maxDigits} חוקיות `,
             ar: `"${controlName}" : الرجاء إدخال رقم صالح فقط $ {minDigits} - $ {maxDigits} رقم صالحة`,
-            dg: `Enter valid number ${minDigits}-${maxDigits} digits acceptable only : "${controlName}"`,
+            //dg: `Enter valid number ${minDigits}-${maxDigits} digits acceptable only : "${controlName}"`,
 
         }
 
@@ -248,7 +248,7 @@ export class LangValidator{
         const _patternLangs: TLang<string> = {
 
             en: `Enter valid format for field: "${controlName}"`,
-            dg: `Enter valid format for field: "${controlName}"`,
+            //dg: `Enter valid format for field: "${controlName}"`,
             ru: `Введите правильный формат для поля: "${controlName}"`,
             he: `"${controlName}" : הזן את פורמט הנכון עבור השדה `,
             ar: `"${controlName}" : أدخل التنسيق الصحيح للحقل`
@@ -281,7 +281,7 @@ export class LangValidator{
         const _patternLangs: TLang<string> = {
     
             en: `${controlName}" value must be more than ${minLength}`,
-            dg: `${controlName}" value must be more than ${minLength}`,
+            //dg: `${controlName}" value must be more than ${minLength}`,
             ru: `Значение ${controlName}" должно быть больше ${minLength}.`,
             he: `${minLength}"-חייב להיות יותר מ `+ `${controlName} הערך של`,
             ar: `${minLength}"-يجب أن يكون أكثر من`+ ` ${controlName} قيمة ال`
@@ -316,7 +316,7 @@ export class LangValidator{
         const _patternLangs: TLang<string> = {
 
             en: `${controlName}" value must be less than ${maxLength}`,
-            dg: `${controlName}" value must be less than ${maxLength}`,
+            //dg: `${controlName}" value must be less than ${maxLength}`,
             ru: `Значение ${controlName}" должно быть меньше ${maxLength}.`,
             he: `${maxLength}"-חייב להיות פחות מ `+ `${controlName} הערך של`,
             ar: `يجب أن تكون قيمة ${controlName} "أقل من ${maxLength}`
@@ -351,7 +351,7 @@ export class LangValidator{
         const _patternLangs: TLang<string> = {
 
             en: `Wrong Israel ID value`,
-            dg: `Wrong Israel ID value`,
+            //dg: `Wrong Israel ID value`,
             ru: `Ошибка ввода удостоверениа личности.`,
             he: `שגיאה בהזנת תאודת הזהות`,
             ar: `خطأ في إدخال بطاقة الهوية`
@@ -389,7 +389,7 @@ export class LangValidator{
         const _patternLangs: TLang<string> = {
 
             en: `Wrong credit card number`,
-            dg: `Wrong credit card number`,
+            //dg: `Wrong credit card number`,
             ru: `Неверный номер кредитной карты`,
             he: `מספר כרטיס אשראי שגוי`,
             ar: `رقم بطاقة الائتمان غير صحيح`
@@ -435,7 +435,7 @@ export class LangValidator{
              const _patternFormatLangs: TLang<string> = {
 
                 en: `Date format , have been MM/YY`,
-                dg: `Date format , have been MM/YY`,
+                //dg: `Date format , have been MM/YY`,
                 ru: `Дата должна иметь формат MM/YY `,
                 he: `MM/YY התאריך חייב להיות בפורמט`,
                 ar: `يجب أن يكون التاريخ بتنسيق MM / YY`
@@ -446,7 +446,7 @@ export class LangValidator{
             const _patternExpiredLangs: TLang<string> = {
     
                 en: `Credit card date expired`,
-                dg: `Credit card date expiredh}`,
+                //dg: `Credit card date expiredh}`,
                 ru: `Срок действия кредитной карты истек.`,
                 he: `תוקף הכרטיס האשראי נגמר`,
                 ar: `انتهت صلاحية بطاقة الائتمان`
@@ -496,4 +496,3 @@ export class LangValidator{
 
 }
  
-Validators

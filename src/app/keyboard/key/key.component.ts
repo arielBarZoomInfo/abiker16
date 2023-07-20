@@ -2,7 +2,7 @@ import { Component,  Input, OnDestroy, OnInit } from '@angular/core';
 import {  Subscription } from 'rxjs';
 import { Chr2Enum, ECHR, KeyboardService } from '../keyboard.service';
 import { TSubject } from 'src/app/_helpers/tsubject';
-import { GKeybLanGlobal } from '@app/lang-keyb/lang-keyb.global';
+import { GKeybLanGlobal } from '@app/_globals/keyb-lang.global';
 
 
 export class KeyData{

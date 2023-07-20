@@ -9,6 +9,7 @@ import { RegisterComponent } from './register.component';
 //import { ToKeybDirective } from '@app/lang-keyb/_directives/to-keyb.directive';
 import { ToKeybModule } from '@app/lang-keyb/to-keyb.module';
 
+
 @NgModule({
     imports: [
         CommonModule,

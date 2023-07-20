@@ -1,9 +1,19 @@
-import { Directive, ElementRef, HostBinding, HostListener, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Directive, 
+        ElementRef, 
+        HostBinding, 
+        HostListener, 
+        Input, 
+        OnDestroy, 
+        OnInit, 
+        Renderer2 } from '@angular/core';
 //import {  TLangNames } from '../interfaces';
 import { FormControl, FormControlName, NgControl } from '@angular/forms';
+import { TLangNames2 } from '@app/_interfaces/interfaces';
+import {GKeybLanGlobal as G} from '@app/_globals'
 /// !!! Important Back Door for Keyb :-)
-const TO_LOG_ATTACH = false;
-const TO_LOG_DETACH = false;
+const TO_LOG_INIT = true;
+const TO_LOG_ATTACH = true;
+const TO_LOG_DETACH = true;
 
 
 @Directive({
@@ -15,7 +25,7 @@ export class ToKeybDirective implements OnInit , OnDestroy{
 
   @Input ( 'to-keyb') alterLang:string  = '';//alternative keyboard if exosts
   @HostBinding() name!: string;
-  private _id:string = '';
+  @HostBinding()  id!:string;
   public f!:FormControl;
 
 
@@ -26,11 +36,7 @@ export class ToKeybDirective implements OnInit , OnDestroy{
     ) {
     
   }
-  ngOnDestroy(): void {
-    this.detachKeyboard();
-  }
-
- 
+  
   ngOnInit(): void {
 
     if(this.ngControl instanceof FormControlName){
@@ -39,9 +45,29 @@ export class ToKeybDirective implements OnInit , OnDestroy{
       this.name = '' + fcName.name;
 
       this.f = this.ngControl.control as FormControl;
+      if(this.alterLang.length > 1){
+        G.setAlterLang(this.alterLang as TLangNames2);
+      } else{
+        G.clearAlterLang();
+     
+      }
+      if(!this.id || this.id.length < 1){
+        this.id = `id-input-to-keyb-${this.name}`;
+      }
+      if(TO_LOG_INIT){
+        console.log(`to-keyb::Init('${this.name}') id:${this.id}`)
+      }
       
-      console.log(`to-keyb::Init('${this.name}')`)
     }  
+   }
+
+   ngOnDestroy(): void {
+    if(this.alterLang.length > 1){
+        G.clearAlterLang();
+   
+    }
+    
+    this.detachKeyboard();
    }
 
 
@@ -51,6 +77,9 @@ export class ToKeybDirective implements OnInit , OnDestroy{
       ToKeybDirective._Atttached = this;
       this.hostElt.nativeElement.classList.add('attached-to-keyb');
       this.hostElt.nativeElement.setAttribute("attached","");
+      if(this.alterLang.length > 1){
+        G.setAlterLang(this.alterLang as TLangNames2);
+      }
       if(TO_LOG_ATTACH){
         console.log(`@attach: ${this.name} value:"${this.f.value}"` );
       }
@@ -63,10 +92,13 @@ export class ToKeybDirective implements OnInit , OnDestroy{
       const that = ToKeybDirective._Atttached;
       ToKeybDirective._Atttached = undefined;
       if(that){
+        if(that.alterLang.length > 1){
+          G.clearAlterLang();
+        }
          that.hostElt.nativeElement.classList.remove('attached-to-keyb');
         this.hostElt.nativeElement.removeAttribute("attached");
         if(TO_LOG_DETACH){
-          console.log(`@detach: ${that._id} value:"${that.f.value}"` );
+          console.log(`@detach: ${that.id} value:"${that.f.value}"` );
         }
       }
  

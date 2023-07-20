@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GKeybLanGlobal } from '@app/lang-keyb/lang-keyb.global';
+import { GKeybLanGlobal } from '@app/_globals/keyb-lang.global';
 // import { KeybDispatcher } from './keyb-dispatcher';
 export enum ECHR{
   errChr=-1,//

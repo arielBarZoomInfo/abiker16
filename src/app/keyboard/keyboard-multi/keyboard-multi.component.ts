@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { KeyboardService } from '../keyboard.service';
 import { Subscription } from 'rxjs';
-import { GKeybLanGlobal  as G} from '@app/lang-keyb/lang-keyb.global';
+import { GKeybLanGlobal  as G} from '@app/_globals/keyb-lang.global';
 //import {GKeybLanGlobal as G} from 
 
 //import { GLangNamesArray, RefKeybVisible, RefKeyboardLang, SetAlternateLng, SetGlobalLang, KeybLangPipe$, GlobalLangPipe$ } from 'src/app/keyb-data/keyb.data';
@@ -59,7 +59,7 @@ export class KeyboardMultiComponent implements OnInit  , OnDestroy{
 
   ngOnInit(): void {
    
-    this.subscrArr.push(G.Lang$
+    this.subscrArr.push(G.KeybLang$
       .subscribe(lang=>{
         this.Lang = lang;
         `sent pipe ${this.Lang}`
