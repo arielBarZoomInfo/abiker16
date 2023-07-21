@@ -1,5 +1,4 @@
-﻿<div class="card col-12" [style.direction]="flds.direction"
-     style="background-color: #e0e0e0;">
+﻿<div class="card col-12" [style.direction]="flds.direction" >
 
 
      <div class="container">
@@ -29,13 +28,13 @@
      <div class="card-body"> 
         <form form2keyb [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="row">
-                <div class="col-6 no-gutters">
+                <div class="col-12 no-gutters">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-firstName">
                                 <strong>{{flds.firstName.label}}</strong></span>
                         <input to-keyb  type="text" formControlName="firstName"
                             class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }"
+                            [ngClass]="getClasses('firstName')"
                             [placeholder]="flds.firstName.placeholder" 
                             aria-describedby="id-label-firstName"/>
                     </div>
@@ -43,13 +42,13 @@
                     
                </div>
             
-               <div class="col-6 ">
+               <div class="col-12 ">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-lastName">
                                 <strong>{{flds.lastName.label}}</strong></span>
                         <input to-keyb  type="text" formControlName="lastName" 
                             class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }"
+                            [ngClass]="getClasses('lastName')"
                             [placeholder]="flds.lastName.placeholder" 
                             aria-describedby="id-label-lastName"/>
                     </div>
@@ -60,25 +59,25 @@
 
             </div>
             <div class="row">
-                <div class="col-6 ">
+                <div class="col-12 ">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-userName">
                                 <strong>{{flds.userName.label}}</strong></span>
                         <input to-keyb  type="text" formControlName="userName" 
                             class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f['userName'].errors }"
+                            [ngClass]="getClasses('userName')"
                             [placeholder]="flds.userName.placeholder" 
                             aria-describedby="id-label-userName"/>
                     </div>
                     <and-err-input-panel name="userName" [f]="f"> </and-err-input-panel>
                 </div>
-               <div class="col-6 ">
+               <div class="col-12 ">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-passport">
                                 <strong>{{flds.passport.label}}</strong></span>
                         <input to-keyb="dg"  type="number" formControlName="passport" 
                             class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f['passport'].errors }"
+                            [ngClass]="getClasses('passport')"
                             [placeholder]="flds.passport.placeholder" 
                             aria-describedby="id-label-passport"/>
                        </div>
@@ -86,25 +85,25 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-6 ">
+                <div class="col-12 ">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-email">
                                 <strong>{{flds.email.label}}</strong></span>
                         <input to-keyb="en"  type="email" formControlName="email"
                              class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+                            [ngClass]="getClasses('email')" 
                             [placeholder]="flds.email.placeholder" 
                             aria-describedby="id-label-email"/>
                     </div>
                     <and-err-input-panel name="email" [f]="f"></and-err-input-panel>
                 </div>
-                <div class="col-6 ">
+                <div class="col-12 ">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-phone">
                                 <strong>{{flds.phone.label}}</strong></span>
                         <input to-keyb="dg"  type="number" formControlName="phone" 
                             class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f['phone'].errors }"
+                            [ngClass]="getClasses('phone')" 
                             [placeholder]="flds.phone.placeholder" 
                             aria-describedby="id-label-phone"/>
                      </div>
@@ -114,25 +113,25 @@
            </div>     
 
              <div class="row">
-                <div class="col-6">
+                <div class="col-12">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-address">
                             <strong>{{flds.address.label}}</strong></span>
                         <input to-keyb  type="text" formControlName="address" 
                             class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f['address'].errors }"
+                            [ngClass]="getClasses('address')" 
                             [placeholder]="flds.address.placeholder" 
                             aria-describedby="id-label-address"/>
                         </div>
                         <and-err-input-panel name="address" [f]="f"></and-err-input-panel>
                  </div>
-                 <div class="col-6">
+                 <div class="col-12">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-ravkav">
                             <strong>{{flds.ravkav.label}}</strong></span>
                         <input to-keyb  type="text" formControlName="ravkav" 
                             class="form-control"
-                            [ngClass]="{ 'is-invalid': submitted && f['ravkav'].errors }"
+                            [ngClass]="getClasses('ravkav')" 
                             [placeholder]="flds.ravkav.placeholder" 
                             aria-describedby="id-label-ravkav"
                             />

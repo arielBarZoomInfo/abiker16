@@ -23,7 +23,6 @@ export class RegisterComponent implements OnInit ,OnDestroy{
 
 
     constructor(
-        private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private accountService: AccountService,
@@ -171,6 +170,18 @@ export class RegisterComponent implements OnInit ,OnDestroy{
                 }
             });
     }
+    getClasses(cname:string) {
+      const fc = this.f[cname] as FormControl;
+  
+      const c =  {
+  
+        'is-invalid': !!fc?.touched && !!fc?.errors, 
+        'is-valid': !!fc?.valid ,
+       // 'is-active': cname === this.active
+      }
+      return c;
+    }  
+  
 }
 
 

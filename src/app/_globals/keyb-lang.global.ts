@@ -182,7 +182,7 @@ export class CKeybLanGlobal implements IKeybLanGlobal{
        //fireEvent.type(trg,'\b');
        ch = '\b' ;
       }
-      if(ch?.length <= 2){
+      else if(ch?.length <= 2){
         str += ch;
         trg.f.setValue(str);
       } 

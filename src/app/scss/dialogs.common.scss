@@ -9,10 +9,15 @@ p {
    font-size: 1.3 rem;
  }
  
- input  {
-   font-weight: 500;
-   font-size: 1.1 rem;
- }
+ input.form-control  {
+   font-weight: 700;
+   font-size: 1.2 rem;
+   padding-top: 2px !important;
+   padding-bottom: 2px !important;
+   background-color:white !important;
+ 
+  }
+  
  
  .invalid-feedback{
    font-weight: 900 !important;
@@ -23,100 +28,93 @@ p {
  }
  .input-group-text {
  
-   width:30%;
-   min-width: 120px;
-   background-color: lightgrey;
+   width:200px;
+  
+   background-color: #f0f0ff;
    height: 28px;
    
  }
- 
- .check-im-agree{
-   margin-top: -1rem;
-   margin-left:1rem;
-   margin-right:2rem;
-   vertical-align:middle;
-   margin-top: -1rem; 
-   margin-left: 1rem;margin-right: 2rem;
+ .card-body{
+  background-color: aqua;
+  padding-top: 4px;
+  padding-bottom: 4px;
  }
  
-  
+
  .check-error{
    margin-left: 20px; 
    margin-right: 20px;
  
  }
  
- input.form-control{
-   background-color: rgb(248,248,248) !important;
- }
  .attached-toKeyb{
       border: '3px solid blue' !important;
       background-color: azure !important;
   }
 
-  $slider-height : 20px;
-  $slider-padding : 2px;
-  $switch-height : $slider-height + 2 * $slider-padding; //34/
-  $switch-width : $slider-height * 2 + $slider-padding; //60
+  // $slider-height : 20px;
+  // $slider-padding : 2px;
+  // $switch-height : $slider-height + 2 * $slider-padding; //34/
+  // $switch-width : $slider-height * 2 + $slider-padding; //60
   
   
-  .switch {
-      position: relative;
-      display: inline-block;
-      width: $switch-width;
-      height: $switch-height;
-    }
+  // .switch {
+  //     position: relative;
+  //     display: inline-block;
+  //     width: $switch-width;
+  //     height: $switch-height;
+  //   }
     
-    .switch input { 
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
+  //   .switch input { 
+  //     opacity: 0;
+  //     width: 0;
+  //     height: 0;
+  //   }
     
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      -webkit-transition: .4s;
-      transition: .4s;
-    }
+  //   .slider {
+  //     position: absolute;
+  //     cursor: pointer;
+  //     top: 0;
+  //     left: 0;
+  //     right: 0;
+  //     bottom: 0;
+  //     background-color: #ccc;
+  //     -webkit-transition: .4s;
+  //     transition: .4s;
+  //   }
     
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: $slider-height;
-      width: $slider-height;
-      left: $slider-padding;
-      bottom: $slider-padding;
-      background-color: white;
-      -webkit-transition: .4s;
-      transition: .4s;
-    }
+  //   .slider:before {
+  //     position: absolute;
+  //     content: "";
+  //     height: $slider-height;
+  //     width: $slider-height;
+  //     left: $slider-padding;
+  //     bottom: $slider-padding;
+  //     background-color: white;
+  //     -webkit-transition: .4s;
+  //     transition: .4s;
+  //   }
     
-    input:checked + .slider {
-      background-color: #2196F3;
-    }
+  //   input:checked + .slider {
+  //     background-color: #2196F3;
+  //   }
     
-    input:focus + .slider {
-      box-shadow: 0 0 1px #2196F3;
-    }
+  //   input:focus + .slider {
+  //     box-shadow: 0 0 1px #2196F3;
+  //   }
     
-    input:checked + .slider:before {
-      -webkit-transform: translateX($slider-height);
-      -ms-transform: translateX($slider-height);
-      transform: translateX($slider-height);
-    }
+  //   input:checked + .slider:before {
+  //     -webkit-transform: translateX($slider-height);
+  //     -ms-transform: translateX($slider-height);
+  //     transform: translateX($slider-height);
+  //   }
     
-    /* Rounded sliders */
-    .slider.round {
-      border-radius: $switch-height;
-    }
+  //   /* Rounded sliders */
+  //   .slider.round {
+  //     border-radius: $switch-height;
+  //   }
     
-    .slider.round:before {
-      border-radius: 50%;
-    }
+  //   .slider.round:before {
+  //     border-radius: 50%;
+  //   }
     

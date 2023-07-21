@@ -17,6 +17,7 @@ import { UsersModule } from './users/users.module';
 
 import { ToKeybModule } from './lang-keyb/to-keyb.module';
 import { KeyboardModule } from './keyboard/keyboard.module';
+import { TextMaskModule } from '@myndmanagement/text-mask';
 
 @NgModule({
     declarations: [
@@ -31,6 +32,7 @@ import { KeyboardModule } from './keyboard/keyboard.module';
         HttpClientModule,
         AppRoutingModule,
         ToKeybModule,
+        TextMaskModule,
        
         AccountModule,
         UsersModule,

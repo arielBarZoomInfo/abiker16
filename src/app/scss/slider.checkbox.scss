@@ -4,12 +4,12 @@ $slider-checkbox-height : 20px;
   $switch-checkbox-width : $slider-checkbox-height * 2 + $slider-checkbox-padding; //60
   
   
-  .switch-checkbox {
-      position: relative;
-      display: inline-block;
-      width: $switch-checkbox-width;
-      height: $switch-checkbox-height;
-    }
+.switch-checkbox {
+  position: relative;
+  display: inline-block;
+  width: $switch-checkbox-width;
+  height: $switch-checkbox-height;
+}
     
     .switch-checkbox input { 
       opacity: 0;

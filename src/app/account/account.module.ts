@@ -4,10 +4,12 @@ import { CommonModule } from '@angular/common';
 
 import { AccountRoutingModule } from './account-routing.module';
 import { LayoutComponent } from './layout.component';
-import { LoginComponent } from './login.component';
-import { RegisterComponent } from './register.component';
+import { LoginComponent } from './login//login.component';
+import { RegisterComponent } from './register/register.component';
 //import { ToKeybDirective } from '@app/lang-keyb/_directives/to-keyb.directive';
 import { ToKeybModule } from '@app/lang-keyb/to-keyb.module';
+import { CreditCardComponent } from './credit-card/credit-card.component';
+import { TextMaskModule } from '@myndmanagement/text-mask';
 
 
 @NgModule({
@@ -15,12 +17,14 @@ import { ToKeybModule } from '@app/lang-keyb/to-keyb.module';
         CommonModule,
         ReactiveFormsModule,
         AccountRoutingModule,
-        ToKeybModule
+        ToKeybModule,
+        TextMaskModule
     ],
     declarations: [
         LayoutComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        CreditCardComponent
         
     ]
 })

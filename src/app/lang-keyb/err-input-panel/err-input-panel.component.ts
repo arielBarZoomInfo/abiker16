@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, ValidationErrors } from '@angular/forms';
-import { animationFrameScheduler } from 'rxjs';
+import {FormControl, ValidationErrors } from '@angular/forms';
 export type TErrLang = {name:string,lang:string};
 const TO_LOG = false;
 

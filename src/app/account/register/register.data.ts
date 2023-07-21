@@ -182,10 +182,10 @@ const REGISTR_RU : IUserDetailsFieldsData = {
   passport:{
       name: 'passport',
       //type: 'text',
-      label:'Удостоверение личности',
+      label:'Удостоверение',
       //required: true,//default true
       //pattern: '[0-9]{9}',
-      placeholder:'',
+      placeholder:'Удостоверение личности',
       
    },
    email:{

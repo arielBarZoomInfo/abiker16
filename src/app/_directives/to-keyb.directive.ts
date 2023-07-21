@@ -45,12 +45,7 @@ export class ToKeybDirective implements OnInit , OnDestroy{
       this.name = '' + fcName.name;
 
       this.f = this.ngControl.control as FormControl;
-      if(this.alterLang.length > 1){
-        G.setAlterLang(this.alterLang as TLangNames2);
-      } else{
-        G.clearAlterLang();
-     
-      }
+ 
       if(!this.id || this.id.length < 1){
         this.id = `id-input-to-keyb-${this.name}`;
       }
