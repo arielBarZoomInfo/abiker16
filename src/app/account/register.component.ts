@@ -141,26 +141,7 @@ export class RegisterComponent implements OnInit ,OnDestroy{
       }
     }
 
-    getClasses(cname:string) {
-      const fc = this.f[cname];
   
-      const ret =  {
-  
-        'is-invalid': !!fc?.touched && !!fc?.errors, 
-        'is-valid': !!fc?.valid ,
-       // 'is-active': cname === this.active
-      }
-      return ret;
-    }  
-    getClasses2(cname:string) {
-      const fc = this.f[cname];
-  
-      return {
-  
-        'is-invalid': !!fc?.touched && !!fc?.errors, 
-        'is-valid': !!fc?.valid 
-      }
-    }
     // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
   // c(ctrlName:string) { return this.f[ctrlName] as FormControl; }
@@ -191,3 +172,25 @@ export class RegisterComponent implements OnInit ,OnDestroy{
             });
     }
 }
+
+
+  // getClasses(cname:string) {
+    //   const fc = this.f[cname];
+  
+    //   const ret =  {
+  
+    //     'is-invalid': !!fc?.touched && !!fc?.errors, 
+    //     'is-valid': !!fc?.valid ,
+    //    // 'is-active': cname === this.active
+    //   }
+    //   return ret;
+    // }  
+    // getClasses2(cname:string) {
+    //   const fc = this.f[cname];
+  
+    //   return {
+  
+    //     'is-invalid': !!fc?.touched && !!fc?.errors, 
+    //     'is-valid': !!fc?.valid 
+    //   }
+    // }

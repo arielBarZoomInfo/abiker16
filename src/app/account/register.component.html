@@ -129,8 +129,9 @@
                  <div class="col-6">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-ravkav">
-                            <strong>>{{flds.ravkav.label}}</strong></span>
-                        <input to-keyb  type="text" formControlName="ravkav" class="form-control"
+                            <strong>{{flds.ravkav.label}}</strong></span>
+                        <input to-keyb  type="text" formControlName="ravkav" 
+                            class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && f['ravkav'].errors }"
                             [placeholder]="flds.ravkav.placeholder" 
                             aria-describedby="id-label-ravkav"
@@ -141,90 +142,67 @@
                </div>
 
             </div>
-
-            <div class="row" style="padding-top:8px;">
- <!--------IAMAGREE TERMS---------->
-                <div class="form-group input-group row" >
-                    <div class="col-12">
-                        <span class="input-group-text" 
-                       
-                    ><strong>{{flds.iamagree.label}}</strong>
-                    <div style="padding-left: 8px;padding-right: 8px;">
-                        <label class="switch" >
-                        <input type="checkbox" 
-                            name="imagreeTerms" 
-                            formControlName="imagreeTerms"
-                            (change)="OnSliderChange($event,'imagreePolicy')" >
-                        <span class="slider round" 
-                       ></span>
-                      </label>
-                    </div >   
-                      
-                    
-                            <!-- <mat-slide-toggle 
-                                formControlName="imagreeTerms" 
-                                
-                                id="imagreeTermsId"  
-                                type="checkbox" 
-                                class="form-check-input check-im-agree"
-                                name="imagreeTerms"
-                            > 
-                            
-                            </mat-slide-toggle>-->
-                            <a  class="link-primary" href="http://google.com">
-                                {{flds.pay.terms.text}}
-                            </a> 
-
-                        <div class="check-error">
-                            <and-err-input-panel name="imagreeTerms" [f]="f"></and-err-input-panel>
-                        </div>
-            
-                    </span>
-                    </div>
-            
-                
-                </div> 
-            </div>
-                <!--------IAMAGREE POLICY---------->
-            <!-- <div class="row">
-
-
-                <div class="form-group input-group row" >
-                    <div class="col-12" style="background-color: white;">
-                        <span class="input-group-text" 
-                            style="background-color: white;">{{flds.iamagree.label}}
-                        
-                                <mat-slide-toggle 
-                                    formControlName="imagreePolicy" 
+ 
+  
+            <div class="row" style="padding-top:8px;padding-bottom:8px;">
+            <!--------IAMAGREE POLICY---------->
+                <div class="col-12" style="background: white ;">
+                    <div class="  row" style="background: white ;">
+                        <div class="col-12">
+                            <span class="input-group-text"  
+                                style="background: white ;">
+                                <strong>{{flds.iamagree.label}}&nbsp;&nbsp;
+                                </strong>
+                                <div style="padding-left: 8px;padding-right: 8px;">
+                                    <label class="switch-checkbox" >
+                                    <input type="checkbox" 
+                                        name="imagreePolicy" 
                                     
-                                    id="imagreePolicyId"  
-                                    type="checkbox" 
-                                    class="form-check-input check-im-agree"
-                                    name="imagreePolicy"
-                                    (change)="OnSliderChange('imagreePolicy')"
-                                    
-                                > 
-                                
-                                </mat-slide-toggle>
-                                <a  class="link-primary" href="http://google.com">
+                                        formControlName="imagreePolicy"
+                                        (change)="OnSliderChange($event,'imagreePolicy')" >
+                                    <span class="slider-checkbox round-checkbox" ></span>
+                                </label>
+                                </div >   
+                                <a  class="link-primary" href="http://google.com" style="background: white;">
                                     {{flds.pay.policy.text}}
-                                </a>
-                                <div class="check-error">
-                                    <and-err-dialog-control-panel 
-                                            name="imagreePolicy" [control]="c('imagreePolicy')">
-                                    </and-err-dialog-control-panel>           
+                                </a> 
+                            </span>
+                            <and-err-input-panel name="imagreePolicy" [f]="f">
+                            </and-err-input-panel>
+
+                        
+                        
+                        </div>
+                
                     
-                                </div>
+                    </div> 
+                </div>
+                <!--------IAMAGREE TERMS---------->
+                <div class="col-12" style="background: white ;">
+                    <span class="input-group-text"  
+                        style="background: white ;">
+                        <strong>{{flds.iamagree.label}}&nbsp;&nbsp;
+                        </strong>
+                        <div style="padding-left: 8px;padding-right: 8px;">
+                            <label class="switch-checkbox" >
+                            <input type="checkbox" 
+                                name="imagreeTerms" 
                             
-                         
-                        </span>
-                    </div>
-                    
-                </div> 
-
-            </div> -->
-
-            <button [disabled]="loading" class="btn btn-primary">
+                                formControlName="imagreeTerms"
+                                (change)="OnSliderChange($event,'imagreeTerms')" >
+                            <span class="slider-checkbox round-checkbox" ></span>
+                        </label>
+                        </div >   
+                        <a  class="link-primary" href="http://google.com" style="background: white;">
+                            {{flds.pay.terms.text}}
+                        </a> 
+                    </span>
+                    <and-err-input-panel name="imagreeTerms" [f]="f">
+                    </and-err-input-panel>
+                </div>
+            </div> 
+    
+                <button [disabled]="loading" class="btn btn-primary">
                 <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
                 Register
             </button>
