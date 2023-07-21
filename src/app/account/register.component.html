@@ -133,7 +133,8 @@
                         <input to-keyb  type="text" formControlName="ravkav" class="form-control"
                             [ngClass]="{ 'is-invalid': submitted && f['ravkav'].errors }"
                             [placeholder]="flds.ravkav.placeholder" 
-                            aria-describedby="id-label-ravkav"/>
+                            aria-describedby="id-label-ravkav"
+                            />
                        <and-err-input-panel name="ravkav" [f]="f"> </and-err-input-panel>
    
                     </div>
@@ -150,8 +151,12 @@
                     ><strong>{{flds.iamagree.label}}</strong>
                     <div style="padding-left: 8px;padding-right: 8px;">
                         <label class="switch" >
-                        <input type="checkbox" >
-                        <span class="slider round" ></span>
+                        <input type="checkbox" 
+                            name="imagreeTerms" 
+                            formControlName="imagreeTerms"
+                            (change)="OnSliderChange($event,'imagreePolicy')" >
+                        <span class="slider round" 
+                       ></span>
                       </label>
                     </div >   
                       
@@ -165,10 +170,10 @@
                                 name="imagreeTerms"
                             > 
                             
-                            </mat-slide-toggle>
+                            </mat-slide-toggle>-->
                             <a  class="link-primary" href="http://google.com">
                                 {{flds.pay.terms.text}}
-                            </a> -->
+                            </a> 
 
                         <div class="check-error">
                             <and-err-input-panel name="imagreeTerms" [f]="f"></and-err-input-panel>

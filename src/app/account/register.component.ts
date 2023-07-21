@@ -113,7 +113,18 @@ export class RegisterComponent implements OnInit ,OnDestroy{
     }
   
   
+    OnSliderChange(evt:any,ctrlName:string){ //'imagreePolicy'
 
+      const c = this.f[ctrlName] as FormControl;
+      c.markAsTouched({onlySelf:true});
+      const checked = !!evt?.target?.checked;
+      if(c.value != checked){
+        c.setValue(checked);
+      }
+      console.log(`OnSliderChange:(${ctrlName})=${c.value}`)
+      //console.log(c.name,c.touched);
+     
+    }
     private _onLangChange(v : TLangNames){
       //this change language for validation strings
      // LangValidator.Lang = v;
