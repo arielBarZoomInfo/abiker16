@@ -6,10 +6,9 @@ import { AccountRoutingModule } from './account-routing.module';
 import { LayoutComponent } from './layout.component';
 import { LoginComponent } from './login//login.component';
 import { RegisterComponent } from './register/register.component';
-//import { ToKeybDirective } from '@app/lang-keyb/_directives/to-keyb.directive';
-import { ToKeybModule } from '@app/lang-keyb/to-keyb.module';
 import { CreditCardComponent } from './credit-card/credit-card.component';
 import { TextMaskModule } from '@myndmanagement/text-mask';
+import { ToKeybModule } from '@app/keyboard/to-keyb/to-keyb.module';
 
 
 @NgModule({
@@ -17,7 +16,7 @@ import { TextMaskModule } from '@myndmanagement/text-mask';
         CommonModule,
         ReactiveFormsModule,
         AccountRoutingModule,
-        ToKeybModule,
+        ToKeybModule, 
         TextMaskModule
     ],
     declarations: [

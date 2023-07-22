@@ -5,8 +5,24 @@ const TO_LOG = false;
 
 @Component({
   selector: 'and-err-input-panel',
-  templateUrl: './err-input-panel.component.html',
-  styleUrls: ['./err-input-panel.component.scss']
+  template: `
+  <div class="err-input-panel" [style.display]="isErrs?'block' :'none'">
+    <div  class="invalid-feedback" *ngFor="let err of errArr" style="display: block;" >
+        {{err.lang}}
+    </div>
+</div>
+  `,
+  styles: [`
+  
+      .err-input-panel{
+        background-color: white !important;
+        color: magenta !important;
+        font-size: 1.1rem !important;
+        font-weight: 500 !important;
+    }
+   `
+
+  ]
 })
 export class ErrInputPanelComponent implements OnInit{
 

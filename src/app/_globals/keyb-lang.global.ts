@@ -1,7 +1,8 @@
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { ToKeybDirective } from '@app/_directives/to-keyb.directive';
+
 import { FormControl } from '@angular/forms';
 import { TLangNames, TLangNames2 } from '../_interfaces/interfaces';
+import { ToKeybDirective } from '@app/keyboard/to-keyb/to-keyb.directive';
 
 
 export interface IKeybLanGlobal{

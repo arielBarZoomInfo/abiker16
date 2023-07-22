@@ -15,9 +15,11 @@ import { HomeComponent } from './home';
 import { AccountModule } from './account/account.module';
 import { UsersModule } from './users/users.module';
 
-import { ToKeybModule } from './lang-keyb/to-keyb.module';
+
 import { KeyboardModule } from './keyboard/keyboard.module';
 import { TextMaskModule } from '@myndmanagement/text-mask';
+import { ToKeybModule } from './keyboard/to-keyb/to-keyb.module';
+
 
 @NgModule({
     declarations: [
@@ -31,12 +33,13 @@ import { TextMaskModule } from '@myndmanagement/text-mask';
         ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule,
+        KeyboardModule,
         ToKeybModule,
         TextMaskModule,
        
         AccountModule,
         UsersModule,
-        KeyboardModule,
+       
         
     ],
    

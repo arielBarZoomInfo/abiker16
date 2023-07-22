@@ -1,6 +1,6 @@
 import { AfterViewInit, Directive, ElementRef, HostListener, Injector, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { GKeybLanGlobal as G } from '../_globals/keyb-lang.global';
+import { GKeybLanGlobal as G } from '../../_globals/keyb-lang.global';
 const TO_LOG = true;
 
 @Directive({
