@@ -77,8 +77,8 @@ export class CreditCardComponent
     public constructor(   
       private route: ActivatedRoute,
       private router: Router,
-      private accountService: AccountService,
-      private alertService: AlertService
+      private accountSvc: AccountService,
+      private alertSvc: AlertService
      ) { 
       this.subs.push(
         G.Lang$.subscribe(lan=>{this.Lang = lan;})
@@ -224,7 +224,8 @@ export class CreditCardComponent
 
     if(ft && this.paymentForm.valid){
       this.cardType = 'Visa';//this.getCardType(this.paymentmodel.cardNumber)
-      this.cardValidate =this.validateCCcard(+this.model.cardMonth, + this.model.cardYear)
+      this.cardValidate =this.validateCCcard(+(this.model.cardMonth ?? '0'),
+       + (this.model?.cardYear ?? '0'))
       if(this.cardValidate)
         this.cardDetailsValidate = true;
     }

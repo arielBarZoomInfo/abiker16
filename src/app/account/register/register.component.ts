@@ -6,28 +6,53 @@ import {GKeybLanGlobal as G} from '@app/_globals'
 
 import { AccountService, AlertService } from '@app/_services';
 import { LangValidator } from '@app/_helpers/lang.validators';
-import { TLangNames } from '@app/_interfaces/interfaces';
+import { EFSM, IEFM, TLangNames } from '@app/_interfaces/interfaces';
 import { IUserDetailsFieldsData, USER_DATA_MULTI } from './register.data';
 import { ILANG_DESCR } from '@app/keyboard/keyb-data/keyb.data';
 import { Subscription } from 'rxjs';
+import { UserModel } from '@app/_models';
 
 @Component({ 
   templateUrl: 'register.component.html',
   styleUrls: ['register.component.scss']
 
  })
-export class RegisterComponent implements OnInit ,OnDestroy{
+export class RegisterComponent implements OnInit ,OnDestroy,
+IEFM<UserModel>{
     form!: FormGroup;
     loading = false;
     submitted = false;
+    //flags = this.accountSvc.flags;
 
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private accountService: AccountService,
-        private alertService: AlertService
+        private accountSvc: AccountService,
+        private alertSvc: AlertService
     ) { }
+ 
+  toEnter(): boolean {
+   // this.accountSvc.clearFlags();
+     // this.flags.fHome = true;//=1;
+    // this.flags.fLogout = false;//=2;
+    //  this.flags.fLogin = true;//=4;
+    //  this.flags.fRegistr = false;//=8;
+    //  this.flags.fVisa = false;//=16;
+    // this.flags.fPay = false;//=32;
+    //  this.flags.fAdmin = false;// = 128
+    return true;
+  }
+  get state(): EFSM {
+   return EFSM.eRegistr;
+  }
+  toExit(): boolean {
+    throw new Error('Method not implemented.');
+  }
+  model?: UserModel | undefined;
+  get itsOK(): boolean {
+    throw new Error('Method not implemented.');
+  }
   
 
     public set Lang(v:TLangNames) {
@@ -46,27 +71,16 @@ export class RegisterComponent implements OnInit ,OnDestroy{
     flds !: IUserDetailsFieldsData;
   
     private first:boolean = true;
+    ngOnDestroy(): void {
+      this.subs.forEach(s=>s.unsubscribe());
+    }
 
     ngOnInit() {
         this.subs.push(G.Lang$.subscribe(lang=>this.Lang = lang));
         this._createRegisterForm();
-        // this.form = this.formBuilder.group({
-        //     firstName: ['', LangValidator.required('firstName')],
-        //     lastName: ['', LangValidator.required('lastName')],
-        //     username: ['', LangValidator.required('username')],
-        //     password: ['', [LangValidator.required('password'),
-        //                     LangValidator.minLength('password',6)]],
-        //     email: ['', [LangValidator.required('email'),
-        //                  LangValidator.email('email')  ]],
-        //     phone: ['', LangValidator.required('phone')],
-        //     address: ['', LangValidator.required('address')]
 
-       // });
     }
-    ngOnDestroy(): void {
-      this.subs.forEach(s=>s.unsubscribe());
-    }
-  
+    
 
     private _createRegisterForm() {
       this.form =  new FormGroup({
@@ -145,30 +159,37 @@ export class RegisterComponent implements OnInit ,OnDestroy{
     get f() { return this.form.controls; }
   // c(ctrlName:string) { return this.f[ctrlName] as FormControl; }
 
-    onSubmit() {
+    async onSubmit() {
         this.submitted = true;
+       
 
         // reset alerts on submit
-        this.alertService.clear();
+        this.alertSvc.clear();
 
         // stop here if form is invalid
         if (this.form.invalid) {
             return;
         }
 
-        this.loading = true;
-        this.accountService.register(this.form.value)
-            .pipe(first())
-            .subscribe({
-                next: () => {
-                    this.alertService.success('Registration successful', { keepAfterRouteChange: true });
-                    this.router.navigate(['../login'], { relativeTo: this.route });
-                },
-                error: error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                }
-            });
+        try {
+          this.loading = true;
+          const model:UserModel =  {...this.form.value};
+          this.model = model;
+          const user = await this.accountSvc.register$(model);
+          this.loading = true;
+          this.accountSvc.flags.fVisa = true;
+          this.alertSvc.success('Registration successful', 
+            { keepAfterRouteChange: true });
+          this.router.navigate(['../credit-card'], { relativeTo: this.route });
+
+         
+        } catch (error) {
+          this.alertSvc.error('' + error);
+           this.loading = false;
+        }
+      
+
+        
     }
     getClasses(cname:string) {
       const fc = this.f[cname] as FormControl;

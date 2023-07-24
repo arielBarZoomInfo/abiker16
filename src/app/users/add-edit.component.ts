@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AccountService, AlertService } from '@app/_services';
+import { lastValueFrom } from 'rxjs';
+import { UserModel } from '@app/_models';
 
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
@@ -19,7 +21,7 @@ export class AddEditComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private accountService: AccountService,
-        private alertService: AlertService
+        private alertSvc: AlertService
     ) { }
 
     ngOnInit() {
@@ -29,33 +31,42 @@ export class AddEditComponent implements OnInit {
         this.form = this.formBuilder.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
-            username: ['', Validators.required],
+            userName: ['', Validators.required],
             // password only required in add mode
             password: ['', [Validators.minLength(6), ...(!this.id ? [Validators.required] : [])]]
         });
-
-        this.title = 'Add User';
+        this.title = 'Add Edit User';
+     
+        this.title = ' User';
+        this._ngOnInit$();
+     
+    }
+    async _ngOnInit$(){
         if (this.id) {
-            // edit mode
-            this.title = 'Edit User';
-            this.loading = true;
-            this.accountService.getById(this.id)
-                .pipe(first())
-                .subscribe(x => {
-                    this.form.patchValue(x);
+            try {
+                this.loading = true;
+                const user = await this.accountService.getById$(this.id);
+                if(user){
+                    this.form.patchValue(user);
                     this.loading = false;
-                });
+                }
+        
+            } catch (error) {
+                this.alertSvc.error('' + error);
+                this.submitting = false;
+            }
         }
     }
 
     // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
+    
 
-    onSubmit() {
+    async onSubmit() {
         this.submitted = true;
 
         // reset alerts on submit
-        this.alertService.clear();
+        this.alertSvc.clear();
 
         // stop here if form is invalid
         if (this.form.invalid) {
@@ -63,24 +74,22 @@ export class AddEditComponent implements OnInit {
         }
 
         this.submitting = true;
-        this.saveUser()
-            .pipe(first())
-            .subscribe({
-                next: () => {
-                    this.alertService.success('User saved', { keepAfterRouteChange: true });
-                    this.router.navigateByUrl('/users');
-                },
-                error: error => {
-                    this.alertService.error(error);
-                    this.submitting = false;
-                }
-            })
+        try {
+            const user = await this.saveUser$();
+            this.alertSvc.success('User saved', { keepAfterRouteChange: true });
+        } catch (error) {
+            this.alertSvc.error('' + error);
+            this.submitting = false;
+
+        }
+   
     }
 
-    private saveUser() {
+    async saveUser$(): Promise<UserModel> {
         // create or update user based on id param
-        return this.id
-            ? this.accountService.update(this.id!, this.form.value)
-            : this.accountService.register(this.form.value);
+       const user =  this.id
+            ? await this.accountService.update$(this.id!, this.form.value)
+            : await this.accountService.register$(this.form.value);
+        return  user;
     }
 }

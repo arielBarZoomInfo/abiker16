@@ -51,3 +51,25 @@ export interface IInputFieldsMulti{
     placeholder:  ITMultiLang<string>;
     invalidFeedback?: ITMultiLang<string>;
 }
+
+
+export enum EFSM{
+    eHome=1,
+    efLogout=2,
+    efLogin=4,
+    eRegistr=8,
+    eVisa=16,
+    ePay=32,
+    efAdmin = 128
+
+}
+
+export interface IEFM<T=any>{
+    
+    toEnter():boolean;
+    get state():EFSM;
+    toExit() : boolean;
+    model?: T;
+    get itsOK () : boolean;
+
+}

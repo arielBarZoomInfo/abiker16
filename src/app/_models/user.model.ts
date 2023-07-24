@@ -3,7 +3,7 @@
 
 export class UserModel {
     id?: string;
-    username?: string;
+    userName?: string;
     password?: string;
     firstName?: string;
     lastName?: string;

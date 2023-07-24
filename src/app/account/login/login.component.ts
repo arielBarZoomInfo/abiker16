@@ -15,13 +15,13 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private accountService: AccountService,
-        private alertService: AlertService
+        private accountSvc: AccountService,
+        private alertSvc: AlertService
     ) { }
 
     ngOnInit() {
         this.form = this.formBuilder.group({
-            username: ['', Validators.required],
+            userName: ['', Validators.required],
             password: ['', Validators.required]
         });
     }
@@ -33,26 +33,31 @@ export class LoginComponent implements OnInit {
         this.submitted = true;
 
         // reset alerts on submit
-        this.alertService.clear();
+        this.alertSvc.clear();
 
         // stop here if form is invalid
         if (this.form.invalid) {
             return;
         }
 
-        this.loading = true;
-        this.accountService.login(this.f['username'].value, this.f['password'].value)
-            .pipe(first())
-            .subscribe({
-                next: () => {
-                    // get return url from query parameters or default to home page
-                    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-                    this.router.navigateByUrl(returnUrl);
-                },
-                error: error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                }
-            });
+        this._onSubmit$();                  
+                   
+  
+    }
+    async _onSubmit$(){
+        try {
+            this.loading = true;
+            const userName = this.f['userName'].value;
+            const password =  this.f['password'].value;
+            const user = this.accountSvc.login$(userName,password);
+            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+            this.router.navigateByUrl(returnUrl);
+            
+        } catch (error) {
+             // get return url from query parameters or default to home page
+            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+            this.router.navigateByUrl(returnUrl);
+        }
+
     }
 }

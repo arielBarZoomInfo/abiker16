@@ -4,8 +4,8 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay, materialize, dematerialize } from 'rxjs/operators';
 
 // array in local storage for registered users
-const usersKey = 'abike16-registration-login-users';
-let users: any[] = JSON.parse(localStorage.getItem(usersKey)!) || [];
+export const USERS_STORAGE_KEY = 'abike16-registration-login-users';
+let users: any[] = JSON.parse(localStorage.getItem(USERS_STORAGE_KEY)!) || [];
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -37,8 +37,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         // route functions
 
         function authenticate() {
-            const { username, password } = body;
-            const user = users.find(x => x.username === username && x.password === password);
+            const { userName, password } = body;
+            const user = users.find(x => x.userName === userName && x.password === password);
             if (!user) return error('Username or password is incorrect');
             return ok({
                 ...basicDetails(user),
@@ -47,15 +47,15 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function register() {
-            const user = body
+            const user = body;
 
-            if (users.find(x => x.username === user.username)) {
-                return error('Username "' + user.username + '" is already taken')
+            if (users.find(x => x.userName && x.userName === user.userName)) {
+                return error('Username "' + user.userName + '" is already taken')
             }
 
             user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
             users.push(user);
-            localStorage.setItem(usersKey, JSON.stringify(users));
+            localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
             return ok();
         }
 
@@ -84,7 +84,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             // update and save user
             Object.assign(user, params);
-            localStorage.setItem(usersKey, JSON.stringify(users));
+            localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
 
             return ok();
         }
@@ -93,7 +93,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             if (!isLoggedIn()) return unauthorized();
 
             users = users.filter(x => x.id !== idFromUrl());
-            localStorage.setItem(usersKey, JSON.stringify(users));
+            localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
             return ok();
         }
 
@@ -115,8 +115,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function basicDetails(user: any) {
-            const { id, username, firstName, lastName } = user;
-            return { id, username, firstName, lastName };
+            const { id, userName, firstName, lastName } = user;
+            return { id, userName, firstName, lastName };
         }
 
         function isLoggedIn() {

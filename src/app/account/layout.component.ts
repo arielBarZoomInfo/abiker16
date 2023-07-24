@@ -7,10 +7,10 @@ import { AccountService } from '@app/_services';
 export class LayoutComponent {
     constructor(
         private router: Router,
-        private accountService: AccountService
+        private accountSvc: AccountService
     ) {
         // redirect to home if already logged in
-        if (this.accountService.userValue) {
+        if (this.accountSvc.userValue) {
             this.router.navigate(['/']);
         }
     }

@@ -7,7 +7,7 @@ import { AccountService } from '@app/_services';
 export class HomeComponent {
     user: UserModel | null;
 
-    constructor(private accountService: AccountService) {
-        this.user = this.accountService.userValue;
+    constructor(private accountSvc: AccountService) {
+        this.user = this.accountSvc.userValue;
     }
 }

@@ -5,6 +5,6 @@ export interface CreditCardModel{
     cardNumber:string;
     tokef:string;
     cvv:number;
-    cardMonth:string;
-    cardYear:string;   
+    cardMonth?:string;
+    cardYear?:string;   
 }

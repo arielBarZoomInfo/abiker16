@@ -65,7 +65,7 @@ const REGISTR_EN : IUserDetailsFieldsData = {
 
    },
    userName: {
-      name: 'lastName',
+      name: 'userName',
       //type: 'text',
       label:'User name',
       //required: true,//default true

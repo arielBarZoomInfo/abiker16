@@ -9,17 +9,20 @@ export class ListComponent implements OnInit {
 
     constructor(private accountService: AccountService) {}
 
-    ngOnInit() {
-        this.accountService.getAll()
-            .pipe(first())
-            .subscribe(users => this.users = users);
+    async ngOnInit() {
+        this.users = await this.accountService.getAll$()
+            // .pipe(first())
+            // .subscribe(users => this.users = users);
     }
 
-    deleteUser(id: string) {
+    async  deleteUser(id: string) {
         const user = this.users!.find(x => x.id === id);
         user.isDeleting = true;
-        this.accountService.delete(id)
-            .pipe(first())
-            .subscribe(() => this.users = this.users!.filter(x => x.id !== id));
+        if(user){
+            await this.accountService.delete$(id)
+        }
+       
+            // .pipe(first())
+            // .subscribe(() => this.users = this.users!.filter(x => x.id !== id));
     }
 }

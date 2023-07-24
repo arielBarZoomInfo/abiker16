@@ -24,7 +24,6 @@ const routes: Routes = [
     imports: [
         AccountModule,
         UsersModule,
-
         RouterModule.forRoot(routes)
     ],
     exports: [RouterModule]

@@ -12,8 +12,8 @@ const routes: Routes = [
         children: [
             { path: 'login', component: LoginComponent },
             { path: 'register', component: RegisterComponent },//,
-            { path: 'card', component: CreditCardComponent },
-            { path: 'visa', component: CreditCardComponent },//,
+            { path: 'visa', component: CreditCardComponent },
+            { path: 'credit-card', component: CreditCardComponent },//,
             { path: '**', redirectTo: 'register' },
         ]
     }

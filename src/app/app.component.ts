@@ -1,24 +1,31 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AccountService } from './_services';
 import {UserModel } from './_models';
 import { GKeybLanGlobal  as G} from '@app/_globals/keyb-lang.global';
 import { TLangNames } from './_interfaces/interfaces';
+import { Subscription } from 'rxjs';
+
+
 
 @Component({ selector: 'app-root', templateUrl: 'app.component.html' })
-export class AppComponent  implements OnInit{
+export class AppComponent  implements OnInit, OnDestroy{
     user?: UserModel | null;
     ref = G.ref;
-   
+    readonly subs:Subscription[] = [];
 
-    constructor(private accountService: AccountService) {
-        this.accountService.user.subscribe(x => this.user = x);
+    constructor(private accountSvc: AccountService) {
+        this.subs.push(this.accountSvc.user$.subscribe(x => this.user = x));
+    }
+    ngOnDestroy(): void {
+        this.subs.forEach(u=>u.unsubscribe());
+        
     }
     ngOnInit(): void {
         G.KeyboardVisible = true;
     }
 
     logout() {
-        this.accountService.logout();
+       // this.accountSvc.toLgout();
     }
 
     toShowKeyb(){

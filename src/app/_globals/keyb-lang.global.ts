@@ -32,9 +32,6 @@ export interface IKeybLanGlobal{
   
 }
 
-
-
-
 export class CKeybLanGlobal implements IKeybLanGlobal{
 
   constructor(private lang0:TLangNames = 'en'){
