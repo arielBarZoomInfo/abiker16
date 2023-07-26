@@ -1,76 +1,69 @@
 ﻿import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+//import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, lastValueFrom } from 'rxjs';
 import { last, map } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
 import { UserModel } from '@app/_models';
-import { EFSM} from '@app/_interfaces/interfaces';
+import { EFSM as E} from '@app/_interfaces/interfaces';
 export const USER_STORAGE_KEY = 'abike16-registration-login-user';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
-    toLgout() {
-        throw new Error('Method not implemented.');
+
+    //#region FSM
+       
+    
+    eFsm$: BehaviorSubject<E> = new BehaviorSubject<E>(E.eHome);
+   
+    get IsHome() {return this.eFsm$.value === E.eHome;}
+    get IsRegistrate() {return this.eFsm$.value === E.eRegistrate;}
+    get IsCreditCard() {return this.eFsm$.value === E.eCredirCard;}
+       
+
+    gotoRegistrate() {
+       if(this.IsHome)
+         this.eFsm$.next(E.eRegistrate);
     }
-    private userSubject: BehaviorSubject<UserModel | null>;
+    gotoCreditCard(user: UserModel) {
+        if(this.IsRegistrate)
+            this.eFsm$.next(E.eCredirCard);
+    
+    }
+    gotoExit() {
+        this.logout();
+        this.eFsm$.next(E.eHome);
+        
+    }
+    //#endregion
+
+
+   
+    private userSubject$: BehaviorSubject<UserModel | null>;
     public user$: Observable<UserModel | null>;
 
     constructor(
-        private router: Router,
+        //private router: Router,
         private http: HttpClient
     ) {
-        this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem(USER_STORAGE_KEY)!));
-        this.user$ = this.userSubject.asObservable();
-    }
-    //#region FSM
-        private _authStateSubj$: BehaviorSubject<EFSM> = 
-        new  BehaviorSubject<EFSM>(EFSM.eHome);
-    public get authState$(){return this._authStateSubj$.asObservable()};
-   
-    public get authState() : EFSM {
-        return this._authStateSubj$.value;
-    }
-    public set authState(v : EFSM) {
-        if(this.authState != v){
-            this._authStateSubj$.next(v);
-        }
-    }
-    flags = {
+        this.userSubject$ = new BehaviorSubject(JSON.parse(localStorage.getItem(USER_STORAGE_KEY)!));
+        this.user$ = this.userSubject$.asObservable();
+      
 
-        fHome: true,//=1,
-        fLogout: false,//=2,
-        fLogin: true,//=4,
-        fRegistr: false,//=8,
-        fVisa: false,//=16,
-        fPay: false,//=32,
-        fAdmin: false,// = 128
-    };
-
-    clearFlags() {
-        this.flags.fHome = false;//=1;
-        this.flags.fLogout = false;//=2;
-        this.flags.fLogin = false;//=4;
-        this.flags.fRegistr = false;//=8;
-        this.flags.fVisa = false;//=16;
-        this.flags.fPay = false;//=32;
-        this.flags.fAdmin = false;// = 128
-   
     }
-    //#endregion
- 
+  
 
     public get userValue() {
-        return this.userSubject.value;
+        return this.userSubject$.value;
     }
 
     login$(userName: string, password: string):Promise<UserModel> {
         const req =  this.http.post<UserModel>(`${environment.apiUrl}/users/authenticate`, { userName, password })
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
-                this.userSubject.next(user);
+                localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
+                this.userSubject$.next(user);
                 return user;
             }));
         return lastValueFrom(req);
@@ -79,23 +72,27 @@ export class AccountService {
     logout():void {
         // remove user from local storage and set current user to null
         localStorage.removeItem(USER_STORAGE_KEY);
-        this.userSubject.next(null);
-        this.router.navigate(['/account/login']);
+        this.userSubject$.next(null);
+       // this.router.navigate(['/account/login']);
     }
 
    async  register$(user: UserModel) : Promise<UserModel>{
         const req =  this.http.post<UserModel>(`${environment.apiUrl}/users/register`, user);
-        return lastValueFrom(req);
+        const userOut =  lastValueFrom(req);
+        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
+        return userOut;
     }
 
     async getAll$(): Promise<UserModel[]> {
         const req = this.http.get<UserModel[]>(`${environment.apiUrl}/users`);
-        return lastValueFrom(req);
+        const ret =  lastValueFrom(req);
+        return ret;
     }
 
     async getById$(id: string):Promise<UserModel> {
          const req = this.http.get<UserModel>(`${environment.apiUrl}/users/${id}`);
-        return lastValueFrom(req);
+         const ret =  lastValueFrom(req);
+         return ret;
     }
 
     async update$(id: string, params: any) : Promise<UserModel>{
@@ -109,7 +106,7 @@ export class AccountService {
                     localStorage.setItem('user', JSON.stringify(user));
 
                     // publish updated user to subscribers
-                    this.userSubject.next(user);
+                    this.userSubject$.next(user);
                 }
                 return x;
             }));

@@ -1,9 +1,8 @@
 ///yarn add @myndmanagement/text-mask
 import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl,  FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AccountService, AlertService } from '@app/_services';
-import {  Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { GKeybLanGlobal as G } from '@app/_globals'
 
 // import { luhnValidator } from 'src/app/_helpers/luhn/luhn.validator';
@@ -18,7 +17,7 @@ const TO_LOG = true;
 
 
 @Component({
-  selector: 'app-credit-card',
+  selector: 'and-credit-card',
   templateUrl: './credit-card.component.html',
   styleUrls: ['./credit-card.component.scss']
 })
@@ -36,10 +35,7 @@ export class CreditCardComponent
       if( this._Lang != v){
         this._Lang = v;
         this._onLangChange(v);
-      //  SetGlobal(v);
-      //  ;
-    
-      }
+       }
        
     }
     //#endregion
@@ -74,9 +70,8 @@ export class CreditCardComponent
     ];
     
     subs: Subscription[] = [];
+    
     public constructor(   
-      private route: ActivatedRoute,
-      private router: Router,
       private accountSvc: AccountService,
       private alertSvc: AlertService
      ) { 

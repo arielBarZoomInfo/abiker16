@@ -9,6 +9,7 @@ import { RegisterComponent } from './register/register.component';
 import { CreditCardComponent } from './credit-card/credit-card.component';
 import { TextMaskModule } from '@myndmanagement/text-mask';
 import { ToKeybModule } from '@app/keyboard/to-keyb/to-keyb.module';
+import { SelectLanguageComponent } from '@app/_components';
 
 
 @NgModule({
@@ -23,8 +24,17 @@ import { ToKeybModule } from '@app/keyboard/to-keyb/to-keyb.module';
         LayoutComponent,
         LoginComponent,
         RegisterComponent,
-        CreditCardComponent
+        CreditCardComponent,
+        SelectLanguageComponent
         
+    ],
+    exports:[
+        LayoutComponent,
+        LoginComponent,
+        RegisterComponent,
+        CreditCardComponent,
+        SelectLanguageComponent
+       
     ]
 })
 export class AccountModule { }

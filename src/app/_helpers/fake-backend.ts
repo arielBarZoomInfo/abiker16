@@ -56,7 +56,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
             users.push(user);
             localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
-            return ok();
+            return ok(user);
         }
 
         function getUsers() {
@@ -130,7 +130,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 }
 
-export const fakeBackendProvider = {
+export const FakeBackendProvider = {
     // use fake backend in place of Http service for backend-less development
     provide: HTTP_INTERCEPTORS,
     useClass: FakeBackendInterceptor,

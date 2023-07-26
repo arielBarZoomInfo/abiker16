@@ -13,6 +13,8 @@ import { Subscription } from 'rxjs';
 import { UserModel } from '@app/_models';
 
 @Component({ 
+  selector: 'and-register',
+ 
   templateUrl: 'register.component.html',
   styleUrls: ['register.component.scss']
 
@@ -26,8 +28,8 @@ IEFM<UserModel>{
 
 
     constructor(
-        private route: ActivatedRoute,
-        private router: Router,
+        // private route: ActivatedRoute,
+        // private router: Router,
         private accountSvc: AccountService,
         private alertSvc: AlertService
     ) { }
@@ -44,7 +46,7 @@ IEFM<UserModel>{
     return true;
   }
   get state(): EFSM {
-   return EFSM.eRegistr;
+   return EFSM.eRegistrate;
   }
   toExit(): boolean {
     throw new Error('Method not implemented.');
@@ -150,7 +152,12 @@ IEFM<UserModel>{
     private _validateMe() {
 
       for (let controlName in this.form?.controls) {
-        this.f[controlName]?.updateValueAndValidity();
+        const c = this.f[controlName] as FormControl;
+        if(c){
+          c.markAsTouched();
+          c.updateValueAndValidity();
+        }
+      
       }
     }
 
@@ -159,49 +166,52 @@ IEFM<UserModel>{
     get f() { return this.form.controls; }
   // c(ctrlName:string) { return this.f[ctrlName] as FormControl; }
 
-    async onSubmit() {
-        this.submitted = true;
-       
+  getClasses(cname:string) {
+    const fc = this.f[cname] as FormControl;
 
-        // reset alerts on submit
-        this.alertSvc.clear();
+    const c =  {
 
-        // stop here if form is invalid
-        if (this.form.invalid) {
-            return;
-        }
-
-        try {
-          this.loading = true;
-          const model:UserModel =  {...this.form.value};
-          this.model = model;
-          const user = await this.accountSvc.register$(model);
-          this.loading = true;
-          this.accountSvc.flags.fVisa = true;
-          this.alertSvc.success('Registration successful', 
-            { keepAfterRouteChange: true });
-          this.router.navigate(['../credit-card'], { relativeTo: this.route });
-
-         
-        } catch (error) {
-          this.alertSvc.error('' + error);
-           this.loading = false;
-        }
-      
-
-        
+      'is-invalid': !!fc?.touched && !!fc?.errors, 
+      'is-valid': !!fc?.valid ,
+      // 'is-active': cname === this.active
     }
-    getClasses(cname:string) {
-      const fc = this.f[cname] as FormControl;
+    return c;
+  }  
+
+  async onSubmit() {
+    this.submitted = true;
+    
+
+    // reset alerts on submit
+    this.alertSvc.clear();
+
+    // stop here if form is invalid
+    if (this.form.invalid) {
+        return;
+    }
+
+    try {
+      this.loading = true;
+      const model:UserModel =  {...this.form.value};
+      this.model = model;
+      const user = await this.accountSvc.register$(model);
+      this.loading = false;
+      // this.accountSvc.flags.fVisa = true;
+      this.alertSvc.success('Registration successful', 
+        { keepAfterRouteChange: true });
+      this.accountSvc.gotoCreditCard(user);
+      // this.router.navigate(['../credit-card'], { relativeTo: this.route });
+
+      
+    } catch (error) {
+      this.alertSvc.error('' + error);
+        this.loading = false;
+    }
   
-      const c =  {
-  
-        'is-invalid': !!fc?.touched && !!fc?.errors, 
-        'is-valid': !!fc?.valid ,
-       // 'is-active': cname === this.active
-      }
-      return c;
-    }  
+
+      
+  }
+
   
 }
 

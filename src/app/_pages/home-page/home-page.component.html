@@ -1,0 +1,16 @@
+
+ <div class="container col-md-10 offset-md-1 mt-5">
+    <!-- <router-outlet></router-outlet> -->
+    <div class="row" *ngIf="IsHome">
+        <and-select-language></and-select-language>
+    </div>
+
+    <div class="row" *ngIf="IsRegistrate">
+        <and-register></and-register>
+    </div>
+
+    <div class="row" *ngIf="IsCreditCard">
+        <and-credit-card></and-credit-card>
+    </div>
+
+</div>

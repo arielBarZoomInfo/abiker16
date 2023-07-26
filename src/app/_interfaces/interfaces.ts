@@ -54,13 +54,14 @@ export interface IInputFieldsMulti{
 
 
 export enum EFSM{
+  
     eHome=1,
-    efLogout=2,
-    efLogin=4,
-    eRegistr=8,
-    eVisa=16,
-    ePay=32,
-    efAdmin = 128
+    eRegistrate=2,
+    eCredirCard=4,
+    // efLogout=2,
+    // efLogin=4,
+    // ePay=32,
+    // efAdmin = 128
 
 }
 

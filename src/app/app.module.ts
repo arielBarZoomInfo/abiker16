@@ -4,13 +4,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // used to create fake backend
-import { fakeBackendProvider } from './_helpers';
+import { FakeBackendProvider } from './_helpers';
 
 import { AppRoutingModule } from './app-routing.module';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
-import { HomeComponent } from './home';
+
 
 import { AccountModule } from './account/account.module';
 
@@ -20,6 +20,7 @@ import { KeyboardModule } from './keyboard/keyboard.module';
 import { TextMaskModule } from '@myndmanagement/text-mask';
 import { ToKeybModule } from './keyboard/to-keyb/to-keyb.module';
 import { UsersModule } from './users/users.module';
+import { HomePageComponent } from './_pages/home-page/home-page.component';
 
 
 
@@ -27,7 +28,8 @@ import { UsersModule } from './users/users.module';
     declarations: [
         AppComponent,
         AlertComponent,
-        HomeComponent,
+        HomePageComponent,
+       // SelectLanguageComponent,
        
     ],
     imports: [
@@ -50,7 +52,7 @@ import { UsersModule } from './users/users.module';
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
         // provider used to create fake backend
-        fakeBackendProvider
+        FakeBackendProvider
     ],
     bootstrap: [AppComponent]
 })
