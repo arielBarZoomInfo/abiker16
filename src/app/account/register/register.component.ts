@@ -11,7 +11,6 @@ import { IUserDetailsFieldsData, USER_DATA_MULTI } from './register.data';
 import { ILANG_DESCR } from '@app/keyboard/keyb-data/keyb.data';
 import { Subscription } from 'rxjs';
 import { UserModel } from '@app/_models';
-
 @Component({ 
   selector: 'and-register',
  
@@ -78,6 +77,7 @@ IEFM<UserModel>{
     }
 
     ngOnInit() {
+       G.KeyboardVisible = true;
         this.subs.push(G.Lang$.subscribe(lang=>this.Lang = lang));
         this._createRegisterForm();
 
@@ -150,6 +150,7 @@ IEFM<UserModel>{
   
     }
     private _validateMe() {
+      this.form.markAllAsTouched();
 
       for (let controlName in this.form?.controls) {
         const c = this.f[controlName] as FormControl;
@@ -187,6 +188,7 @@ IEFM<UserModel>{
 
     // stop here if form is invalid
     if (this.form.invalid) {
+        this._validateMe();
         return;
     }
 
@@ -200,13 +202,15 @@ IEFM<UserModel>{
       this.alertSvc.success('Registration successful', 
         { keepAfterRouteChange: true });
       this.accountSvc.gotoCreditCard(user);
-      // this.router.navigate(['../credit-card'], { relativeTo: this.route });
+        // this.router.navigate(['../credit-card'], { relativeTo: this.route });
 
       
     } catch (error) {
       this.alertSvc.error('' + error);
         this.loading = false;
     }
+    G.KeyboardVisible = false;
+
   
 
       

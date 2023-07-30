@@ -85,7 +85,7 @@ export class CreditCardComponent
     ngOnInit() {   
       this._onLangChange(G.Lang,false);// don't validate
       this.IntializePaymentForm();
-      
+      G.KeyboardVisible = true;
     }
   
  
@@ -112,9 +112,11 @@ export class CreditCardComponent
       }
     }
     ngOnDestroy(): void {
-      this.subs.forEach(sub=>sub.unsubscribe())
-      //this.adapter.destroy();
+      this.subs.forEach(sub=>sub.unsubscribe());
+      G.KeyboardVisible = false;
     }
+   
+  
     ngAfterViewInit(): void {
      
     }

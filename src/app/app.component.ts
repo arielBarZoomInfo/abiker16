@@ -25,7 +25,8 @@ export class AppComponent  implements OnInit, OnDestroy{
     }
 
     logout() {
-       // this.accountSvc.toLgout();
+       
+        this.accountSvc.gotoExit();
     }
 
     toShowKeyb(){
