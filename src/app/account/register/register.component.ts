@@ -48,11 +48,12 @@ IEFM<UserModel>{
    return EFSM.eRegistrate;
   }
   toExit(): boolean {
-    throw new Error('Method not implemented.');
+   return true;
   }
   model?: UserModel | undefined;
   get itsOK(): boolean {
-    throw new Error('Method not implemented.');
+    return this.form.valid;
+   // throw new Error('Method not implemented.');
   }
   
 
@@ -74,6 +75,7 @@ IEFM<UserModel>{
     private first:boolean = true;
     ngOnDestroy(): void {
       this.subs.forEach(s=>s.unsubscribe());
+      G.KeyboardVisible = false;
     }
 
     ngOnInit() {

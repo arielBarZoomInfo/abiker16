@@ -88,6 +88,9 @@ export class CreditCardComponent
       G.KeyboardVisible = true;
     }
   
+    // ngOnDestroy(){
+
+    // }
  
     private _onLangChange(v : TLangNames, toValidate:boolean = true){
       //this change language for validation strings
