@@ -10,8 +10,8 @@
         <button class="btn nav-item nav-link" (click)="setLang('ar')">عربي</button>
         <button class="btn nav-item nav-link">{{ref.lang}}</button>
        
-        <!-- <button class="btn btn-sm btn-primary me-1" (click)="toShowKeyb()">show keyb</button>   
-        <button class="btn btn-sm btn-primary me-1" (click)="toHidewKeyb()">hide keyb</button>  -->
+        <button class="btn btn-sm btn-primary me-1" (click)="toShowKeyb()">show keyb</button>   
+        <button class="btn btn-sm btn-primary me-1" (click)="toHidewKeyb()">hide keyb</button> 
         <ng-container  *ngIf="user">
             <button class="btn btn-link nav-item nav-link" (click)="logout()">Exit </button>
         </ng-container>
