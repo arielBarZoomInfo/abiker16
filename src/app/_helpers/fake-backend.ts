@@ -4,7 +4,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay, materialize, dematerialize } from 'rxjs/operators';
 
 // array in local storage for registered users
-export const USERS_STORAGE_KEY = 'abike16-registration-login-users';
+export const USERS_STORAGE_KEY = 'abiker16-registration-login-users';
 let users: any[] = JSON.parse(localStorage.getItem(USERS_STORAGE_KEY)!) || [];
 
 @Injectable()

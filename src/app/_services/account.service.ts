@@ -7,7 +7,7 @@ import { last, map } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { UserModel } from '@app/_models';
 import { EFSM as E} from '@app/_interfaces/interfaces';
-export const USER_STORAGE_KEY = 'abike16-registration-login-user';
+export const USER_STORAGE_KEY = 'abiker16-registration-login-user';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
