@@ -1,7 +1,7 @@
 ///yarn add @myndmanagement/text-mask
 import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AccountService, AlertService } from '@app/_services';
+import { UsersAccountService, AlertService } from '@app/_services';
 import { Subscription } from 'rxjs';
 import { GKeybLanGlobal as G } from '@app/_globals'
 
@@ -72,7 +72,7 @@ export class CreditCardComponent
     subs: Subscription[] = [];
     
     public constructor(   
-      private accountSvc: AccountService,
+      private userSvc: UsersAccountService,
       private alertSvc: AlertService
      ) { 
       this.subs.push(

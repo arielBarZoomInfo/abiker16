@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router,  ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { AccountService } from '@app/_services';
+import { UsersAccountService } from '@app/_services';
 
 
 
@@ -8,11 +8,11 @@ import { AccountService } from '@app/_services';
 export class AuthGuard  {
     constructor(
         private router: Router,
-        private accountSvc: AccountService
+        private userSvc: UsersAccountService
     ) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        const user = this.accountSvc.userValue;
+        const user = this.userSvc.userValue;
         if (user) {
             // authorised so return true
             return true;

@@ -1,16 +1,16 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 
-import { AccountService } from '@app/_services';
+import { UsersAccountService } from '@app/_services';
 
 @Component({ templateUrl: 'list.component.html' })
 export class ListComponent implements OnInit {
     users?: any[];
 
-    constructor(private accountService: AccountService) {}
+    constructor(private userSvc: UsersAccountService) {}
 
     async ngOnInit() {
-        this.users = await this.accountService.getAll$()
+        this.users = await this.userSvc.getAll$()
             // .pipe(first())
             // .subscribe(users => this.users = users);
     }
@@ -19,7 +19,7 @@ export class ListComponent implements OnInit {
         const user = this.users!.find(x => x.id === id);
         user.isDeleting = true;
         if(user){
-            await this.accountService.delete$(id)
+            await this.userSvc.delete$(id)
         }
        
             // .pipe(first())

@@ -8,7 +8,8 @@ export interface IUserDetailsFieldsData{
    title2:string;
    firstName:IInputFields;
    lastName:IInputFields;
-   userName:IInputFields;
+   sysName:IInputFields;
+   password:IInputFields;
    passport:IInputFields;
    email:IInputFields;
    address:IInputFields;
@@ -64,8 +65,8 @@ const REGISTR_EN : IUserDetailsFieldsData = {
       
 
    },
-   userName: {
-      name: 'userName',
+   sysName: {
+      name: 'sysName',
       //type: 'text',
       label:'User name',
       //required: true,//default true
@@ -75,13 +76,22 @@ const REGISTR_EN : IUserDetailsFieldsData = {
 
    },
    passport:{
-         name: 'passport',
-         //type: 'text',
-         label:'ID number.',
-         //required: true,//default true
-         //pattern: '[0-9]{9}',
-         placeholder:'ID number',
-     //invalidFeedback:'Fill in a field with 9 digits',
+      name: 'passport',
+      //type: 'text',
+      label:'ID number.',
+      //required: true,//default true
+      //pattern: '[0-9]{9}',
+      placeholder:'ID number',
+  //invalidFeedback:'Fill in a field with 9 digits',
+   },   
+   password:{
+      name: 'password',
+      //type: 'text',
+      label:'Password.',
+      //required: true,//default true
+      //pattern: '[0-9]{9}',
+      placeholder:'password',
+   //invalidFeedback:'Fill in a field with 9 digits',
    },
    email:{
       name: 'email',
@@ -169,16 +179,28 @@ const REGISTR_RU : IUserDetailsFieldsData = {
      
   
   },
-  userName: {
-   name: 'lastName',
-   //type: 'text',
-   label:'Имя пользователя',
-   //required: true,//default true
-   //pattern: '^[a-zA-Z\u0590-\u05FF\-\' ]+$',
-   placeholder:'уникальное имя пользователя',
-   
+  sysName: {
+      name: 'lastName',
+      //type: 'text',
+      label:'Имя пользователя',
+      //required: true,//default true
+      //pattern: '^[a-zA-Z\u0590-\u05FF\-\' ]+$',
+      placeholder:'уникальное имя пользователя',
+      
 
-},
+   },
+ 
+   password:{
+      name: 'password',
+      //type: 'text',
+      label:'Пароль.',
+      //required: true,//default true
+      //pattern: '[0-9]{9}',
+      placeholder:'пароль',
+   //invalidFeedback:'Fill in a field with 9 digits',
+   },
+
+
   passport:{
       name: 'passport',
       //type: 'text',
@@ -273,7 +295,7 @@ const REGISTR_HE : IUserDetailsFieldsData = {
      //pattern: '^[a-zA-Z\u0590-\u05FF\-\' ]+$',
      placeholder:'חובה למלא שמ משפחה',
    },
-   userName: {
+   sysName: {
       name: 'lastName',
       //type: 'text',
       label:'שם משתמש',
@@ -283,6 +305,16 @@ const REGISTR_HE : IUserDetailsFieldsData = {
       
 
    },
+   password:{
+      name: 'password',
+      //type: 'text',
+      label:'סיסמה',
+      //required: true,//default true
+      //pattern: '[0-9]{9}',
+      placeholder:'תמלא/ה סיסםה',
+   //invalidFeedback:'Fill in a field with 9 digits',
+   },
+
 
    passport:{
       name: 'passport',
@@ -293,6 +325,7 @@ const REGISTR_HE : IUserDetailsFieldsData = {
       placeholder: 'מספר תעדת זהות או דרכון',
      //invalidFeedback:'תמלא שדה ב 9 ספרות',
    },
+ 
    email:{
       name: 'email',
       //type: 'text',
@@ -373,7 +406,7 @@ const REGISTR_AR : IUserDetailsFieldsData = {
    //pattern: '^[a-zA-Z\u0590-\u05FF\-\' ]+$',
    placeholder:'يجب أن تملأ الاسم الأخير',
  },
- userName: {
+ sysName: {
    name: 'lastName',
    //type: 'text',
    label:'اسم المستخدم',
@@ -381,6 +414,16 @@ const REGISTR_AR : IUserDetailsFieldsData = {
    //pattern: '^[a-zA-Z\u0590-\u05FF\-\' ]+$',
    placeholder:'اسم مستخدم فريد',
  },
+ password:{
+   name: 'password',
+   //type: 'text',
+   label:'كلمة المرور',
+   //required: true,//default true
+   //pattern: '[0-9]{9}',
+   placeholder:'كلمة المرور',
+//invalidFeedback:'Fill in a field with 9 digits',
+},
+
 passport:{
       name: 'passport',
       //type: 'text',

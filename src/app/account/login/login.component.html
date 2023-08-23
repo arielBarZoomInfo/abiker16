@@ -4,11 +4,11 @@
         <form form2keyb [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="mb-3">
                 <label class="form-label">Username</label>
-                <input to-keyb type="text" formControlName="userName" 
+                <input to-keyb type="text" formControlName="sysName" 
                          class="form-control" 
-                    [ngClass]="{ 'is-invalid': submitted && f['userName'].errors }" />
-                <div *ngIf="submitted && f['userName'].errors" class="invalid-feedback">
-                    <div *ngIf="f['userName'].errors['required']">Username is required</div>
+                    [ngClass]="{ 'is-invalid': submitted && f['sysName'].errors }" />
+                <div *ngIf="submitted && f['sysName'].errors" class="invalid-feedback">
+                    <div *ngIf="f['sysName'].errors['required']">Username is required</div>
                 </div>
             </div>
             <div class="mb-3">

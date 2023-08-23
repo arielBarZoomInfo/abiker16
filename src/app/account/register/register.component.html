@@ -41,7 +41,8 @@
                     <and-err-input-panel name="firstName" [f]="f"></and-err-input-panel>
                     
                </div>
-            
+            </div>
+            <div class="row">
                <div class="col-12 ">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-lastName">
@@ -52,25 +53,39 @@
                             [placeholder]="flds.lastName.placeholder" 
                             aria-describedby="id-label-lastName"/>
                     </div>
-               
                     <and-err-input-panel  name="lastName" [f]="f"></and-err-input-panel>
-
                 </div>
-
             </div>
             <div class="row">
                 <div class="col-12 ">
                     <div class="input-group">
-                        <span class="input-group-text" id="id-label-userName">
-                                <strong>{{flds.userName.label}}</strong></span>
-                        <input to-keyb  type="text" formControlName="userName" 
+                        <span class="input-group-text" id="id-label-sysName">
+                                <strong>{{flds.sysName.label}}</strong></span>
+                        <input to-keyb  type="text" formControlName="sysName" 
                             class="form-control"
-                            [ngClass]="getClasses('userName')"
-                            [placeholder]="flds.userName.placeholder" 
-                            aria-describedby="id-label-userName"/>
+                            [ngClass]="getClasses('sysName')"
+                            [placeholder]="flds.sysName.placeholder" 
+                            aria-describedby="id-label-sysName"/>
                     </div>
-                    <and-err-input-panel name="userName" [f]="f"> </and-err-input-panel>
+                    <and-err-input-panel name="sysName" [f]="f"> </and-err-input-panel>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-12 ">
+                     <div class="input-group">
+                         <span class="input-group-text" id="id-label-password">
+                                 <strong>{{flds.password.label}}</strong></span>
+                         <input to-keyb  type="text" formControlName="password" 
+                             class="form-control"
+                             [ngClass]="getClasses('password')"
+                             [placeholder]="flds.password.placeholder" 
+                             aria-describedby="id-label-password"/>
+                        </div>
+                     <and-err-input-panel name="password" [f]="f"></and-err-input-panel>
+                 </div>
+             </div>
+ 
+            <div class="row">
                <div class="col-12 ">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-passport">
@@ -97,6 +112,8 @@
                     </div>
                     <and-err-input-panel name="email" [f]="f"></and-err-input-panel>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-12 ">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-phone">
@@ -111,8 +128,7 @@
             
                 </div> 
            </div>     
-
-             <div class="row">
+            <div class="row">
                 <div class="col-12">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-address">
@@ -125,6 +141,8 @@
                         </div>
                         <and-err-input-panel name="address" [f]="f"></and-err-input-panel>
                  </div>
+            </div>
+            <div class="row">
                  <div class="col-12">
                     <div class="input-group">
                         <span class="input-group-text" id="id-label-ravkav">

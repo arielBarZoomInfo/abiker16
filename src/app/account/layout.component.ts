@@ -1,16 +1,16 @@
 ﻿import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AccountService } from '@app/_services';
+import { UsersAccountService } from '@app/_services';
 
 @Component({ templateUrl: 'layout.component.html' })
 export class LayoutComponent {
     constructor(
         private router: Router,
-        private accountSvc: AccountService
+        private userSvc: UsersAccountService
     ) {
         // redirect to home if already logged in
-        if (this.accountSvc.userValue) {
+        if (this.userSvc.userValue) {
             this.router.navigate(['/']);
         }
     }

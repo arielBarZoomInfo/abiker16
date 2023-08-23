@@ -37,8 +37,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         // route functions
 
         function authenticate() {
-            const { userName, password } = body;
-            const user = users.find(x => x.userName === userName && x.password === password);
+            const { sysName, password } = body;
+            const user = users.find(x => x.sysName === sysName && x.password === password);
             if (!user) return error('Username or password is incorrect');
             return ok({
                 ...basicDetails(user),
@@ -49,8 +49,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         function register() {
             const user = body;
 
-            if (users.find(x => x.userName && x.userName === user.userName)) {
-                return error('Username "' + user.userName + '" is already taken')
+            if (users.find(x => x.sysName && x.sysName === user.sysName)) {
+                return error('Username "' + user.sysName + '" is already taken')
             }
 
             user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
@@ -115,8 +115,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function basicDetails(user: any) {
-            const { id, userName, firstName, lastName } = user;
-            return { id, userName, firstName, lastName };
+            const { id, sysName, firstName, lastName } = user;
+            return { id, sysName, firstName, lastName };
         }
 
         function isLoggedIn() {

@@ -3,7 +3,7 @@ import { OnInit,  Input, OnDestroy } from '@angular/core';
 import { TLangNames } from '@app/_interfaces/interfaces';
 import { Subscription } from 'rxjs';
 import { GKeybLanGlobal as G} from '@app/_globals/keyb-lang.global';
-import { AccountService } from '@app/_services';
+import { UsersAccountService } from '@app/_services';
 
 @Component({
   selector: 'and-select-language',
@@ -19,7 +19,7 @@ implements OnInit ,OnDestroy{
   subscrArr:Subscription[] = [];
   
 
-  constructor(private accountSvc: AccountService,){
+  constructor(private userSvc: UsersAccountService,){
    
   }
   ngOnDestroy(): void {
@@ -39,6 +39,9 @@ implements OnInit ,OnDestroy{
     G.setLang(lid);
   }
   gotoRegistrate(){
-    this.accountSvc.gotoRegistrate();
+    this.userSvc.gotoRegistrate$();
+  }
+  gotoLogin(){
+    this.userSvc.gotoLogin$();
   }
 }

@@ -19,9 +19,9 @@
     <div class="row">
         <div class="mb-3 col">
             <label class="form-label">Username</label>
-            <input type="text" formControlName="userName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['userName'].errors }" />
-            <div *ngIf="submitted && f['userName'].errors" class="invalid-feedback">
-                <div *ngIf="f['userName'].errors['required']">Username is required</div>
+            <input type="text" formControlName="sysName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['sysName'].errors }" />
+            <div *ngIf="submitted && f['sysName'].errors" class="invalid-feedback">
+                <div *ngIf="f['sysName'].errors['required']">Username is required</div>
             </div>
         </div>
         <div class="mb-3 col">

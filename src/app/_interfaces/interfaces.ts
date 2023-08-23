@@ -53,22 +53,22 @@ export interface IInputFieldsMulti{
 }
 
 
-export enum EFSM{
+export enum epg{
   
-    eHome=1,
-    eRegistrate=2,
+    eSelectLang=0,
+    eLogin=1,
+    eLogout=2,
+    eRegistrate=3,
     eCredirCard=4,
-    // efLogout=2,
-    // efLogin=4,
-    // ePay=32,
-    // efAdmin = 128
+    ePay=5,
+    eAdmin = 100
 
 }
 
 export interface IEFM<T=any>{
     
     toEnter():boolean;
-    get state():EFSM;
+    get state():epg;
     toExit() : boolean;
     model?: T;
     get itsOK () : boolean;

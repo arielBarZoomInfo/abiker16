@@ -1,3 +1,4 @@
+/*
 import { HttpClient } from '@angular/common/http';
 import { ReadPropExpr } from '@angular/compiler';
 import { Injectable } from '@angular/core';
@@ -6,10 +7,6 @@ import { CreditCardModel, UserModel } from '@app/_models';
 import { environment } from '@environments/environment';
 import { lastValueFrom } from 'rxjs';
 const IS_MOCK = true;;
-export interface IUserNet{
-  user?:UserModel;
-  error?: Error;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -45,33 +42,35 @@ export class NetService {
   async saveMap(){
     
    const json =  JSON.stringify(Object.fromEntries(this.mapUsers));
-   localStorage.setItem(this.storeMap ,json );
+   //TBD save User Map
+  // localStorage.setItem(this.storeMap ,json );
     // const map1 = new Map(Object.entries(JSON.parse(this.json)));
   }
-  _getById(id:string){
+
+  getById(id:string){
     return [...this.mapUsers.values()].find(u=>u.id == id);
   }
 
-  findUserInMap(userName: string):  UserModel | undefined{
-    return this.mapUsers.get(userName);
+  getBySysName(sysName: string):  UserModel | undefined{
+    return this.mapUsers.get(sysName);
   }
 
-  async netLogin$(userName: string, password: string):Promise<IUserNet>
+  async netLogin$(sysName: string, password: string):Promise<IUserNet>
   {
      try {
       let user: UserModel | undefined;
       if(IS_MOCK){
-        user = this.mapUsers.get(userName);
+        user = this.mapUsers.get(sysName);
    
       } else {
-        const req = this.http.post<UserModel>(`${environment.apiUrl}/users/authenticate`, { userName, password });
+        const req = this.http.post<UserModel>(`${environment.apiUrl}/users/authenticate`, { sysName, password });
         user = await lastValueFrom(req);
     
       }
 
       if(user){
         if(user.password == password){
-          this.mapUsers.set(userName,user);
+          this.mapUsers.set(sysName,user);
           await this.saveMap();
           return {user:user,error:undefined};
         } else {
@@ -96,13 +95,15 @@ export class NetService {
           user.id = await this.getNewId();
         }
         if(!IS_MOCK){
-          const req =  this.http.post(`${environment.apiUrl}/users/register`, user);
-          await lastValueFrom(req);
+          // const req =  this.http.post(`${environment.apiUrl}/users/register`, user);
+          // await lastValueFrom(req);
+
+          //TO SQL save user
     
         }
-        if( user.userName){
-          this.mapUsers.set( user.userName,user);
-          await this.saveMap();
+        if( user.sysName){
+          this.mapUsers.set( user.sysName,user);
+          //await this.saveMap();
   
         }
       }
@@ -114,14 +115,15 @@ export class NetService {
       return {user:undefined,error:new Error(error?.toString())};
      }
   }
-  async updateCreditCard(id: string, creditCard: CreditCardModel): Promise<IUserNet> {
+
+  async updateCreditCard(sysName: string, creditCard: CreditCardModel): Promise<IUserNet> {
     
     if(IS_MOCK){
-      const user =  this._getById(id);
+      const user =  this.getBySysName(sysName);
         if(!!user ){
           user.creditCard = {...creditCard};
-          if(user.userName){
-            this.mapUsers.set(user.userName,user );
+          if(user.sysName){
+            this.mapUsers.set(user.sysName,user );
             this.saveMap()
           }
            
@@ -164,8 +166,8 @@ export class NetService {
           user1 = await lastValueFrom(req);
     
         }
-        if( user1.userName){
-          this.mapUsers.set( user1.userName,user1);
+        if( user1.sysName){
+          this.mapUsers.set( user1.sysName,user1);
           await this.saveMap();
   
         }
@@ -192,20 +194,21 @@ export class NetService {
     }
   }
     
-  async getById(id: string): Promise<IUserNet> {
-    if(IS_MOCK){
-        const val = [...this.mapUsers.values()].find(u=>u.id === id);
+  // async getById(id: string): Promise<IUserNet> {
+  //   if(IS_MOCK){
+  //       const val = [...this.mapUsers.values()].find(u=>u.id === id);
       
-        return  {user:val,error:undefined};
-    }
-    try {
-      const user = await lastValueFrom(this.http.get<UserModel>(`${environment.apiUrl}/users/${id}`));  
-      return  {user:user,error:undefined};
-    } catch (error) {
-      return {user:undefined,error:new Error(error?.toString())};
-    }
+  //       return  {user:val,error:undefined};
+  //   }
+  //   try {
+  //     const user = await lastValueFrom(this.http.get<UserModel>(`${environment.apiUrl}/users/${id}`));  
+  //     return  {user:user,error:undefined};
+  //   } catch (error) {
+  //     return {user:undefined,error:new Error(error?.toString())};
+  //   }
    
-  }
+  // }
 
 
 }
+*/

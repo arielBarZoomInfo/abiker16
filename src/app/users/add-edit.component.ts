@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AccountService, AlertService } from '@app/_services';
+import { UsersAccountService, AlertService } from '@app/_services';
 import { lastValueFrom } from 'rxjs';
 import { UserModel } from '@app/_models';
 
@@ -20,7 +20,7 @@ export class AddEditComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private accountService: AccountService,
+        private userSvc: UsersAccountService,
         private alertSvc: AlertService
     ) { }
 
@@ -31,7 +31,7 @@ export class AddEditComponent implements OnInit {
         this.form = this.formBuilder.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
-            userName: ['', Validators.required],
+            sysName: ['', Validators.required],
             // password only required in add mode
             password: ['', [Validators.minLength(6), ...(!this.id ? [Validators.required] : [])]]
         });
@@ -45,7 +45,7 @@ export class AddEditComponent implements OnInit {
         if (this.id) {
             try {
                 this.loading = true;
-                const user = await this.accountService.getById$(this.id);
+                const user = await this.userSvc.getById$(+this.id);
                 if(user){
                     this.form.patchValue(user);
                     this.loading = false;
@@ -87,9 +87,11 @@ export class AddEditComponent implements OnInit {
 
     async saveUser$(): Promise<UserModel> {
         // create or update user based on id param
-       const user =  this.id
-            ? await this.accountService.update$(this.id!, this.form.value)
-            : await this.accountService.register$(this.form.value);
-        return  user;
+    //    const user =  this.id
+    //         ? await this.userSvc.saveUser$(new UserModel(this.form.value))
+    //         : await this.userSvc.register$(this.form.value);
+    //     return  user;
+        const user =  new UserModel(this.form.value);
+        return user;
     }
 }

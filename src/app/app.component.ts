@@ -1,42 +1,106 @@
 ﻿import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AccountService } from './_services';
-import {UserModel } from './_models';
+import { UsersAccountService, GUser ,GPage} from './_services';
+import { UserModel } from './_models';
 import { GKeybLanGlobal  as G} from '@app/_globals/keyb-lang.global';
 import { TLangNames } from './_interfaces/interfaces';
-import { Subscription } from 'rxjs';
+import { Subscription, lastValueFrom } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { epg  } from '@app/_interfaces/interfaces';
+ 
 
 
 
-@Component({ selector: 'app-root', templateUrl: 'app.component.html' })
+@Component({ 
+    selector: 'app-root', 
+    templateUrl: 'app.component.html' 
+})
 export class AppComponent  implements OnInit, OnDestroy{
-    user?: UserModel | null;
+    epg = epg;
+   // get user() {return GUser};
+    user:UserModel | undefined;
+    get page() {return GPage};
     ref = G.ref;
     readonly subs:Subscription[] = [];
+    
+  
+    public get IsKeyb() : boolean {
+        return  G.KeyboardVisible;
+    }
+    public set IsKeyb(v : boolean) {
+        G.KeyboardVisible = v;
+    }
+    
 
-    constructor(private accountSvc: AccountService) {
-        this.subs.push(this.accountSvc.user$.subscribe(x => this.user = x));
+    constructor(private userSvc: UsersAccountService,
+    private http: HttpClient ) {
+        this.subs.push(this.userSvc.user$.subscribe(x => this.user = x));
     }
     ngOnDestroy(): void {
         this.subs.forEach(u=>u.unsubscribe());
         
     }
     ngOnInit(): void {
-        G.KeyboardVisible = true;
+        this.IsKeyb = true;
+        
     }
 
-    logout() {
+    async gotoExit$() {
        
-        this.accountSvc.gotoExit();
+        await this.userSvc.gotoExit$();
     }
 
     toShowKeyb(){
-        G.KeyboardVisible = true;
+        if(!this.IsKeyb)
+            this.IsKeyb = true;
     }
-    toHidewKeyb(){
-        G.KeyboardVisible = false;
+    toHideKeyb(){
+        if(this.IsKeyb)
+            this.IsKeyb = false;
 
     }
     setLang(lang:TLangNames){
         G.setLang(lang);
     }
+    async toGo(){
+        try {
+            debugger;
+            const data:any[]  = await lastValueFrom(this.http.get<any[]>('assets/employees.json', { responseType:'json' }));
+
+                 console.log(data)
+            
+        } catch (error) {
+            console.error(error);
+        }
+      //  this.save(new Date().toTimeString(),'/kuku.txt');
+      
+
+    }
+    // save(text: string, filename:string) {
+    //     const blob  = new Blob([text], { type: 'text/plain;charset=utf-8' });
+       
+    //     try {
+    //       this.fs.save(blob, filename);
+    //     }
+    //     catch (e)
+    //     {
+    //       alert(e);
+    //     }
+    // }
+    save( data:string,filename:string) {
+        const nav = (window.navigator as any);
+        const blob = new Blob([data], {type: 'text'});
+
+        if(nav.msSaveOrOpenBlob) {
+            (window.navigator as any).msSaveBlob(blob, filename);
+        }
+        else{
+            const elem = window.document.createElement('a');
+            elem.href = window.URL.createObjectURL(blob);
+            elem.download = filename;        
+            document.body.appendChild(elem);
+            elem.click();        
+            document.body.removeChild(elem);
+        }
+    }
+
 }

@@ -5,7 +5,9 @@
 export const environment = {
     production: false,
     apiUrl: 'http://localhost:4000',
-    toBlurKey:true
+    fileUsers:  "users.json",
+    isMOK:true,
+    toBlurKey:false
 };
 
 /*
