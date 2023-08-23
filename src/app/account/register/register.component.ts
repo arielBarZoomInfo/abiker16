@@ -4,9 +4,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { first } from 'rxjs/operators';
 import {GKeybLanGlobal as G} from '@app/_globals'
 
-import { AccountService, AlertService } from '@app/_services';
+import { UsersAccountService, AlertService, GUser } from '@app/_services';
 import { LangValidator } from '@app/_helpers/lang.validators';
-import { EFSM, IEFM, TLangNames } from '@app/_interfaces/interfaces';
+import { epg, IEFM, TLangNames } from '@app/_interfaces/interfaces';
 import { IUserDetailsFieldsData, USER_DATA_MULTI } from './register.data';
 import { ILANG_DESCR } from '@app/keyboard/keyb-data/keyb.data';
 import { Subscription } from 'rxjs';
@@ -18,23 +18,23 @@ import { UserModel } from '@app/_models';
   styleUrls: ['register.component.scss']
 
  })
-export class RegisterComponent implements OnInit ,OnDestroy,
-IEFM<UserModel>{
+export class RegisterComponent implements OnInit ,OnDestroy{
+//IEFM<UserModel>{
     form!: FormGroup;
     loading = false;
     submitted = false;
-    //flags = this.accountSvc.flags;
+    //flags = this.userSvc.flags;
 
 
     constructor(
         // private route: ActivatedRoute,
         // private router: Router,
-        private accountSvc: AccountService,
+        private userSvc: UsersAccountService,
         private alertSvc: AlertService
     ) { }
- 
+  get user() {return GUser;}
   toEnter(): boolean {
-   // this.accountSvc.clearFlags();
+   // this.userSvc.clearFlags();
      // this.flags.fHome = true;//=1;
     // this.flags.fLogout = false;//=2;
     //  this.flags.fLogin = true;//=4;
@@ -44,8 +44,8 @@ IEFM<UserModel>{
     //  this.flags.fAdmin = false;// = 128
     return true;
   }
-  get state(): EFSM {
-   return EFSM.eRegistrate;
+  get state(): epg {
+   return epg.eRegistrate;
   }
   toExit(): boolean {
    return true;
@@ -94,10 +94,13 @@ IEFM<UserModel>{
         lastName: new FormControl<string>('', [
           LangValidator.required("lastName")
         ]),
-        userName: new FormControl<string>('', [
-          LangValidator.required("userName")
+        sysName: new FormControl<string>('', [
+          LangValidator.required("sysName")
         ]),
-
+        password: new FormControl<string>('', [
+          LangValidator.required("password")
+        ]),
+       
         passport: new FormControl('', [
               LangValidator.required("passport"),
               LangValidator.number("passport",9,9)
@@ -152,19 +155,22 @@ IEFM<UserModel>{
   
     }
     private _validateMe() {
-      this.form.markAllAsTouched();
+      try {
+        this.form.markAllAsTouched();
 
-      for (let controlName in this.form?.controls) {
-        const c = this.f[controlName] as FormControl;
-        if(c){
-          c.markAsTouched();
-          c.updateValueAndValidity();
-        }
-      
+        for (let controlName in this.form?.controls) {
+          const c = this.f[controlName] as FormControl;
+          if(c){
+            c.markAsTouched();
+            c.updateValueAndValidity();
+          }
+        
+        }        
+      } catch (error) {
+        
       }
     }
 
-  
     // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
   // c(ctrlName:string) { return this.f[ctrlName] as FormControl; }
@@ -196,14 +202,14 @@ IEFM<UserModel>{
 
     try {
       this.loading = true;
-      const model:UserModel =  {...this.form.value};
+      const model:UserModel =  new UserModel(this.form.value);
       this.model = model;
-      const user = await this.accountSvc.register$(model);
+      await this.userSvc.saveUser$(model);
       this.loading = false;
-      // this.accountSvc.flags.fVisa = true;
+      // this.userSvc.flags.fVisa = true;
       this.alertSvc.success('Registration successful', 
         { keepAfterRouteChange: true });
-      this.accountSvc.gotoCreditCard(user);
+      this.userSvc.gotoCreditCard$(model);
         // this.router.navigate(['../credit-card'], { relativeTo: this.route });
 
       
