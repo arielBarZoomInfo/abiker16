@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './home';
+
 import { AuthGuard } from './_helpers';
 import { AccountModule } from './account/account.module';
 import { UsersModule } from './users/users.module';
 import { HomePageComponent } from './_pages/home-page/home-page.component';
-const accountModule = () =>UsersModule;
-const usersModule = () =>AccountModule;
+//const accountModule = () =>UsersModule;
+//const usersModule = () =>AccountModule;
 // const accountModule = () => import('./account/account.module').then(x => x.AccountModule);
 // const usersModule = () => import('./users/users.module').then(x => x.UsersModule);
 
@@ -24,8 +24,8 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
-        AccountModule,
-        UsersModule,
+      //  AccountModule,
+      //  UsersModule,
         RouterModule.forRoot(routes)
     ],
     exports: [RouterModule]

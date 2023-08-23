@@ -7,8 +7,8 @@ import { UsersAccountService } from '@app/_services';
 
 @Component({
   selector: 'and-select-language',
-  templateUrl: './select-language.component.html',
-  styleUrls: ['./select-language.component.scss']
+  templateUrl: './select-language.page.component.html',
+  styleUrls: ['./select-language.page.component.scss']
 })
 export class SelectLanguageComponent 
 implements OnInit ,OnDestroy{

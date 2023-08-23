@@ -44,7 +44,6 @@ implements OnInit , AfterViewInit, OnDestroy{
  // @HostListener("keyup.enter")
   OnKeyEnter(intr:string): void { 
     const cname: string = G.AttachedControlName;
-   // debugger;
    if(cname.length > 0){
     const ctrl =  this.searchNewFocus(cname);
     ctrl?.focus();

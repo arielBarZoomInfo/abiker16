@@ -12,7 +12,7 @@ export interface ICreditCardFieldsData{
     title:string;
     title2:string;
     ownerName:IInputFields;
-    ownerLastName:IInputFields;
+  //  ownerLastName:IInputFields;
     passport:IInputFields;
     cardNumber:IInputFields;
     tokef:IInputFields;
@@ -29,17 +29,17 @@ export interface ICreditCardFieldsData{
    title2:'Please enter credit card details',
    ownerName: {
      name: 'name',
-     label:'Card owner first name  ',
+     label:'Card owner name and family name',
      placeholder:'First Name ',
   
   
   }, 
-  ownerLastName: {
-     name: 'name',
-     label:'Card owner last name ',
-     placeholder:'Last name '
+//   ownerLastName: {
+//      name: 'name',
+//      label:'Card owner last name ',
+//      placeholder:'Last name '
   
-  },
+//   },
 
   passport:{
      name: 'passport',
@@ -74,17 +74,17 @@ const CREDIT_RU : ICreditCardFieldsData = {
    title2:'Bведите данные кредитной карты',
    ownerName: {
      name: 'name',
-     label:'Имя владельца карты',
+     label:'Има и фамилия владельца карты',
      placeholder:'Имя владельца',
   
   
   }, 
-  ownerLastName: {
-     name: 'name',
-     label:'Фамилия владельца карты',
-     placeholder:'Фамилия владельца'
+//   ownerLastName: {
+//      name: 'name',
+//      label:'Фамилия владельца карты',
+//      placeholder:'Фамилия владельца'
   
-  },
+//   },
 
   passport:{
      name: 'passport',
@@ -121,17 +121,17 @@ const CREDIT_HE : ICreditCardFieldsData = {
    title2:'נא להזין את פרטי כרטיס האשראי',
    ownerName: {
      name: 'name',
-     label:'שם פרטי של בעל הכרטיס',
+     label:'שם ושם משפחה של בעל הכרטיס',
      placeholder:'שם פרטי',
   
   
   }, 
-  ownerLastName: {
-     name: 'name',
-     label:'שם משפחה של בעל הכרטיס',
-     placeholder:'שם משפחה'
+//   ownerLastName: {
+//      name: 'name',
+//      label:'שם משפחה של בעל הכרטיס',
+//      placeholder:'שם משפחה'
   
-  },
+//   },
 
   passport:{
      name: 'passport',
@@ -167,17 +167,17 @@ const CREDIT_AR : ICreditCardFieldsData = {
    title2:'الرجاء إدخال تفاصيل بطاقة الائتمان',
    ownerName: {
      name: 'name',
-     label: 'الاسم الأول لحامل البطاقة',
+     label: 'بطاقات إيما وعائلة',
      placeholder:'الاسم الأول',
   
   
   }, 
-  ownerLastName: {
-     name: 'name',
-     label:'الاسم الأخير لحامل البطاقة',
-     placeholder:'اسم عائلة'
+//   ownerLastName: {
+//      name: 'name',
+//      label:'الاسم الأخير لحامل البطاقة',
+//      placeholder:'اسم عائلة'
   
-  },
+//   },
 
   passport:{
      name: 'passport',

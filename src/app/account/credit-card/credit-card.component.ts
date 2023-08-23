@@ -9,7 +9,7 @@ import { GKeybLanGlobal as G } from '@app/_globals'
 import { TLangNames } from '@app/_interfaces/interfaces';
 import { CREDIT_DATA_MULTI, ICreditCardFieldsData } from './credit.card.data';
 import { LangValidator } from '@app/_helpers/lang.validators';
-import { CreditCardModel } from '@app/_models';
+import { CreditCardModel, UserModel } from '@app/_models';
 
 
 const TO_LOG = true;
@@ -41,6 +41,7 @@ export class CreditCardComponent
     //#endregion
      active:string = '';
     paymentForm !: FormGroup;
+    private user!:UserModel;// = this.userSvc.userValue;
 
     model:CreditCardModel = <CreditCardModel>{}
   
@@ -48,7 +49,7 @@ export class CreditCardComponent
     cardValidate:boolean = false;
     cardDetailsValidate:boolean = false;
     cardType:string = "Visa";
-
+//#region MASKS
     readonly maskCardNum = [
       /\d/, /\d/, /\d/, /\d/, '-', 
       /\d/, /\d/, /\d/, /\d/, '-', 
@@ -68,7 +69,7 @@ export class CreditCardComponent
     readonly maskCvvNum = [
       /\d/, /\d/, /\d/
     ];
-    
+//#endregion    
     subs: Subscription[] = [];
     
     public constructor(   
@@ -78,11 +79,21 @@ export class CreditCardComponent
       this.subs.push(
         G.Lang$.subscribe(lan=>{this.Lang = lan;})
       );
-
-    }
+       }
     flds !: ICreditCardFieldsData;
 
-    ngOnInit() {   
+    async ngOnInit() {  
+      this.alertSvc.clear();
+ 
+
+      if(!this.userSvc.userValue){
+       // throw new Error('User for credit card is undefined!!!');
+       this.alertSvc.error('User for credit card must be defined;');
+       await this.userSvc.gotoExit$();
+       return;
+      }
+      this.user = new UserModel(this.userSvc.userValue);
+
       this._onLangChange(G.Lang,false);// don't validate
       this.IntializePaymentForm();
       G.KeyboardVisible = true;
@@ -109,6 +120,7 @@ export class CreditCardComponent
 
 
     private _validateMe() {
+      if( !this.paymentForm) return;
 
       for (let controlName in this.paymentForm?.controls) {
         this.c(controlName)?.updateValueAndValidity();
@@ -130,17 +142,15 @@ export class CreditCardComponent
     } 
   //#region IntializePaymentForm
   IntializePaymentForm() {
-    this.paymentForm = new FormGroup({ 
+    const u = this.user;
+     this.paymentForm = new FormGroup({ 
 
-      ownerName: new FormControl<string>("",[
+      ownerName: new FormControl<string>(('' + u?.name),[
           LangValidator.required("ownerName")
         ]), 
 
-      ownerLastName: new FormControl<string>("", [
-         LangValidator.required("ownerLastName")
-        ]) ,
-          
-      passport:   new FormControl<string>("", [
+     
+      passport:   new FormControl<string>(('' + u?.passport), [
         LangValidator.required("passport"),
        //LangValidator.minLength("passport",9),
         LangValidator.teudatZehut("passport"),
@@ -153,7 +163,7 @@ export class CreditCardComponent
         
       ]),
 
-      tokef: new FormControl<string>("02/27", [
+      tokef: new FormControl<string>("", [
         LangValidator.required("tokef"),
         LangValidator.cardExpired('tokef')
       ]),
@@ -208,7 +218,7 @@ export class CreditCardComponent
 
   }
   
-  SaveCardDetails(){    
+  saveCardDetails(){    
     
     const hash = this.paymentForm.value;
     this.model = {...hash};
@@ -246,7 +256,7 @@ export class CreditCardComponent
   
   
   validateCCcard(month:number, year:number) {
-    debugger;
+   
     let ptDatePattern = "^((0[1-9])|(1[0-2]))/([0-9]{4})$";
     let datevalue = month + "/" + year;
     if (datevalue.match(ptDatePattern)) return true;

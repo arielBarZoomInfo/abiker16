@@ -12,7 +12,7 @@ export const USER_STORAGE_KEY = 'abiker16-registration-login-user';
 export var GPage: E = E.eSelectLang;//!!!
 export var GUser: UserModel | undefined = undefined;
 export const GIUserAdmin :IUserModel = {
-    id:1,
+    id:'999999998',
     sysName: 'admin',
     password: '1111',
     name: 'admin bikebox',
@@ -174,11 +174,12 @@ export class UsersAccountService {
         user.sysName = user.sysName.toLowerCase();
         const _wasUser = this.mapUsers.get(user.sysName);
         this.mapUsers.set(user.sysName,user);
-        if(!_wasUser){
+         if(!_wasUser){
             ;//TBD put User in SQL
         }
 
-      
+        this.user$.next(GUser = user);
+   
     }
 
     async login$(sysName:string,password:string) : Promise<UserModel | undefined>{
@@ -212,7 +213,7 @@ export class UsersAccountService {
     }
 
     async getById$(id: number):Promise<UserModel | undefined> {
-        const ret = [...this.mapUsers.values()].find(u=>u.id === id);
+        const ret = [...this.mapUsers.values()].find(u=>+u.id === id);
         return ret;
     }
    

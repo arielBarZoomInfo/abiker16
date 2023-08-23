@@ -63,7 +63,7 @@ export class AppComponent  implements OnInit, OnDestroy{
     }
     async toGo(){
         try {
-            debugger;
+          //  debugger;
             const data:any[]  = await lastValueFrom(this.http.get<any[]>('assets/employees.json', { responseType:'json' }));
 
                  console.log(data)

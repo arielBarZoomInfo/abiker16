@@ -1,19 +1,19 @@
 
  <div class="container col-md-10 offset-md-1 mt-5">
     <!-- <router-outlet></router-outlet> -->
-    <div class="row" *ngIf="IsSelectLang">
+    <div class="row" *ngIf="page == E.eSelectLang">
         <and-select-language></and-select-language>
     </div>
 
-    <div class="row" *ngIf="IsLogin">
+    <div class="row" *ngIf="page === E.eLogin">
         <app-login-component></app-login-component>
     </div>
 
-    <div class="row" *ngIf="IsRegistrate">
+    <div class="row" *ngIf="page === E.eRegistrate">
         <and-register></and-register>
     </div>
 
-    <div class="row" *ngIf="IsCreditCard">
+    <div class="row" *ngIf="page === E.eCredirCard">
         <and-credit-card></and-credit-card>
     </div>
 

@@ -31,7 +31,7 @@
           <form [formGroup]="paymentForm" 
             form2keyb
             #ref
-            (ngSubmit)="SaveCardDetails()">        
+            (ngSubmit)="saveCardDetails()">        
             <div class="row">
     
     
@@ -51,24 +51,7 @@
                    
                 </div>
     
-    
-                
-                <!-- ownerName -->
-                <!-- <div class="col-lg-12 col-xs-12"> -->
-                     <div class="form-group input-group row" >
-                        <span class="input-group-text" >
-                            <strong>{{flds.ownerLastName.label}}</strong></span>
-                        <!-- <label for="id-credit-card-owner-name">Card Owner Name</label> -->
-                        <input class="form-control" to-keyb 
-                            type="text" 
-                            formControlName="ownerLastName"
-                            id="id-credit-card-owner-last-name" 
-                            [ngClass]="getClasses('ownerLastName')"
-                            [placeholder]="flds.ownerLastName.placeholder">                    
-                    </div>
-                    <and-err-input-panel name="ownerLastName" [f]="f"></and-err-input-panel>
-               
-            
+           
                 <!-- passport -->
                 <div class="col-lg-12  col-md-12 col-sm-12  col-xs-12">
                     <div class="form-group input-group row" >

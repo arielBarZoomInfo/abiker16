@@ -9,7 +9,7 @@ import { RegisterComponent } from './register/register.component';
 import { CreditCardComponent } from './credit-card/credit-card.component';
 import { TextMaskModule } from '@myndmanagement/text-mask';
 import { ToKeybModule } from '@app/keyboard/to-keyb/to-keyb.module';
-import { SelectLanguageComponent } from '@app/_components';
+import { SelectLanguageComponent as SelectLanguagePageComponent } from '@app/_pages/select-language-page/select-language.page.component';
 
 
 @NgModule({
@@ -25,7 +25,7 @@ import { SelectLanguageComponent } from '@app/_components';
         LoginComponent,
         RegisterComponent,
         CreditCardComponent,
-        SelectLanguageComponent
+        SelectLanguagePageComponent
         
     ],
     exports:[
@@ -33,7 +33,7 @@ import { SelectLanguageComponent } from '@app/_components';
         LoginComponent,
         RegisterComponent,
         CreditCardComponent,
-        SelectLanguageComponent
+        SelectLanguagePageComponent
        
     ]
 })

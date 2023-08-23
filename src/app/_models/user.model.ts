@@ -2,7 +2,7 @@
 import { CreditCardModel } from "./credit-card.model";
 
 export interface IUserModel {
-    id:number;
+    id:string;
     sysName: string;
     password: string;
     name: string;
@@ -14,12 +14,13 @@ export interface IUserModel {
 
 }
 export class UserModel implements IUserModel {
-    id:number=0;
+    id:string='0';//id - teudat zehut
     sysName: string = '';
     password: string='';
     name: string = '';
     email:string='';
     passport:string = '';
+
     //!!! tokef in format DD/YY
   //  tokef:string = '';
     
@@ -36,7 +37,7 @@ export class UserModel implements IUserModel {
     token: string='';
     constructor(data:any | undefined = undefined){
         if(data){
-            this.id = +(data.id || '0');
+            this.id = ('' + data.passport);
             this.sysName = ('' + data.sysName).toLowerCase();
             this.passport = '' + data.passport ;
             this.password = '' + data.password ;
