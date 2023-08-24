@@ -6,6 +6,7 @@ import { TLangNames } from './_interfaces/interfaces';
 import { Subscription, lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { epg  } from '@app/_interfaces/interfaces';
+import { environment } from '@environments/environment';
  
 
 
@@ -15,6 +16,7 @@ import { epg  } from '@app/_interfaces/interfaces';
     templateUrl: 'app.component.html' 
 })
 export class AppComponent  implements OnInit, OnDestroy{
+    env=environment;
     epg = epg;
    // get user() {return GUser};
     user:UserModel | undefined;
@@ -61,6 +63,7 @@ export class AppComponent  implements OnInit, OnDestroy{
     setLang(lang:TLangNames){
         G.setLang(lang);
     }
+  
     async toGo(){
         try {
           //  debugger;

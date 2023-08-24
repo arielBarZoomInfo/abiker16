@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, HostListener, Injector, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Injector, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GKeybLanGlobal as G } from '../../_globals/keyb-lang.global';
 const TO_LOG = true;
@@ -11,6 +11,8 @@ implements OnInit , AfterViewInit, OnDestroy{
 
   private subs:Subscription[] = [];
   private inpits:HTMLInputElement[] = [];
+  @Output() onExitInput: EventEmitter<string> = new EventEmitter<string>();
+ 
   constructor(private hostElt: ElementRef,
     public renderer: Renderer2
     
@@ -42,13 +44,20 @@ implements OnInit , AfterViewInit, OnDestroy{
   }
 
  // @HostListener("keyup.enter")
-  OnKeyEnter(intr:string): void { 
+ @HostListener('document:keyup.enter', ['$event'])
+  KeyUpEvent(event: KeyboardEvent) {
+    this.OnKeyEnter();
+  }
+
+  OnKeyEnter(intr:string='??'): void { 
     const cname: string = G.AttachedControlName;
    if(cname.length > 0){
+    this.onExitInput.emit(cname);
+ 
     const ctrl =  this.searchNewFocus(cname);
     ctrl?.focus();
-    console.log(`[form2keyb]OnKeyEnter(${intr}): ctrl:${cname}`)
- 
+    console.log(`[form2keyb]OnKeyEnter(${intr}): ctrl:${cname}`);
+   
    }
  
   }

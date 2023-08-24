@@ -83,8 +83,7 @@
                         </div>
                      <and-err-input-panel name="password" [f]="f"></and-err-input-panel>
                  </div>
-             </div>
- 
+            </div>
             <div class="row">
                <div class="col-12 ">
                     <div class="input-group">
@@ -159,7 +158,6 @@
                </div>
 
             </div>
- 
   
             <div class="row" style="padding-top:8px;padding-bottom:8px;">
             <!--------IAMAGREE POLICY---------->
@@ -219,11 +217,41 @@
                 </div>
             </div> 
     
-                <button [disabled]="loading" class="btn btn-primary">
+            <!-- <button [disabled]="valid" class="btn btn-primary">
                 <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
-                Register
-            </button>
-            <a routerLink="../login" class="btn btn-link">Cancel</a>
+                Registrate
+            </button> -->
+
+
+      
+            <ng-container *ngIf="valid">
+                <button class="btn btn-primary" type="submit">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                    Accept and set pay source
+                </button>
+            </ng-container>
+
+            <ng-container *ngIf="env.toTestUsers">
+                <button class="btn btn-primary" type="button" (click)="getAviKohen()">
+                    Avi Kohen
+                </button>
+            </ng-container>
+
+            <ng-container *ngIf="env.toTestUsers">
+                <button class="btn btn-primary" type="button" (click)="getRandomUser()">
+                    Avi Kohen
+                </button>
+            </ng-container>
+
+            <!-- <ng-container *ngIf="env.toTestUsers">
+                <button class="btn btn-primary" type="button" (click)="getRandomUser()">
+                    Avi Kohen
+                </button>
+            </ng-container>
+         -->
+
+
+            <!-- <a routerLink="../login" class="btn btn-link">Cancel</a> -->
            
         </form>
     </div>

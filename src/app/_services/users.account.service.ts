@@ -5,8 +5,9 @@ import { BehaviorSubject, Observable, Subscription, lastValueFrom, retry } from 
 //import { last, map } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
-import { IUserModel, UserModel } from '@app/_models';
+import { IUserModel, UserModel, WideUserModel } from '@app/_models';
 import { epg as E} from '@app/_interfaces/interfaces';
+import { NetService } from './net.service';
 export const USER_STORAGE_KEY = 'abiker16-registration-login-user';
 //Global Variables for read from anonher sites
 export var GPage: E = E.eSelectLang;//!!!
@@ -47,7 +48,8 @@ export class UsersAccountService {
 
     constructor(
         //private router: Router,
-        private http: HttpClient
+        private http: HttpClient,
+        private net: NetService
     ) {
        // const user = localStorage.getItem(USER_STORAGE_KEY);
        
@@ -74,22 +76,76 @@ export class UsersAccountService {
             debugger;
             const _users:UserModel[]  = await lastValueFrom(
                     this.http.get<UserModel[]>(environment.fileUsers, { responseType:'json' }));
-           
+        
             _users.forEach(u=>{
                 if(u.sysName.length > 0){
                     this.mapUsers.set(u.sysName.toLowerCase(),u );
                 }
                 
             });
-           
+        
 
-           console.log(_users)
+        console.log(_users)
             
         } catch (error) {
             console.error('retrieveUsers$'+error);
         }  
     }
-  
+
+    async retrieveWideUser$(fromNet:boolean) {
+         if(!fromNet){
+            let model:any = {};
+            
+ 
+            model.firstName='Avi' ;
+            model.lastName = 'Cohen';
+            model.sysName = 'avi1cohen';
+            model.password = '11111111';
+            model.passport = '999999998';
+            model.email = 'avi1cohen@gmail.com';
+            model.phone = '05451111111';
+            model.address = 'Hahistadrut 1/1 Petah Tikva  , Israel';
+            model.ravkav = '111';
+            model.imagreeTerms = true;
+            model.imagreePolicy = true;
+            let wideUser: WideUserModel = new WideUserModel(model);
+            this.saveUser$(wideUser);
+            return wideUser;
+
+
+        } else {
+            try {
+                const  wideUser: WideUserModel = await this.net.getRandomUser$()
+                return wideUser;
+                 
+            } catch (error) {
+                console.error(error);
+                return undefined;
+                
+            }
+      
+        }
+    // this.clearMap();
+        // try {
+        //     debugger;
+        //     const _users:UserModel[]  = await lastValueFrom(
+        //             this.http.get<UserModel[]>(environment.fileUsers, { responseType:'json' }));
+        
+        //     _users.forEach(u=>{
+        //         if(u.sysName.length > 0){
+        //             this.mapUsers.set(u.sysName.toLowerCase(),u );
+        //         }
+                
+        //     });
+        
+
+        // console.log(_users)
+            
+        // } catch (error) {
+        //     console.error('retrieveUsers$'+error);
+        // }  
+    }
+
     async saveUsers$() {
         const _users:UserModel[]  = [...this.mapUsers.values()];
         const _json = JSON.stringify(_users);

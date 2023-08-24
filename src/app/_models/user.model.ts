@@ -41,6 +41,7 @@ export class UserModel implements IUserModel {
             this.sysName = ('' + data.sysName).toLowerCase();
             this.passport = '' + data.passport ;
             this.password = '' + data.password ;
+            this.email = '' + data.email ;
             this.name=data?.name ?? 
                 ('' + data.firstName + ' ' + data.lastName).trim();
             this.token = '' + data.token ;
@@ -76,6 +77,34 @@ export class UserModel implements IUserModel {
     };
 
 }
+export class WideUserModel extends  UserModel{
+    firstName: string='';
+    lastName: string = '';
+    phone: string = '';
+    address:string='';
+    ravkav:string = '';
+
+    //!!! tokef in format DD/YY
+  //  tokef:string = '';
+    constructor(data:any | undefined = undefined){
+        super(data);
+
+        if(data){
+            
+            this.firstName = '' + data.firstName;
+            this.lastName = '' + data.lastName ;
+            this.address = '' + data.address ;
+            this.phone = '' + data.phone ;
+            this.ravkav = '' + data.ravkav  ;
+                     
+        }
+        
+    }
+
+}
+
+
+
 // export interface IUserNet{
 //     user?:UserModel;
 //     authorized: boolean;

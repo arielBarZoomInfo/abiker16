@@ -146,7 +146,7 @@ export class LangValidator{
             }
         }
 
-     }
+    }
 
 
     static requiredTrue(controlName: string): ValidatorFn {
@@ -318,82 +318,81 @@ export class LangValidator{
             }
           
         };
-   }
-   static  maxLength(controlName:string,maxLength: number): ValidatorFn {
-     
-        const _patternLangs: TLang<string> = {
-
-            en: `${controlName}" value must be less than ${maxLength}`,
-            //dg: `${controlName}" value must be less than ${maxLength}`,
-            ru: `Значение ${controlName}" должно быть меньше ${maxLength}.`,
-            he: `${maxLength}"-חייב להיות פחות מ `+ `${controlName} הערך של`,
-            ar: `يجب أن تكون قيمة ${controlName} "أقل من ${maxLength}`
-
-        }
-
-        return (control: AbstractControl): ValidationErrors|null => {
-            if (isEmptyInputValue(control.value && !hasValidLength(control))  ) {
-            // don't validate empty values to allow optional controls
-            // don't validate values without `length` property
-                return null;
-            }
-            let errs  = Validators.maxLength(maxLength)(control);
+    }
+    static  maxLength(controlName:string,maxLength: number): ValidatorFn {
         
-            //// {maxlength: {requiredLength: 3, actualLength: 2, msg: "bckg"}}
-                
-            if(!!errs && errs['maxLength'] ){
-                const pathFn = () => _patternLangs[this.Lang];
-                const msg = pathFn(); 
-             
-                const ret = LangValidator._addMsgLang(controlName,'maxLength',msg,errs);
-                return ret;
+            const _patternLangs: TLang<string> = {
 
-                         } else {
-                return null;
+                en: `${controlName}" value must be less than ${maxLength}`,
+                //dg: `${controlName}" value must be less than ${maxLength}`,
+                ru: `Значение ${controlName}" должно быть меньше ${maxLength}.`,
+                he: `${maxLength}"-חייב להיות פחות מ `+ `${controlName} הערך של`,
+                ar: `يجب أن تكون قيمة ${controlName} "أقل من ${maxLength}`
+
             }
-        }
-   }
 
-   static  teudatZehut(controlName:string): ValidatorFn {
-    
-        const _patternLangs: TLang<string> = {
-
-            en: `Wrong Israel ID value`,
-            //dg: `Wrong Israel ID value`,
-            ru: `Ошибка ввода удостоверениа личности.`,
-            he: `שגיאה בהזנת תאודת הזהות`,
-            ar: `خطأ في إدخال بطاقة الهوية`
-
-        }
-
-        return (control: AbstractControl): ValidationErrors|null => {
-            if (isEmptyInputValue(control.value && !hasValidLength(control))  ) {
-            // don't validate empty values to allow optional controls
-            // don't validate values without `length` property
-                return null;
-            }
-            let ft  = teudatZehutValidator(control.value);
-        
-            let value=  control?.value ?? '';
-            //// {maxlength: {requiredLength: 3, actualLength: 2, msg: "bckg"}}
-                
-            if(!ft ){
-                const pathFn = () => _patternLangs[this.Lang];
-                const msg = pathFn(); 
+            return (control: AbstractControl): ValidationErrors|null => {
+                if (isEmptyInputValue(control.value && !hasValidLength(control))  ) {
+                // don't validate empty values to allow optional controls
+                // don't validate values without `length` property
+                    return null;
+                }
+                let errs  = Validators.maxLength(maxLength)(control);
             
-                const ret = LangValidator._addMsgLang(controlName,'teudatZehut',
-                    msg,{teudatZehut:false,value:value});
-                return ret;
+                //// {maxlength: {requiredLength: 3, actualLength: 2, msg: "bckg"}}
+                    
+                if(!!errs && errs['maxLength'] ){
+                    const pathFn = () => _patternLangs[this.Lang];
+                    const msg = pathFn(); 
+                
+                    const ret = LangValidator._addMsgLang(controlName,'maxLength',msg,errs);
+                    return ret;
 
-            } else {
-                return null;
+                            } else {
+                    return null;
+                }
             }
-        }
     }
 
+    static  teudatZehut(controlName:string): ValidatorFn {
+        
+            const _patternLangs: TLang<string> = {
+
+                en: `Wrong Israel ID value`,
+                //dg: `Wrong Israel ID value`,
+                ru: `Ошибка ввода удостоверениа личности.`,
+                he: `שגיאה בהזנת תאודת הזהות`,
+                ar: `خطأ في إدخال بطاقة الهوية`
+
+            }
+
+            return (control: AbstractControl): ValidationErrors|null => {
+                if (isEmptyInputValue(control.value && !hasValidLength(control))  ) {
+                // don't validate empty values to allow optional controls
+                // don't validate values without `length` property
+                    return null;
+                }
+                let ft  = teudatZehutValidator(control.value);
+            
+                let value=  control?.value ?? '';
+                //// {maxlength: {requiredLength: 3, actualLength: 2, msg: "bckg"}}
+                    
+                if(!ft ){
+                    const pathFn = () => _patternLangs[this.Lang];
+                    const msg = pathFn(); 
+                
+                    const ret = LangValidator._addMsgLang(controlName,'teudatZehut',
+                        msg,{teudatZehut:false,value:value});
+                    return ret;
+
+                } else {
+                    return null;
+                }
+            }
+    }
 
     static  creditCardLuhn(controlName:string): ValidatorFn {
-      
+        
         const _patternLangs: TLang<string> = {
 
             en: `Wrong credit card number`,
@@ -429,7 +428,7 @@ export class LangValidator{
 
     
 
-    static cardExpired(controlName:string): ValidatorFn {
+   static cardExpired(controlName:string): ValidatorFn {
 
      
         return (control: AbstractControl): ValidationErrors|null => {
@@ -499,8 +498,7 @@ export class LangValidator{
         }
    }
 
-
-
+ 
 
 }
  

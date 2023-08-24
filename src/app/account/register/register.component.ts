@@ -9,11 +9,13 @@ import { epg, IEFM, TLangNames } from '@app/_interfaces/interfaces';
 import { IUserDetailsFieldsData, USER_DATA_MULTI } from './register.data';
 import { ILANG_DESCR } from '@app/keyboard/keyb-data/keyb.data';
 import { Subscription } from 'rxjs';
-import { UserModel } from '@app/_models';
+import { UserModel, WideUserModel } from '@app/_models';
+import { environment } from '@environments/environment';
 
-const TO_TEST_USER = true;
+const TO_TEST_USER = environment.toTestUsers;
 
 @Component({ 
+  
   selector: 'and-register',
  
   templateUrl: 'register.component.html',
@@ -22,6 +24,7 @@ const TO_TEST_USER = true;
  })
 export class RegisterComponent implements OnInit ,OnDestroy{
 //IEFM<UserModel>{
+    readonly env = environment;
     form!: FormGroup;
     loading = false;
     submitted = false;
@@ -77,6 +80,7 @@ export class RegisterComponent implements OnInit ,OnDestroy{
 
 
     private _createRegisterForm() {
+      
 
       this.form =  new FormGroup({
         firstName: new FormControl<string>('', [
@@ -93,13 +97,13 @@ export class RegisterComponent implements OnInit ,OnDestroy{
         ]),
        
         passport: new FormControl('', [
-              LangValidator.required("passport"),
-              LangValidator.teudatZehut("passport"),
-            ]),
+          LangValidator.required("passport"),
+          LangValidator.teudatZehut("passport"),
+        ]),
         email: new FormControl('', [
             LangValidator.required("email"),
             LangValidator.email("email")
-           ]),
+          ]),
         phone:  new FormControl('', [
             LangValidator.required("phone"),
             LangValidator.number("phone",7,12)
@@ -120,25 +124,55 @@ export class RegisterComponent implements OnInit ,OnDestroy{
         ]),
       });
 
-      if(TO_TEST_USER){
-        this.f['firstName'].setValue('Avi') ;
-        this.f['lastName'].setValue('Cohen') ;
-        this.f['sysName'].setValue('avi1cohen') ;
-        this.f['password'].setValue('11111111') ;
-        this.f['passport'].setValue('999999998') ;
-        this.f['email'].setValue('avi1cohen@gmail.com') ;
-        this.f['phone'].setValue('05451111111') ;
-        this.f['address'].setValue('Hahistadrut 1/1 Petah Tikva') ;
-        this.f['ravkav'].setValue('111') ;
-        this.f['imagreeTerms'].setValue(true) ;
-        this.f['imagreePolicy'].setValue(true) ;
-
-      }
-           
            
     }
   
-    
+    async getAviKohen(){
+      this.form.reset();
+      try {
+        const  wideUser = await this.userSvc.retrieveWideUser$(false);
+        this._updateForm(wideUser);
+      
+      } catch (error) {
+        
+      }
+       
+        //this.userSvc.retrieveUsers$
+
+      
+   
+
+    }
+    async getRandomUser(){
+      this.form.reset();
+      try {
+        const  wideUser = await this.userSvc.retrieveWideUser$(true);
+        this._updateForm(wideUser);
+      
+      } catch (error) {
+        
+      }
+
+    }
+    _updateForm(wideUser: WideUserModel | undefined){
+      if(!!wideUser){
+
+ 
+        this.f['firstName'].setValue(wideUser.firstName) ;
+        this.f['lastName'].setValue(wideUser.lastName) ;
+        this.f['sysName'].setValue(wideUser.sysName) ;
+        this.f['password'].setValue(wideUser.password) ;
+        this.f['passport'].setValue(wideUser.passport) ;
+        this.f['email'].setValue(wideUser.email) ;
+        this.f['phone'].setValue(wideUser.phone) ;
+        this.f['address'].setValue(wideUser.address) ;
+        this.f['ravkav'].setValue(wideUser.ravkav) ;
+        this.f['imagreeTerms'].setValue(true) ;
+        this.f['imagreePolicy'].setValue(true) ;
+      }
+   
+
+    }
   
     OnSliderChange(evt:any,ctrlName:string){ //'imagreePolicy'
 
@@ -152,6 +186,7 @@ export class RegisterComponent implements OnInit ,OnDestroy{
       //console.log(c.name,c.touched);
      
     }
+
     private _onLangChange(v : TLangNames){
       //this change language for validation strings
      // LangValidator.Lang = v;
@@ -184,6 +219,7 @@ export class RegisterComponent implements OnInit ,OnDestroy{
 
     // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
+    get valid() {return this.form.valid;}
   // c(ctrlName:string) { return this.f[ctrlName] as FormControl; }
 
   getClasses(cname:string) {
@@ -225,8 +261,8 @@ export class RegisterComponent implements OnInit ,OnDestroy{
 
       
     } catch (error) {
-      this.alertSvc.error('' + error);
-        this.loading = false;
+      this.alertSvc.error('Submit Registration' + error);
+        
     }
     G.KeyboardVisible = false;
 

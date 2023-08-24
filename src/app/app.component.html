@@ -13,6 +13,7 @@
         <button class="btn btn-sm btn-primary me-1"  *ngIf="!IsKeyb" (click)="toShowKeyb()">show keyb</button>   
         <button class="btn btn-sm btn-primary me-1"  *ngIf="IsKeyb" (click)="toHideKeyb()">hide keyb</button>   
         <button class="btn btn-sm btn-primary me-1" (click)="toGo()"> GO</button> 
+     
         <ng-container  *ngIf="user">
             <button class="btn btn-link nav-item nav-link" (click)="gotoExit$()">Exit </button>
         </ng-container>
