@@ -10,7 +10,7 @@ import { UserModel } from '@app/_models';
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
     form!: FormGroup;
-    id?: string;
+   sysName?: string ;
     title!: string;
     loading = false;
     submitting = false;
@@ -25,7 +25,7 @@ export class AddEditComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.id = this.route.snapshot.params['id'];
+       // this.id = this.route.snapshot.params['id'];
 
         // form with validation rules
         this.form = this.formBuilder.group({
@@ -33,7 +33,7 @@ export class AddEditComponent implements OnInit {
             lastName: ['', Validators.required],
             sysName: ['', Validators.required],
             // password only required in add mode
-            password: ['', [Validators.minLength(6), ...(!this.id ? [Validators.required] : [])]]
+            password: ['', [Validators.minLength(6), ...(!this.sysName ? [Validators.required] : [])]]
         });
         this.title = 'Add Edit User';
      
@@ -42,10 +42,10 @@ export class AddEditComponent implements OnInit {
      
     }
     async _ngOnInit$(){
-        if (this.id) {
+        if (this.sysName) {
             try {
                 this.loading = true;
-                const user = await this.userSvc.getById$(+this.id);
+                const user = await this.userSvc.getUser(this.sysName);
                 if(user){
                     this.form.patchValue(user);
                     this.loading = false;

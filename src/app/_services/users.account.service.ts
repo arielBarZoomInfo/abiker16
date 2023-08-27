@@ -8,6 +8,7 @@ import { environment } from '@environments/environment';
 import { IUserModel, UserModel, WideUserModel } from '@app/_models';
 import { epg as E} from '@app/_interfaces/interfaces';
 import { NetService } from './net.service';
+import { GuardsCheckEnd } from '@angular/router';
 export const USER_STORAGE_KEY = 'abiker16-registration-login-user';
 //Global Variables for read from anonher sites
 export var GPage: E = E.eSelectLang;//!!!
@@ -30,8 +31,8 @@ export const GIUserAdmin :IUserModel = {
 @Injectable({ providedIn: 'root' })
 export class UsersAccountService {
  
-   private readonly mapUsers: Map<string,UserModel> = 
-    new Map<string,UserModel>();
+   private readonly mapUsers!: Map<string,UserModel>;// = 
+  //  new Map<string,UserModel>();
    
   
     public get epg() : E {
@@ -41,6 +42,7 @@ export class UsersAccountService {
        
     
     epg$: BehaviorSubject<E> = new BehaviorSubject<E>(GPage);
+    public get userValue(){return this.user$.value;}
   
    
     public user$: BehaviorSubject<UserModel | undefined> = new BehaviorSubject(GUser);
@@ -51,27 +53,29 @@ export class UsersAccountService {
         private http: HttpClient,
         private net: NetService
     ) {
+           this.mapUsers! = this.net.mapUsers;
+
        // const user = localStorage.getItem(USER_STORAGE_KEY);
        
-           // this.user$ = this.user$.asObservable();
+          //this.user$ = this.user$.asObservable();
       
 
     }
 
-    clearMap(){
-        this.mapUsers.clear();
+    // clearMap(){
+    //     this.mapUsers.clear();
 
        
-         if(GIUserAdmin){
-            const userAdmin = new UserModel(GIUserAdmin);
-            this.mapUsers.set(userAdmin.sysName,userAdmin);
+    //      if(GIUserAdmin){
+    //         const userAdmin = new UserModel(GIUserAdmin);
+    //         this.mapUsers.set(userAdmin.sysName,userAdmin);
 
-        }
+    //     }
 
-    }
+    // }
 //#region PERSIST
     async retrieveUsers$() {
-        this.clearMap();
+   //     this.clearMap();
         try {
             debugger;
             const _users:UserModel[]  = await lastValueFrom(
@@ -146,35 +150,7 @@ export class UsersAccountService {
         // }  
     }
 
-    async saveUsers$() {
-        const _users:UserModel[]  = [...this.mapUsers.values()];
-        const _json = JSON.stringify(_users);
-
-     
-        try {
-            const nav = (window.navigator as any);
-              
-            const blob = new Blob([_json], {type: 'text'});
-
-            if(nav.msSaveOrOpenBlob) {
-                (window.navigator as any).msSaveBlob(blob, environment.fileUsers);
-            }
-            else{
-                const elem = window.document.createElement('a');
-                elem.href = window.URL.createObjectURL(blob);
-                elem.download = environment.fileUsers;        
-                document.body.appendChild(elem);
-                elem.click();        
-                document.body.removeChild(elem);
-            }
-           
-
-           console.log(_users)
-            
-        } catch (error) {
-            console.error(error);
-        }  
-    }
+  
 //#endregion
 
  //#region PAGES
@@ -215,41 +191,45 @@ export class UsersAccountService {
 
 //#region API
 
-    public get userValue() {
-        return GUser;
-    }
+
 
     //
     public getUser(sysName: string):UserModel | undefined {
-        
-        const _user = this.mapUsers.get(sysName) ;
+       
+        const _user =(sysName !== 'admin') ?
+            this.mapUsers.get(sysName) :
+            new UserModel(GIUserAdmin);
         return _user;
     }
+    async login$(sysName:string,password:string) : Promise<UserModel | undefined>{
+        sysName = sysName.toLowerCase();
+        GUser = this.getUser(sysName);//FromSQL ????
+        // if(!!GUser){
+        //     GUser.token='OK';
+        //     if(sysName == 'admin' ){
+        //         GUser.token
+        //         return GUser;
+        //     }
+        //     else if(!!GUser && GUser.password == password ){
+                
+        //     }
+        
+        // }
+
+          // let authorized =  GUser?.password == password;
+       
+        return GUser;//null if userisn't exists 
+ 
+    }
+
 
     async saveUser$(user:UserModel) {
         user.sysName = user.sysName.toLowerCase();
-        const _wasUser = this.mapUsers.get(user.sysName);
-        this.mapUsers.set(user.sysName,user);
-         if(!_wasUser){
-            ;//TBD put User in SQL
-        }
-
+        await this.net.saveUser$(user);
         this.user$.next(GUser = user);
    
     }
 
-    async login$(sysName:string,password:string) : Promise<UserModel | undefined>{
-        sysName = sysName.toLowerCase();
-        GUser = this.getUser(sysName);
-       
-        if(!!GUser && GUser.password == password ){
-            GUser.token='OK';
-        }
-       // let authorized =  GUser?.password == password;
-       
-         return GUser;
- 
-    }
     // async gotoExit$(){
     //     // remove user from local storage and set current user to null
     //     //localStorage.removeItem(USER_STORAGE_KEY);
@@ -263,21 +243,23 @@ export class UsersAccountService {
 
 
     async getAll$(): Promise<UserModel[]> {
-        return [...this.mapUsers.values()];
+        const users = await this.net.retrieveUsers$();
+        return users;
        
        
     }
 
-    async getById$(id: number):Promise<UserModel | undefined> {
-        const ret = [...this.mapUsers.values()].find(u=>+u.id === id);
-        return ret;
-    }
+    // async getById$(id: number):Promise<UserModel | undefined> {
+    //     const ret = [...this.mapUsers.values()].find(u=>+u.id === id);
+    //     return ret;
+    // }
    
     async delete$(sysName: string) {
         const user = await this.getUser(sysName);
         if(!!user && !user.IsAdmin){
             this.mapUsers.delete(sysName);
             //TBD send SQL UPDATE
+            await this.net.saveUsers$();
             return true;
         }
         return false;

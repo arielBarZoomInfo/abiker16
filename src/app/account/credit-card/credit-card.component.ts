@@ -222,7 +222,7 @@ export class CreditCardComponent
     
     const hash = this.paymentForm.value;
     this.model = {...hash};
-    debugger;
+    //debugger;
     
     Object.entries(hash).forEach(entry => {
       const [key, value] = entry;

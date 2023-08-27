@@ -80,6 +80,16 @@ export class RegisterComponent implements OnInit ,OnDestroy{
 
 
     private _createRegisterForm() {
+      debugger;
+      //If was Login
+      let _sysName='';
+      let _password='';
+      let __user = this.userSvc.userValue;
+      
+      if(__user){
+        _sysName = __user.sysName;
+        _password=__user.password;
+      }
       
 
       this.form =  new FormGroup({
@@ -89,10 +99,10 @@ export class RegisterComponent implements OnInit ,OnDestroy{
         lastName: new FormControl<string>('', [
           LangValidator.required("lastName")
         ]),
-        sysName: new FormControl<string>('', [
+        sysName: new FormControl<string>(_sysName, [
           LangValidator.required("sysName")
         ]),
-        password: new FormControl<string>('', [
+        password: new FormControl<string>(_password, [
           LangValidator.required("password")
         ]),
        

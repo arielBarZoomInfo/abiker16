@@ -11,7 +11,8 @@ implements OnInit , AfterViewInit, OnDestroy{
 
   private subs:Subscription[] = [];
   private inpits:HTMLInputElement[] = [];
-  @Output() onExitInput: EventEmitter<string> = new EventEmitter<string>();
+  @Output() onExitInput: EventEmitter<string> = 
+    new EventEmitter<string>();
  
   constructor(private hostElt: ElementRef,
     public renderer: Renderer2
@@ -40,6 +41,11 @@ implements OnInit , AfterViewInit, OnDestroy{
   
     let str = this.inpits.map(p=>p.name).join();
     console.log("Inputs:"+str);
+    if(this.inpits.length > 0){
+      this.inpits[0].focus();
+    }
+  //  const ctrl =  this.searchNewFocus(cname);
+
 
   }
 
@@ -52,6 +58,7 @@ implements OnInit , AfterViewInit, OnDestroy{
   OnKeyEnter(intr:string='??'): void { 
     const cname: string = G.AttachedControlName;
    if(cname.length > 0){
+   // debugger;
     this.onExitInput.emit(cname);
  
     const ctrl =  this.searchNewFocus(cname);
@@ -68,6 +75,9 @@ implements OnInit , AfterViewInit, OnDestroy{
      return null;
    }
    let i = 0;
+   if(cname.length <= 0){
+    return this.inpits[0];
+   }
    for (  ;i < len ;i++) {
      const element = this.inpits[i];
      if(element.name === cname){

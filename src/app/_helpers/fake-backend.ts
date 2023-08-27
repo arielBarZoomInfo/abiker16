@@ -2,6 +2,8 @@
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, materialize, dematerialize } from 'rxjs/operators';
+import { environment } from '@environments/environment';
+import { UserModel } from '@app/_models';
 
 // array in local storage for registered users
 export const USERS_STORAGE_KEY = 'abiker16-registration-login-users';
@@ -16,18 +18,20 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         function handleRoute() {
             switch (true) {
-                case url.endsWith('/users/authenticate') && method === 'POST':
-                    return authenticate();
-                case url.endsWith('/users/register') && method === 'POST':
-                    return register();
-                case url.endsWith('/users') && method === 'GET':
-                    return getUsers();
-                case url.match(/\/users\/\d+$/) && method === 'GET':
-                    return getUserById();
-                case url.match(/\/users\/\d+$/) && method === 'PUT':
-                    return updateUser();
-                case url.match(/\/users\/\d+$/) && method === 'DELETE':
-                    return deleteUser();
+                case url.endsWith('/api/users/export') && method === 'POST':
+                    return exportUsers$();
+               // case url.endsWith('/users/authenticate') && method === 'POST':
+                //     return authenticate();
+                // case url.endsWith('/users/register') && method === 'POST':
+                //     return register();
+                // case url.endsWith('/users') && method === 'GET':
+                //     return getUsers();
+                // case url.match(/\/users\/\d+$/) && method === 'GET':
+                //     return getUserById();
+                // case url.match(/\/users\/\d+$/) && method === 'PUT':
+                //     return updateUser();
+                // case url.match(/\/users\/\d+$/) && method === 'DELETE':
+                //     return deleteUser();
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -35,6 +39,39 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         // route functions
+        function exportUsers$() {
+       
+         
+            try {
+                const _users:UserModel[]  = (body ?? []) as UserModel[];
+                const _json = JSON.stringify(_users);
+                 const nav = (window.navigator as any);
+                  
+                const blob = new Blob([_json], {type: 'text'});
+    
+                if(nav.msSaveOrOpenBlob) {
+                    (window.navigator as any).msSaveBlob(blob, environment.fileUsers);
+                }
+                else{
+                    const elem = window.document.createElement('a');
+                    elem.href = window.URL.createObjectURL(blob);
+                    elem.download = environment.fileUsers;        
+                    document.body.appendChild(elem);
+                    elem.click();        
+                    document.body.removeChild(elem);
+                }
+               
+    
+               console.log(_users);
+               return ok();
+                
+            } catch (err:any) {
+                console.error(err);
+                return error(err.toString());
+            }  
+        }
+    
+
 
         function authenticate() {
             const { sysName, password } = body;

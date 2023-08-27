@@ -1,16 +1,18 @@
 ﻿<div class="card">
-    <h4 class="card-header">Login</h4>
+    <h4 class="card-header">Update Credit Card</h4>
     <div class="card-body">
-        <form form2keyb [formGroup]="form" (ngSubmit)="onSubmit()">
+        <form form2keyb [formGroup]="form" (ngSubmit)="onSubmit()"
+        (onExitInput)="onExitInput($event)">
             <div class="mb-3">
                 <label class="form-label">Username</label>
                 <input to-keyb type="text" formControlName="sysName" 
                          class="form-control" 
-                    [ngClass]="{ 'is-invalid': submitted && f['sysName'].errors }" />
-                <div *ngIf="submitted && f['sysName'].errors" class="invalid-feedback">
-                    <div *ngIf="f['sysName'].errors['required']">Username is required</div>
+                    [ngClass]="{ 'is-invalid': submitted && f['sysName'].errors }"
+                    />
+                    <div *ngIf="submitted && f['sysName'].errors" class="invalid-feedback">
+                        <div *ngIf="f['sysName'].errors['required']">Username is required</div>
+                    </div>
                 </div>
-            </div>
             <div class="mb-3">
                 <label class="form-label">Password</label>
                 <input to-keyb type="password" formControlName="password" class="form-control" 
@@ -20,12 +22,20 @@
                 </div>
             </div>
             <div>
-                <button [disabled]="loading" class="btn btn-primary">
+                <button *ngIf="!toRegistrate" class="btn btn-primary"
+                    tabindex="-1" type="submit">
                     <span *ngIf="loading" 
                     class="spinner-border spinner-border-sm me-1"></span>
-                    Login
+                    Update Card
                 </button>
-                <a routerLink="../register" class="btn btn-link">Register</a>
+                <button *ngIf="toRegistrate" class="btn btn-primary"
+                    tabindex="-1" type="button" (click)="gotoRegistrate()">
+                    <span *ngIf="loading" 
+                    class="spinner-border spinner-border-sm me-1"></span>
+                    Registrate User
+                </button>
+
+                <!-- <a routerLink="../register" class="btn btn-link">Register</a> -->
             </div>
         </form>
     </div>

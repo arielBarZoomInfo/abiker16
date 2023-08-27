@@ -2,22 +2,20 @@
 import { HttpClient } from '@angular/common/http';
 import { ReadPropExpr, ReturnStatement } from '@angular/compiler';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { CreditCardModel, UserModel, WideUserModel } from '@app/_models';
-import { environment as env} from '@environments/environment';
+import { UserModel, WideUserModel } from '@app/_models';
+import { environment as env, environment} from '@environments/environment';
 import { lastValueFrom } from 'rxjs';
-const IS_MOCK = true;;
-
+const IS_MOCK = true;
+const  GMapUsers = new Map<string,UserModel>();
+const STORE_PREFIX = "NetService-APosholTy"
+const STORE_MAP  = STORE_PREFIX + '+map';
 @Injectable({
   providedIn: 'root'
 })
 
 export class NetService {
-  // readonly mapUsers = new Map<string,UserModel>();
-  // readonly storePrefix = "NetService-APosholTy"
-  // readonly storeMap = this.storePrefix + '+map';
-  // readonly storeUser = this.storePrefix + '+user';
-
+   public readonly mapUsers =  GMapUsers;
+ 
   
   private _User : UserModel | undefined;
   public get UserModel() : UserModel | undefined{
@@ -29,9 +27,11 @@ export class NetService {
   
 
   constructor(
-    private router: Router,
+  //  private router: Router,
     private http: HttpClient
-  ) { }
+  ) { 
+
+  }
 
   async getRandomUser$(){
    
@@ -68,21 +68,76 @@ export class NetService {
   //   return max.toString();//.
 
   // }
-  // async saveMap(){
+  // async saveMUsers(){
     
-  //  const json =  JSON.stringify(Object.fromEntries(this.mapUsers));
-  //  //TBD save User Map
-  // // localStorage.setItem(this.storeMap ,json );
-  //   // const map1 = new Map(Object.entries(JSON.parse(this.json)));
-  // }
+  //   const json =  JSON.stringify(Object.fromEntries(this.mapUsers));
+  //   //TBD save User Map
+  //   localStorage.setItem(STORE_MAP ,json );
+  //    // const map1 = new Map(Object.entries(JSON.parse(this.json)));
+  //  }
+  clearMap(){
+        this.mapUsers.clear();
 
-  // getById(id:string){
-  //   return [...this.mapUsers.values()].find(u=>u.id == id);
-  // }
+       
+      
 
-  // getBySysName(sysName: string):  UserModel | undefined{
-  //   return this.mapUsers.get(sysName);
-  // }
+  }
+
+  async saveUsers$(){
+    const arrUsers = [...this.mapUsers.values()] ?? [];
+    const arr1  = Object.fromEntries(this.mapUsers);
+    console.log(arr1);
+    
+    const json =  JSON.stringify(arrUsers);
+    //TBD save User Map
+    localStorage.setItem(STORE_MAP ,json );
+    // const map1 = new Map(Object.entries(JSON.parse(this.json)));
+  }
+
+  async saveUser$(user:UserModel):Promise<boolean>{
+    //const arrUsers = [...this.mapUsers.values()] ?? [];
+    let ft = this.mapUsers.has(user.sysName);
+    this.mapUsers.set(user.sysName,user);
+    await this.saveUsers$();
+    
+    return ft;
+  
+   
+  }
+
+  async exportUsers$(){
+    const arrUsers = [...this.mapUsers.values()] ?? [];
+    try {
+      const req = this.http.post<UserModel[]>
+      (`${environment.apiUrl}/api/users/export`, arrUsers);
+  
+    } catch (error) {
+      console.log(error)
+    }
+
+      
+
+  }
+  
+  async retrieveUsers$ (): Promise<UserModel[]>{
+    try {
+      const arrUsersStr = localStorage.getItem(STORE_MAP) ?? '[]';
+      const arrUsers: UserModel[] =  JSON.parse(arrUsersStr) ?? [];
+      return arrUsers;
+      
+    } catch (error) {
+      console.error(error);
+    }
+    return [];
+  
+   // const map1 = new Map(Object.entries(JSON.parse(this.json)));
+  }
+
+
+
+  getUser(sysName: string):  UserModel | undefined{
+    return this.mapUsers.get(sysName);
+  }
 
   // async netLogin$(sysName: string, password: string):Promise<IUserNet>
   // {
