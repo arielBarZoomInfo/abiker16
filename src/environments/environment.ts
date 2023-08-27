@@ -9,7 +9,7 @@ export const environment = {
     fileUsers:  "users.json",
     isMOK:true,
     toTestUsers:true,
-    toBlurKey:false
+    toBlurKey:true
 };
 
 /*

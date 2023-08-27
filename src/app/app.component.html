@@ -1,9 +1,11 @@
 ﻿<!-- nav --> 
 <nav class="navbar navbar-expand navbar-dark bg-dark px-3" *ngIf="true || user">
-    <div class="navbar-nav">   
+    <div class="navbar-nav"> 
+        <button lass="btn btn-sm btn-primary me-1">BlurKey={{env.toBlurKey}}</button>  
+        <button lass="btn btn-sm btn-primary me-1">conf = {{env.production?'prod':'develop'}}</button>  
         <!-- <a class="nav-item nav-link" routerLink="/" routerLinkActive="active"
              [routerLinkActiveOptions]="{exact: true}">Home</a> -->
-        <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>
+        <!-- <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a> -->
         <button class="btn nav-item nav-link" (click)="setLang('en')">English</button>
         <button class="btn nav-item nav-link" (click)="setLang('he')">עברית</button>
         <button class="btn nav-item nav-link" (click)="setLang('ru')">Русский</button>

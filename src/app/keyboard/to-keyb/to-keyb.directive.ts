@@ -15,7 +15,7 @@ import { environment } from '@environments/environment';
 const TO_LOG_INIT = true;
 const TO_LOG_ATTACH = true;
 const TO_LOG_DETACH = true;
-const TO_BLUR = true;
+const TO_BLUR = environment.toBlurKey;
 
 @Directive({
   selector: '[to-keyb]'
