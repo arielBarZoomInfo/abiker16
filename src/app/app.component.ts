@@ -7,6 +7,8 @@ import { Subscription, lastValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { epg  } from '@app/_interfaces/interfaces';
 import { environment } from '@environments/environment';
+import { FirebaseService } from './_services/firebase.service';
+import { Firestore, doc, getDoc } from 'firebase/firestore';
  
 
 
@@ -23,6 +25,13 @@ export class AppComponent  implements OnInit, OnDestroy{
     get page() {return GPage};
     ref = G.ref;
     readonly subs:Subscription[] = [];
+
+    constructor(private userSvc: UsersAccountService,
+        private fire:FirebaseService,
+        private http: HttpClient ) {
+        this.subs.push(this.userSvc.user$.subscribe(x => this.user = x));
+    }
+
     
   
     public get IsKeyb() : boolean {
@@ -33,11 +42,7 @@ export class AppComponent  implements OnInit, OnDestroy{
     }
     
 
-    constructor(private userSvc: UsersAccountService,
-    private http: HttpClient ) {
-        this.subs.push(this.userSvc.user$.subscribe(x => this.user = x));
-    }
-    ngOnDestroy(): void {
+      ngOnDestroy(): void {
         this.subs.forEach(u=>u.unsubscribe());
         
     }
@@ -64,12 +69,74 @@ export class AppComponent  implements OnInit, OnDestroy{
         G.setLang(lang);
     }
   
+
+    async toFireSave(){
+      
+       
+        if(!this.fire.wasOpen){
+            const ft = await this.fire.createDb();
+          
+            console.log(this.fire.store?.toJSON ?? 'error FireBase');
+    
+        }
+        if(!!this.fire.store){
+            let avi = this.AviKohen;
+            let str = await this.fire.storeUser(avi);
+            console.log(str);
+          
+
+         }
+
+    
+    }    
+    async toFireGet(){
+        const ft = await this.fire.createDb();
+       
+    
+        const docRef = doc(this.fire.store, "cities", "SF");
+        const docSnap = await getDoc(docRef);
+
+       
+       
+        if(!this.fire.wasOpen){
+            const ft = await this.fire.createDb();
+          
+            console.log(this.fire.store?.toJSON ?? 'error FireBase');
+    
+        }
+        if(!!this.fire.store){
+              
+            let data = await this.fire.retrieveUser(this.AviKohen.sysName);
+            console.log(data);
+         }
+
+    
+    }
+    get AviKohen(){
+        let m:any = {};
+                
+     
+        m.firstName='Avi' ;
+        m.lastName = 'Cohen';
+        m.sysName = 'avi1cohen';
+        m.password = '11111111';
+        m.passport = '999999998';
+        m.email = 'avi1cohen@gmail.com';
+        m.phone = '05451111111';
+        m.address = 'Hahistadrut 1/1 Petah Tikva  , Israel';
+        m.ravkav = '111';
+        m.imagreeTerms = true;
+        m.imagreePolicy = true;
+        let wideUser: UserModel =  new UserModel(m);
+        return wideUser;
+    
+      }
     async toGo(){
         try {
           //  debugger;
-            const data:any[]  = await lastValueFrom(this.http.get<any[]>('assets/employees.json', { responseType:'json' }));
+            // const data:any[]  = await lastValueFrom(this.http.get<any[]>('assets/employees.json', { responseType:'json' }));
 
-                 console.log(data)
+            //      console.log(data)
             
         } catch (error) {
             console.error(error);
