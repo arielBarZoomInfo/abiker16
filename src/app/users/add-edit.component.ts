@@ -7,7 +7,10 @@ import { UsersAccountService, AlertService } from '@app/_services';
 import { lastValueFrom } from 'rxjs';
 import { UserModel } from '@app/_models';
 
-@Component({ templateUrl: 'add-edit.component.html' })
+@Component({ 
+    templateUrl: 'add-edit.component.html',
+    selector: 'and-add-edit-component',
+})
 export class AddEditComponent implements OnInit {
     form!: FormGroup;
    sysName?: string ;

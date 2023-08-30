@@ -96,7 +96,7 @@ export class CreditCardComponent
 
       this._onLangChange(G.Lang,false);// don't validate
       this.IntializePaymentForm();
-      G.KeyboardVisible = true;
+     // G.KeyboardVisible = true;
     }
   
     // ngOnDestroy(){

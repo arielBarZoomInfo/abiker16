@@ -26,8 +26,7 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+               "src/assets"
             ],
             "styles": [
               "src/styles.scss"
@@ -89,8 +88,7 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+               "src/assets"
             ],
             "styles": [
               "src/styles.scss"

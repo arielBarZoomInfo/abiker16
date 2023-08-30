@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 //import { GKeybLanGlobal as G} from '@app/_globals/keyb-lang.global';
 import { UsersAccountService } from '@app/_services';
 import { epg as E} from '@app/_interfaces/interfaces';
@@ -10,11 +10,12 @@ import { Subscription } from 'rxjs';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss']
 })
-export class HomePageComponent implements OnDestroy{
+export class HomePageComponent implements OnInit,OnDestroy,AfterViewInit{
   E = E;
  // ref = G.ref;
  // get Lang() {return this.ref.lang}
  // svc = this.accSvc;
+ @ViewChild('myDialog') myDialog!: ElementRef<HTMLDialogElement>;
   page!: E;
  
   // get IsSelectLang() {return this.page == E.eSelectLang;}
@@ -31,6 +32,23 @@ export class HomePageComponent implements OnDestroy{
       e=> this.page = e
       );
 
+  }
+
+  get isDialogOpen(){
+    return this.myDialog?.nativeElement.open === true;
+  }
+  myDialogClose(){
+    
+    this.myDialog.nativeElement.close();
+  }
+  myDialogShow(){
+    this.myDialog.nativeElement.showModal();
+  }
+  ngAfterViewInit(): void {
+    //debugger;
+  }
+  ngOnInit(): void {
+   
   }
   ngOnDestroy(): void {
     this.subs?.unsubscribe();

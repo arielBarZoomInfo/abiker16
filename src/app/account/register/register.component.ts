@@ -80,7 +80,7 @@ export class RegisterComponent implements OnInit ,OnDestroy{
 
 
     private _createRegisterForm() {
-      debugger;
+      //debugger;
       //If was Login
       let _sysName='';
       let _password='';

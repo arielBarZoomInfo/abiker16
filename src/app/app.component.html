@@ -1,8 +1,8 @@
 ﻿<!-- nav --> 
 <nav class="navbar navbar-expand navbar-dark bg-dark px-3" *ngIf="true || user">
     <div class="navbar-nav"> 
-        <button lass="btn btn-sm btn-primary me-1">BlurKey={{env.toBlurKey}}</button>  
-        <button lass="btn btn-sm btn-primary me-1">conf = {{env.production?'prod':'develop'}}</button>  
+        <button class="btn btn-sm btn-primary me-1">BlurKey={{env.toBlurKey}}</button>  
+        <button class="btn btn-sm btn-primary me-1">conf = {{env.production?'prod':'develop'}}</button>  
         <!-- <a class="nav-item nav-link" routerLink="/" routerLinkActive="active"
              [routerLinkActiveOptions]="{exact: true}">Home</a> -->
         <!-- <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a> -->
@@ -14,7 +14,8 @@
        
         <button class="btn btn-sm btn-primary me-1"  *ngIf="!IsKeyb" (click)="toShowKeyb()">show keyb</button>   
         <button class="btn btn-sm btn-primary me-1"  *ngIf="IsKeyb" (click)="toHideKeyb()">hide keyb</button>   
-        <button class="btn btn-sm btn-primary me-1" (click)="toGo()"> GO</button> 
+        <button class="btn btn-sm btn-primary me-1" (click)=" toFireSave()">Fire Save Avi </button> 
+        <button class="btn btn-sm btn-primary me-1" (click)="toFireGet()">Fire Get</button> 
      
         <ng-container  *ngIf="user">
             <button class="btn btn-link nav-item nav-link" (click)="gotoExit$()">Exit </button>

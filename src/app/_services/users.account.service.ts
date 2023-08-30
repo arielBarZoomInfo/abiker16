@@ -14,7 +14,6 @@ export const USER_STORAGE_KEY = 'abiker16-registration-login-user';
 export var GPage: E = E.eSelectLang;//!!!
 export var GUser: UserModel | undefined = undefined;
 export const GIUserAdmin :IUserModel = {
-    id:'999999998',
     sysName: 'admin',
     password: '1111',
     name: 'admin bikebox',
@@ -77,7 +76,7 @@ export class UsersAccountService {
     async retrieveUsers$() {
    //     this.clearMap();
         try {
-            debugger;
+            
             const _users:UserModel[]  = await lastValueFrom(
                     this.http.get<UserModel[]>(environment.fileUsers, { responseType:'json' }));
         

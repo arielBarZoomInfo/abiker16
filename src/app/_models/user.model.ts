@@ -2,7 +2,7 @@
 import { CreditCardModel } from "./credit-card.model";
 
 export interface IUserModel {
-    id:string;
+    //id:string;
     sysName: string;
     password: string;
     name: string;
@@ -20,7 +20,7 @@ export class UserModel implements IUserModel {
     name: string = '';
     email:string='';
     passport:string = '';
-
+    date:string = '';
     //!!! tokef in format DD/YY
   //  tokef:string = '';
     
@@ -36,6 +36,7 @@ export class UserModel implements IUserModel {
     //!!! Token have been received after server authorization 
     token: string='';
     constructor(data:any | undefined = undefined){
+        
         if(data){
             this.id = ('' + data.passport);
             this.sysName = ('' + data.sysName).toLowerCase();
@@ -44,11 +45,22 @@ export class UserModel implements IUserModel {
             this.email = '' + data.email ;
             this.name=data?.name ?? 
                 ('' + data.firstName + ' ' + data.lastName).trim();
-            this.token = '' + data.token ;
-            this.tokef = '' + data.tokef  ;
+            this.token =  data.token ?? '';
+            this.tokef = data.tokef ?? '' ;
+             let sdate = data.date?.toString() ?? '';// input string
+             if(sdate.length >= 8)
+                this.date = sdate ;
+            else
+                this.date = this.Now;
                      
         }
         
+    }
+    get Now():string{
+        const d = new Date();
+        return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDay()} `+
+        `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
+    
     }
     get IsAuthorized() {return this.token.length >= 2};
     private _IsCardValid: boolean = false;
@@ -60,12 +72,12 @@ export class UserModel implements IUserModel {
     public testTokef(tokef:string){
         
       
-        if(tokef.length !== 5 && tokef[2] !== '/' ) return true;
+        if(tokef.length !== 5 && tokef[2] !== '/' ) return false;
         let arr = tokef.split('/');
-        if(arr.length < 2) return true;
+        if(arr.length < 2) return false;
         let month = +(arr[0].toString());
                 month--;
-        if(month < 0 || month > 11) return true;
+        if(month < 0 || month > 11) return false;
                     
         let year = +(arr[1].toString()) % 100;
             year = (year + 2000);
