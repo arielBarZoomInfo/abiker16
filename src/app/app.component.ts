@@ -4,11 +4,11 @@ import { UserModel } from './_models';
 import { GKeybLanGlobal  as G} from '@app/_globals/keyb-lang.global';
 import { TLangNames } from './_interfaces/interfaces';
 import { Subscription, lastValueFrom } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+//import { HttpClient } from '@angular/common/http';
 import { epg  } from '@app/_interfaces/interfaces';
 import { environment } from '@environments/environment';
 
-import { Firestore, doc, getDoc } from 'firebase/firestore';
+//import { Firestore, doc, getDoc } from 'firebase/firestore';
 import { FirebaseService } from './_persistancy/firebase.service';
  
 

@@ -21,9 +21,11 @@
             <button type="button" class="btn btn-success btn-set-lang"
                 [ngClass]="{'btn-set-lang-selected': Lang === 'ar'}"
                 (click)="setLanguage('ar')">عربي</button>
+            <ng-container *ngIf="env.isRussian">
             <button type="button" class="btn btn-success btn-set-lang"
                 [ngClass]="{'btn-set-lang-selected': Lang === 'ru'}"
                 (click)="setLanguage('ru')">Русский</button>
+            </ng-container>
         </div>
         <div class="col-1">
         

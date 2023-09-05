@@ -2,6 +2,8 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } fr
 //import { GKeybLanGlobal as G} from '@app/_globals/keyb-lang.global';
 import { UsersAccountService } from '@app/_services';
 import { epg as E} from '@app/_interfaces/interfaces';
+import { environment } from '@environments/environment';
+
 import { Subscription } from 'rxjs';
 
 
@@ -12,6 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class HomePageComponent implements OnInit,OnDestroy,AfterViewInit{
   E = E;
+  env=environment;
  // ref = G.ref;
  // get Lang() {return this.ref.lang}
  // svc = this.accSvc;

@@ -4,6 +4,8 @@ import { TLangNames } from '@app/_interfaces/interfaces';
 import { Subscription } from 'rxjs';
 import { GKeybLanGlobal as G} from '@app/_globals/keyb-lang.global';
 import { UsersAccountService } from '@app/_services';
+import { environment } from '@environments/environment';
+
 
 @Component({
   selector: 'and-select-language',
@@ -12,6 +14,7 @@ import { UsersAccountService } from '@app/_services';
 })
 export class SelectLanguageComponent 
 implements OnInit ,OnDestroy{
+  env=environment;
 
   @Input() Lang: TLangNames = G.Lang;
   @Input() Height:string = '80px';

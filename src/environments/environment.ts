@@ -4,6 +4,7 @@
 
 export const environment = {
     production: false,
+    version: '1.1.1',
     apiUrl: 'http://localhost:4000',
     apiRandomUser: 'http://randomuser.me/api',
     fileUsers:  "users.json",
@@ -11,7 +12,10 @@ export const environment = {
     toTestUsers:true,
     toBlurKey:false,
     storePrefix : 'storeUserAbiber16',
-    storeMap  :  'storeUserAbiber16-map' 
+    storeMap  :  'storeUserAbiber16-map', 
+    isRussian: false,
+
+
 };
 
 /*

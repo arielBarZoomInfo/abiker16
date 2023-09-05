@@ -1,14 +1,16 @@
 ﻿<!-- nav --> 
 <nav class="navbar navbar-expand navbar-dark bg-dark px-3" *ngIf="true || user">
     <div class="navbar-nav"> 
-        <button class="btn btn-sm btn-primary me-1">BlurKey={{env.toBlurKey}}</button>  
-        <button class="btn btn-sm btn-primary me-1">conf = {{env.production?'prod':'develop'}}</button>  
+        <!-- <button class="btn btn-sm btn-primary me-1">BlurKey={{env.toBlurKey}}</button>   -->
+        <button class="btn nav-item nav-link">ver{{env.version}}</button>  
         <!-- <a class="nav-item nav-link" routerLink="/" routerLinkActive="active"
              [routerLinkActiveOptions]="{exact: true}">Home</a> -->
         <!-- <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a> -->
         <button class="btn nav-item nav-link" (click)="setLang('en')">English</button>
         <button class="btn nav-item nav-link" (click)="setLang('he')">עברית</button>
-        <button class="btn nav-item nav-link" (click)="setLang('ru')">Русский</button>
+        <ng-container *ngIf="env.isRussian">
+            <button class="btn nav-item nav-link" (click)="setLang('ru')">Русский</button>
+        </ng-container>
         <button class="btn nav-item nav-link" (click)="setLang('ar')">عربي</button>
         <button class="btn nav-item nav-link">{{ref.lang}}</button>
        
