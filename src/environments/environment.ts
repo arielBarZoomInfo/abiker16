@@ -9,7 +9,9 @@ export const environment = {
     fileUsers:  "users.json",
     isMOK:true,
     toTestUsers:true,
-    toBlurKey:false
+    toBlurKey:false,
+    storePrefix : 'storeUserAbiber16',
+    storeMap  :  'storeUserAbiber16-map' 
 };
 
 /*

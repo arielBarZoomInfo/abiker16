@@ -42,7 +42,7 @@ export class NetService {
   
       data.firstName = r.name.first ;
       data.lastName = r.name.last;
-      data.sysName = r.login.username;
+      data.sysname = r.login.username;
       data.password = r.login.password;
       data.passport = '999999998';
       data.email = r.email;
@@ -96,8 +96,8 @@ export class NetService {
 
   async saveUser$(user:UserModel):Promise<boolean>{
     //const arrUsers = [...this.mapUsers.values()] ?? [];
-    let ft = this.mapUsers.has(user.sysName);
-    this.mapUsers.set(user.sysName,user);
+    let ft = this.mapUsers.has(user.sysname);
+    this.mapUsers.set(user.sysname,user);
     await this.saveUsers$();
     
     return ft;
@@ -135,26 +135,26 @@ export class NetService {
 
 
 
-  getUser(sysName: string):  UserModel | undefined{
-    return this.mapUsers.get(sysName);
+  getUser(sysname: string):  UserModel | undefined{
+    return this.mapUsers.get(sysname);
   }
 
-  // async netLogin$(sysName: string, password: string):Promise<IUserNet>
+  // async netLogin$(sysname: string, password: string):Promise<IUserNet>
   // {
   //    try {
   //     let user: UserModel | undefined;
   //     if(IS_MOCK){
-  //       user = this.mapUsers.get(sysName);
+  //       user = this.mapUsers.get(sysname);
    
   //     } else {
-  //       const req = this.http.post<UserModel>(`${environment.apiUrl}/users/authenticate`, { sysName, password });
+  //       const req = this.http.post<UserModel>(`${environment.apiUrl}/users/authenticate`, { sysname, password });
   //       user = await lastValueFrom(req);
     
   //     }
 
   //     if(user){
   //       if(user.password == password){
-  //         this.mapUsers.set(sysName,user);
+  //         this.mapUsers.set(sysname,user);
   //         await this.saveMap();
   //         return {user:user,error:undefined};
   //       } else {
@@ -185,8 +185,8 @@ export class NetService {
   //         //TO SQL save user
     
   //       }
-  //       if( user.sysName){
-  //         this.mapUsers.set( user.sysName,user);
+  //       if( user.sysname){
+  //         this.mapUsers.set( user.sysname,user);
   //         //await this.saveMap();
   
   //       }
@@ -200,14 +200,14 @@ export class NetService {
   //    }
   // }
 
-  // async updateCreditCard(sysName: string, creditCard: CreditCardModel): Promise<IUserNet> {
+  // async updateCreditCard(sysname: string, creditCard: CreditCardModel): Promise<IUserNet> {
     
   //   if(IS_MOCK){
-  //     const user =  this.getBySysName(sysName);
+  //     const user =  this.getBySysName(sysname);
   //       if(!!user ){
   //         user.creditCard = {...creditCard};
-  //         if(user.sysName){
-  //           this.mapUsers.set(user.sysName,user );
+  //         if(user.sysname){
+  //           this.mapUsers.set(user.sysname,user );
   //           this.saveMap()
   //         }
            
@@ -250,8 +250,8 @@ export class NetService {
   //         user1 = await lastValueFrom(req);
     
   //       }
-  //       if( user1.sysName){
-  //         this.mapUsers.set( user1.sysName,user1);
+  //       if( user1.sysname){
+  //         this.mapUsers.set( user1.sysname,user1);
   //         await this.saveMap();
   
   //       }

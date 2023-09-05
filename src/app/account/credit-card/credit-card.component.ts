@@ -218,19 +218,21 @@ export class CreditCardComponent
 
   }
   
-  saveCardDetails(){    
+  async saveCardDetails(){    
     
     const hash = this.paymentForm.value;
     this.model = {...hash};
+   
     //debugger;
     
     Object.entries(hash).forEach(entry => {
       const [key, value] = entry;
       console.log(key, value);
     });
-
+    const tokef = this.model['tokef'];
     this.isSubmitted= true;
     const ft = this.tokef2date();
+    let user = this.user;
 
     if(ft && this.paymentForm.valid){
       this.cardType = 'Visa';//this.getCardType(this.paymentmodel.cardNumber)
@@ -238,6 +240,24 @@ export class CreditCardComponent
        + (this.model?.cardYear ?? '0'))
       if(this.cardValidate)
         this.cardDetailsValidate = true;
+      
+        this.user.tokef = tokef;
+        try {
+          await this.userSvc.saveUser$(this.user,true);
+  
+          this.alertSvc.success(
+            `Your egistration succeded tokef=${tokef}`,
+            {autoClose:true,keepAfterRouteChange:true});
+        } catch (err) {
+          this.alertSvc.error('' + err);
+        }
+
+      ///!!! Here to call Card Service
+    
+  
+    
+  
+      
     }
     else{
       this.cardDetailsValidate = false;

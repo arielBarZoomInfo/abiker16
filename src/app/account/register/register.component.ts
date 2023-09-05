@@ -1,11 +1,10 @@
 ﻿import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import {GKeybLanGlobal as G} from '@app/_globals'
 
 import { UsersAccountService, AlertService, GUser } from '@app/_services';
 import { LangValidator } from '@app/_helpers/lang.validators';
-import { epg, IEFM, TLangNames } from '@app/_interfaces/interfaces';
+import { TLangNames } from '@app/_interfaces/interfaces';
 import { IUserDetailsFieldsData, USER_DATA_MULTI } from './register.data';
 import { ILANG_DESCR } from '@app/keyboard/keyb-data/keyb.data';
 import { Subscription } from 'rxjs';
@@ -87,7 +86,7 @@ export class RegisterComponent implements OnInit ,OnDestroy{
       let __user = this.userSvc.userValue;
       
       if(__user){
-        _sysName = __user.sysName;
+        _sysName = __user.sysname;
         _password=__user.password;
       }
       
@@ -99,8 +98,8 @@ export class RegisterComponent implements OnInit ,OnDestroy{
         lastName: new FormControl<string>('', [
           LangValidator.required("lastName")
         ]),
-        sysName: new FormControl<string>(_sysName, [
-          LangValidator.required("sysName")
+        sysname: new FormControl<string>(_sysName, [
+          LangValidator.required("sysname")
         ]),
         password: new FormControl<string>(_password, [
           LangValidator.required("password")
@@ -137,40 +136,13 @@ export class RegisterComponent implements OnInit ,OnDestroy{
            
     }
   
-    async getAviKohen(){
-      this.form.reset();
-      try {
-        const  wideUser = await this.userSvc.retrieveWideUser$(false);
-        this._updateForm(wideUser);
-      
-      } catch (error) {
-        
-      }
-       
-        //this.userSvc.retrieveUsers$
-
-      
-   
-
-    }
-    async getRandomUser(){
-      this.form.reset();
-      try {
-        const  wideUser = await this.userSvc.retrieveWideUser$(true);
-        this._updateForm(wideUser);
-      
-      } catch (error) {
-        
-      }
-
-    }
-    _updateForm(wideUser: WideUserModel | undefined){
+     _updateForm(wideUser: WideUserModel | undefined){
       if(!!wideUser){
 
  
         this.f['firstName'].setValue(wideUser.firstName) ;
         this.f['lastName'].setValue(wideUser.lastName) ;
-        this.f['sysName'].setValue(wideUser.sysName) ;
+        this.f['sysname'].setValue(wideUser.sysname) ;
         this.f['password'].setValue(wideUser.password) ;
         this.f['passport'].setValue(wideUser.passport) ;
         this.f['email'].setValue(wideUser.email) ;
@@ -261,12 +233,12 @@ export class RegisterComponent implements OnInit ,OnDestroy{
       this.loading = true;
       const model:UserModel =  new UserModel(this.form.value);
       this.model = model;
-      await this.userSvc.saveUser$(model);
+      await this.userSvc.saveUser$(model,false);
       this.loading = false;
       // this.userSvc.flags.fVisa = true;
       this.alertSvc.success('Registration successful', 
         { keepAfterRouteChange: true });
-      this.userSvc.gotoCreditCard$(model);
+      this.userSvc.gotoCreditCard$();//model);///!!!
         // this.router.navigate(['../credit-card'], { relativeTo: this.route });
 
       
@@ -276,13 +248,38 @@ export class RegisterComponent implements OnInit ,OnDestroy{
     }
     G.KeyboardVisible = false;
 
-  
-
       
   }
 
   
 }
+   // async getAviKohen(){
+    //   this.form.reset();
+    //   try {
+    //     const  wideUser = await this.userSvc.retrieveWideUser$(false);
+    //     this._updateForm(wideUser);
+      
+    //   } catch (error) {
+        
+    //   }
+       
+    //     //this.userSvc.retrieveUsers$
+
+      
+   
+
+    // }
+    // async getRandomUser(){
+    //   this.form.reset();
+    //   try {
+    //     const  wideUser = await this.userSvc.retrieveWideUser$(true);
+    //     this._updateForm(wideUser);
+      
+    //   } catch (error) {
+        
+    //   }
+
+    // }
 
 
   // getClasses(cname:string) {

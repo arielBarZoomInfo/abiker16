@@ -1,40 +1,52 @@
-﻿import { AfterViewInit, Component, OnInit } from '@angular/core';
+﻿import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 //import { first } from 'rxjs/operators';
 
 import { UsersAccountService, AlertService } from '@app/_services';
-import { err } from '@myndmanagement/text-mask/core/conformToMask';
+import { GKeybLanGlobal as G } from '../../_globals/keyb-lang.global';
 import { UserModel } from '@app/_models';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-login-component',
     templateUrl: 'login.component.html' 
 })
-export class LoginComponent implements OnInit ,AfterViewInit{
+export class LoginComponent implements OnInit ,AfterViewInit,OnDestroy{
     form!: FormGroup;
     loading = false;
     submitted = false;
+    private subs:Subscription[] = [];
     constructor(
         private formBuilder: FormBuilder,
         // private route: ActivatedRoute,
         // private router: Router,
         private userSvc: UsersAccountService,
         private alertSvc: AlertService
-    ) { }
-    ngAfterViewInit(): void {
+    ) {
+        this.subs.push(
+            G.KeyboardEnter$.subscribe(intr=>this.onExitInput(intr))
+          )
+      
+     }
+      ngAfterViewInit(): void {
         //throw new Error('Method not implemented.');
     }
 
     ngOnInit() {
         this.alertSvc.clear();
         this.form = this.formBuilder.group({
-            sysName: ['', Validators.required],
+            sysname: ['', Validators.required],
             password: ['', Validators.required]
         });
     }
-    async onExitInput(sysName:string){
-            //alert(`onExitInput(${name})`);
+
+    ngOnDestroy(): void {
+        this.subs.forEach(subs=>subs.unsubscribe());
+    }
+
+     onExitInput(sysname:string){
+            console.warn(`LoginComponent::onExitInput(${sysname})`);
     }
     // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
@@ -43,7 +55,7 @@ export class LoginComponent implements OnInit ,AfterViewInit{
 
     async onSubmit() {
         
- 
+        this.loading = true;
         this.alertSvc.clear();
         //debugger;
         this.submitted = true;
@@ -53,7 +65,10 @@ export class LoginComponent implements OnInit ,AfterViewInit{
         }
         this.loading = true;
         await this._onSubmit$();   
-        this.loading = false;               
+        this.loading = false;  
+        this.toUpdateCard = false;
+        this.toRegistrate = false;
+             
                    
   
     }
@@ -62,14 +77,15 @@ export class LoginComponent implements OnInit ,AfterViewInit{
     toLogout:boolean = true;
  
     async _onSubmit$(){
-        debugger;
+       // debugger;
         this.toUpdateCard = false;
         this.toRegistrate = false;
         try {
             
-            const sysName = this.f['sysName'].value;
+            const sysname = this.f['sysname'].value;
             const password =  this.f['password'].value;
-            const user = await this.userSvc.login$(sysName,password);
+            const iuser = await this.userSvc.getUser$(sysname);
+            const user = !!iuser ? new UserModel(iuser) : undefined;
             if(!user){
                 //TBD to registrate
                 this.alertSvc.warn(
@@ -77,17 +93,19 @@ export class LoginComponent implements OnInit ,AfterViewInit{
                     {autoClose:true,keepAfterRouteChange:false});
                 this.toRegistrate = true;
                 let usr = new UserModel();
-                usr.sysName = sysName;
+                usr.sysname = sysname;
                 usr.password = password;
-                this.userSvc.saveUser$(usr);
-                return;
+              //  this.userSvc.saveUser$(usr);
                 
-               // await this.userSvc.gotoRegistrate$();
+                
+                await this.userSvc.gotoRegistrate$();
+                return;
                
             } else  if(user?.password !== password){
                 this.alertSvc.warn(
                     `Did you forget the password?`,
                     {autoClose:true});
+                    await this.userSvc.gotoRegistrate$();
                    //TBD retirieve the password .... 
 
             } else {
@@ -95,23 +113,26 @@ export class LoginComponent implements OnInit ,AfterViewInit{
                     user.token = 'OK';
                 }
 
-
-                if(!user.IsCardValid) {
+                this.toUpdateCard = true;
+              //  if(!user.IsCardValid) {
                     this.toUpdateCard = true;
                     this.alertSvc.warn(
-                        `You have to update paying source`,
+                        `You may to update paying source`,
                         {autoClose:true,keepAfterRouteChange:false});
+                 await this.userSvc.gotoCreditCard$();
+                 return;
+            }
                     
                     //await this.userSvc.gotoRegistrate$();
 
-                }
-                else {
-                    this.alertSvc.info(`Your account OK`,
-                        {autoClose:true,keepAfterRouteChange:false});
-                }
+                // }
+                // else {
+                //     this.alertSvc.info(`Your account OK`,
+                //         {autoClose:true,keepAfterRouteChange:false});
+                // }
 
 
-            }
+           // }
 
                          
    
@@ -128,5 +149,13 @@ export class LoginComponent implements OnInit ,AfterViewInit{
     async gotoRegistrate(){
         this.alertSvc.clear();
         await this.userSvc.gotoRegistrate$();
+    }
+    async gotoUpdateCard(){
+        this.alertSvc.clear();
+        await this.userSvc.gotoRegistrate$();
+    }
+    async gotoExit(){
+        this.alertSvc.clear();
+        await this.userSvc.gotoExit$();
     }
 }

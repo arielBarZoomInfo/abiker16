@@ -1,2 +1,2 @@
 ﻿export * from './alert.service';
-export * from './users.account.service';
+export * from '../_persistancy/users.account.service';

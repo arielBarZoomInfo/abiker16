@@ -8,7 +8,7 @@ export interface IUserDetailsFieldsData{
    title2:string;
    firstName:IInputFields;
    lastName:IInputFields;
-   sysName:IInputFields;
+   sysname:IInputFields;
    password:IInputFields;
    passport:IInputFields;
    email:IInputFields;
@@ -65,8 +65,8 @@ const REGISTR_EN : IUserDetailsFieldsData = {
       
 
    },
-   sysName: {
-      name: 'sysName',
+   sysname: {
+      name: 'sysname',
       //type: 'text',
       label:'User name',
       //required: true,//default true
@@ -179,7 +179,7 @@ const REGISTR_RU : IUserDetailsFieldsData = {
      
   
   },
-  sysName: {
+  sysname: {
       name: 'lastName',
       //type: 'text',
       label:'Имя пользователя',
@@ -295,7 +295,7 @@ const REGISTR_HE : IUserDetailsFieldsData = {
      //pattern: '^[a-zA-Z\u0590-\u05FF\-\' ]+$',
      placeholder:'חובה למלא שמ משפחה',
    },
-   sysName: {
+   sysname: {
       name: 'lastName',
       //type: 'text',
       label:'שם משתמש',
@@ -406,7 +406,7 @@ const REGISTR_AR : IUserDetailsFieldsData = {
    //pattern: '^[a-zA-Z\u0590-\u05FF\-\' ]+$',
    placeholder:'يجب أن تملأ الاسم الأخير',
  },
- sysName: {
+ sysname: {
    name: 'lastName',
    //type: 'text',
    label:'اسم المستخدم',

@@ -13,7 +13,7 @@ import { UserModel } from '@app/_models';
 })
 export class AddEditComponent implements OnInit {
     form!: FormGroup;
-   sysName?: string ;
+   sysname?: string ;
     title!: string;
     loading = false;
     submitting = false;
@@ -34,9 +34,9 @@ export class AddEditComponent implements OnInit {
         this.form = this.formBuilder.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
-            sysName: ['', Validators.required],
+            sysname: ['', Validators.required],
             // password only required in add mode
-            password: ['', [Validators.minLength(6), ...(!this.sysName ? [Validators.required] : [])]]
+            password: ['', [Validators.minLength(6), ...(!this.sysname ? [Validators.required] : [])]]
         });
         this.title = 'Add Edit User';
      
@@ -45,10 +45,10 @@ export class AddEditComponent implements OnInit {
      
     }
     async _ngOnInit$(){
-        if (this.sysName) {
+        if (this.sysname) {
             try {
                 this.loading = true;
-                const user = await this.userSvc.getUser(this.sysName);
+                const user = await this.userSvc.getUser$(this.sysname);
                 if(user){
                     this.form.patchValue(user);
                     this.loading = false;

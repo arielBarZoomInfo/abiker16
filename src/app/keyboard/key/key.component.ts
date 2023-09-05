@@ -150,6 +150,7 @@ export class KeyComponent implements OnInit,OnDestroy{
       case ' ':
         this.iconName='space_bar';
         this.keyText =' ';
+        this.keySend = ' ';
         this.isExtraWide=true;
         break;
     
