@@ -80,15 +80,7 @@ export class RegisterComponent implements OnInit ,OnDestroy{
 
     private _createRegisterForm() {
       //debugger;
-      //If was Login
-      let _sysName='';
-      let _password='';
-      let __user = this.userSvc.userValue;
       
-      if(__user){
-        _sysName = __user.sysname;
-        _password=__user.password;
-      }
       
 
       this.form =  new FormGroup({
@@ -98,30 +90,28 @@ export class RegisterComponent implements OnInit ,OnDestroy{
         lastName: new FormControl<string>('', [
           LangValidator.required("lastName")
         ]),
-        sysname: new FormControl<string>(_sysName, [
-          LangValidator.required("sysname")
-        ]),
-        password: new FormControl<string>(_password, [
-          LangValidator.required("password")
-        ]),
-       
+ 
         passport: new FormControl('', [
           LangValidator.required("passport"),
           LangValidator.teudatZehut("passport"),
         ]),
+
+        phone:  new FormControl('', [
+          LangValidator.required("phone"),
+          LangValidator.number("phone",7,12)
+        ]),
+
         email: new FormControl('', [
             LangValidator.required("email"),
             LangValidator.email("email")
           ]),
-        phone:  new FormControl('', [
-            LangValidator.required("phone"),
-            LangValidator.number("phone",7,12)
+
+        city:  new FormControl<string>('', [
+            LangValidator.required("city")
           ]),
-          address:  new FormControl<string>('', [
-            LangValidator.required("address")
-          ]),
-          ravkav:  new FormControl<string>('', [
-           // LangValidator.required("address")
+          
+        ravkav:  new FormControl<string>('', [
+           // LangValidator.required("city")
           ]),
 
       //  ravkav: new FormControl('',[]),
@@ -136,25 +126,25 @@ export class RegisterComponent implements OnInit ,OnDestroy{
            
     }
   
-     _updateForm(wideUser: WideUserModel | undefined){
-      if(!!wideUser){
+    //  _updateForm(wideUser: WideUserModel | undefined){
+    //   if(!!wideUser){
 
  
-        this.f['firstName'].setValue(wideUser.firstName) ;
-        this.f['lastName'].setValue(wideUser.lastName) ;
-        this.f['sysname'].setValue(wideUser.sysname) ;
-        this.f['password'].setValue(wideUser.password) ;
-        this.f['passport'].setValue(wideUser.passport) ;
-        this.f['email'].setValue(wideUser.email) ;
-        this.f['phone'].setValue(wideUser.phone) ;
-        this.f['address'].setValue(wideUser.address) ;
-        this.f['ravkav'].setValue(wideUser.ravkav) ;
-        this.f['imagreeTerms'].setValue(true) ;
-        this.f['imagreePolicy'].setValue(true) ;
-      }
+    //     this.f['firstName'].setValue(wideUser.firstName) ;
+    //     this.f['lastName'].setValue(wideUser.lastName) ;
+    //     this.f['sysname'].setValue(wideUser.sysname) ;
+    //     this.f['password'].setValue(wideUser.password) ;
+    //     this.f['passport'].setValue(wideUser.passport) ;
+    //     this.f['email'].setValue(wideUser.email) ;
+    //     this.f['phone'].setValue(wideUser.phone) ;
+    //     this.f['city'].setValue(wideUser.city) ;
+    //     this.f['ravkav'].setValue(wideUser.ravkav) ;
+    //     this.f['imagreeTerms'].setValue(true) ;
+    //     this.f['imagreePolicy'].setValue(true) ;
+    //   }
    
 
-    }
+    // }
   
     OnSliderChange(evt:any,ctrlName:string){ //'imagreePolicy'
 

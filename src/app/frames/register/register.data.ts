@@ -13,6 +13,7 @@ export interface IUserDetailsFieldsData{
    passport:IInputFields;
    email:IInputFields;
    address:IInputFields;
+   city:IInputFields;
    phone:IInputFields;
    ravkav:IInputFields;
    iamagree:IInputFields;
@@ -106,6 +107,15 @@ const REGISTR_EN : IUserDetailsFieldsData = {
       name: 'address',
       //type: 'text',
       label:'Address',
+      //required: true,//default true
+      //pattern: '',
+      placeholder:'',
+     //invalidFeedback:'current residental address field is mandatory',
+   },
+   city:{
+      name: 'city',
+      //type: 'text',
+      label:'Residental City',
       //required: true,//default true
       //pattern: '',
       placeholder:'',
@@ -219,13 +229,24 @@ const REGISTR_RU : IUserDetailsFieldsData = {
       placeholder:'Введите адрес электроннoй почты',
       
     },
-   address:{
+    address:{
       name: 'address',
       //type: 'text',
       label:'Адрес проживания',
       //required: true,//default true
       //pattern: '',
       placeholder:'Введите ваш адрес проживания',
+      
+  
+   },  
+
+   city:{
+      name: 'city',
+      //type: 'text',
+      label:'Город проживания',
+      //required: true,//default true
+      //pattern: '',
+      placeholder:'Введите ваш город проживания',
       
   
    },
@@ -343,6 +364,15 @@ const REGISTR_HE : IUserDetailsFieldsData = {
       //pattern: '',
       placeholder: 'כתובת מגורים',
      //invalidFeedback:'תמלא שדה חובה',
+   },   
+   city:{
+      name: 'city',
+      //type: 'text',
+      label:'עיר ימגורים',
+      //required: true,//default true
+      //pattern: '',
+      placeholder: 'עיר מגורים' ,
+     //invalidFeedback:'תמלא שדה חובה',
    },
    phone:{
       name: 'phone',
@@ -449,6 +479,16 @@ passport:{
       //required: true,//default true
       //pattern: '',
       placeholder: '',
+     //invalidFeedback:'املأ الحقل المطلوب',
+   },  
+   
+   city:{
+      name: 'city',
+      //type: 'text',
+      label:'مدينة سكنية',
+      //required: true,//default true
+      //pattern: '',
+      placeholder: 'مدينة سكنية',
      //invalidFeedback:'املأ الحقل المطلوب',
    },
    phone:{

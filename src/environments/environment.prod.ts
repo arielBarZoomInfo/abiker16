@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    version: '1.1.1',
+    version: '1.2.0',
     apiUrl: 'http://localhost:4000',
     apiRandomUser: 'http://randomuser.me/api',
     fileUsers:  "users.json",

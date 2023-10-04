@@ -1,0 +1,265 @@
+﻿<div class="card col-12" [style.direction]="flds.direction" >
+
+
+     <!-- <div class="container">
+        <div class="row">
+            <div class="col-md-10 stackem">
+                <div>
+                    <h4 class="card-header"><strong> 
+                        {{flds.title}}</strong>
+                   </h4> 
+       
+                </div>
+                <div>
+                    <h6 class="card-header" style="color:blue"> 
+                        <strong>{{flds.title2}}</strong></h6> 
+                </div>
+             </div>
+            <div class="col-md-2">
+                <img src="assets/logoBikeBox.png" alt="BikeBox" style="height:100px">
+  
+            </div>
+        </div>
+    </div>
+ -->
+ <!-- <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div> -->
+ 
+ 
+     <div class="card-body"> 
+        <form form2keyb [formGroup]="form" (ngSubmit)="onSubmit()">
+
+
+            <!-- First Row -->
+            <div class="row">
+                <!-- firstName -->
+                <div class="col-3 form-group">
+                    
+                        <label for="id-label-firstName" class="form-label">
+                            <strong>{{flds.firstName.label}}*</strong>
+                        </label>
+                        <!-- <span class="input-group-text" id="id-label-firstName">
+                                <strong>{{flds.firstName.label}}</strong></span> -->
+                        <input to-keyb  type="text" formControlName="firstName"
+                            class="form-control"
+                            [ngClass]="getClasses('firstName')"
+                            [placeholder]="flds.firstName.placeholder" 
+                            aria-describedby="id-label-firstName"/>
+                   
+                    <and-err-input-panel name="firstName" [f]="f"></and-err-input-panel>
+                    
+                </div>
+
+                <!-- city -->
+                <div class="col-3 form-group">
+                
+                    <label for="id-label-city" class="form-label">
+                        <strong>{{flds.city.label}}*</strong>
+                    </label>
+                      <input to-keyb  type="text" formControlName="city"
+                        class="form-control"
+                        [ngClass]="getClasses('city')"
+                        [placeholder]="flds.city.placeholder" 
+                        aria-describedby="id-label-city"/>
+               
+                    <and-err-input-panel name="city" [f]="f"></and-err-input-panel>
+                
+                </div>
+
+                <!-- ravkav -->
+                <div class="col-3 form-group">
+                    
+                    <label for="id-label-ravkav" class="form-label">
+                        <strong>{{flds.ravkav.label}}*</strong>
+                    </label>
+                    <!-- <span class="input-group-text" id="id-label-ravkav">
+                            <strong>{{flds.ravkav.label}}</strong></span> -->
+                    <input to-keyb  type="text" formControlName="ravkav"
+                        class="form-control"
+                        [ngClass]="getClasses('ravkav')"
+                        [placeholder]="flds.ravkav.placeholder" 
+                        aria-describedby="id-label-ravkav"/>
+               
+                    <and-err-input-panel name="ravkav" [f]="f"></and-err-input-panel>
+                
+                </div>
+
+                <!-- phone -->
+                <div class="col-3 form-group">
+                    
+                        <label for="id-label-phone" class="form-label">
+                            <strong>{{flds.phone.label}}*</strong>
+                        </label>
+                        <!-- <span class="input-group-text" id="id-label-phone">
+                                <strong>{{flds.phone.label}}</strong></span> -->
+                        <input to-keyb="dg"  type="number" formControlName="phone" 
+                            class="form-control"
+                            [ngClass]="getClasses('phone')" 
+                            [placeholder]="flds.phone.placeholder" 
+                            aria-describedby="id-label-phone"/>
+                   
+                    <and-err-input-panel name="phone" [f]="f"></and-err-input-panel>
+                    
+                </div>
+    
+
+            </div>
+
+            <!-- Second Row -->
+            <div class="row">
+
+                <!-- email -->
+                <div class="col-4 form-group">
+                    
+                        <label for="id-label-email" class="form-label">
+                            <strong>{{flds.email.label}}*</strong>
+                        </label>
+                        <!-- <span class="input-group-text" id="id-label-email">
+                                <strong>{{flds.email.label}}</strong></span> -->
+                        <input to-keyb  type="text" formControlName="email"
+                            class="form-control"
+                            [ngClass]="getClasses('email')"
+                            [placeholder]="flds.email.placeholder" 
+                            aria-describedby="id-label-email"/>
+                   
+                    <and-err-input-panel name="email" [f]="f"></and-err-input-panel>
+                    
+                </div>
+
+                <!-- city -->
+                <div class="col-4 form-group">
+                
+                    <label for="id-label-lastName" class="form-label">
+                        <strong>{{flds.lastName.label}}*</strong>
+                    </label>
+                    <!-- <span class="input-group-text" id="id-label-lastName">
+                            <strong>{{flds.lastName.label}}</strong></span> -->
+                    <input to-keyb  type="text" formControlName="lastName"
+                        class="form-control"
+                        [ngClass]="getClasses('lastName')"
+                        [placeholder]="flds.lastName.placeholder" 
+                        aria-describedby="id-label-lastName"/>
+               
+                <and-err-input-panel name="lastName" [f]="f"></and-err-input-panel>
+                
+                </div>
+
+                <!-- ravkav -->
+                <div class="col-4 form-group">
+                    
+                    <label for="id-label-ravkav" class="form-label">
+                        <strong>{{flds.ravkav.label}}*</strong>
+                    </label>
+                     <input to-keyb  type="text" formControlName="ravkav"
+                        class="form-control"
+                        [ngClass]="getClasses('ravkav')"
+                        [placeholder]="flds.ravkav.placeholder" 
+                        aria-describedby="id-label-ravkav"/>
+               
+                    <and-err-input-panel name="ravkav" [f]="f"></and-err-input-panel>
+                
+                </div>
+
+            </div>
+
+
+  
+            <div class="row" style="padding-top:8px;padding-bottom:8px;">
+                <!--------IAMAGREE POLICY---------->
+                <div class="col-5" style="background: white ;">
+                    <div class="  row" style="background: white ;">
+                        <div class="col-12">
+                            <span class="input-group-text"  
+                                style="background: white ;">
+                                <strong>{{flds.iamagree.label}}&nbsp;&nbsp;
+                                </strong>
+                                <div style="padding-left: 8px;padding-right: 8px;">
+                                    <label class="switch-checkbox" >
+                                    <input type="checkbox" 
+                                        name="imagreePolicy" 
+                                    
+                                        formControlName="imagreePolicy"
+                                        (change)="OnSliderChange($event,'imagreePolicy')" >
+                                    <span class="slider-checkbox round-checkbox" ></span>
+                                </label>
+                                </div >   
+                                <a  class="link-primary" href="http://google.com" style="background: white;">
+                                    {{flds.pay.policy.text}}
+                                </a> 
+                            </span>
+                            <and-err-input-panel name="imagreePolicy" [f]="f">
+                            </and-err-input-panel>
+
+                        
+                        
+                        </div>
+                
+                    
+                    </div> 
+                </div>
+
+                <div class="col-1"></div>
+
+                <!--------IAMAGREE TERMS---------->
+                <div class="col-5" style="background: white ;">
+                    <span class="input-group-text"  
+                        style="background: white ;">
+                        <strong>{{flds.iamagree.label}}&nbsp;&nbsp;
+                        </strong>
+                        <div style="padding-left: 8px;padding-right: 8px;">
+                            <label class="switch-checkbox" >
+                            <input type="checkbox" 
+                                name="imagreeTerms" 
+                            
+                                formControlName="imagreeTerms"
+                                (change)="OnSliderChange($event,'imagreeTerms')" >
+                            <span class="slider-checkbox round-checkbox" ></span>
+                        </label>
+                        </div >   
+                        <a  class="link-primary" href="http://google.com" style="background: white;">
+                            {{flds.pay.terms.text}}
+                        </a> 
+                    </span>
+                    <and-err-input-panel name="imagreeTerms" [f]="f">
+                    </and-err-input-panel>
+                </div>
+            </div> 
+    
+           
+
+      
+            <ng-container *ngIf="valid">
+                <button class="btn btn-primary" type="submit">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                    Accept and set pay source
+                </button>
+            </ng-container>
+
+            <!-- <ng-container *ngIf="env.toTestUsers">
+                <button class="btn btn-primary" type="button" (click)="getAviKohen()">
+                    Avi Kohen
+                </button>
+            </ng-container>
+
+            <ng-container *ngIf="env.toTestUsers">
+                <button class="btn btn-primary" type="button" (click)="getRandomUser()">
+                    Avi Kohen
+                </button>
+            </ng-container> -->
+
+            <!-- <ng-container *ngIf="env.toTestUsers">
+                <button class="btn btn-primary" type="button" (click)="getRandomUser()">
+                    Reandom User
+                </button>
+            </ng-container>
+         -->
+
+
+            <!-- <a routerLink="../login" class="btn btn-link">Cancel</a> -->
+           
+        </form>
+    </div>
+</div>

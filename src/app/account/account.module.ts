@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AccountRoutingModule } from './account-routing.module';
 import { LayoutComponent } from './layout.component';
 import { LoginComponent } from './login//login.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from '../frames/register/register.component';
 import { CreditCardComponent } from './credit-card/credit-card.component';
 import { TextMaskModule } from '@myndmanagement/text-mask';
 import { ToKeybModule } from '@app/keyboard/to-keyb/to-keyb.module';

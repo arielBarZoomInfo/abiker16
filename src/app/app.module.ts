@@ -28,7 +28,7 @@ import { HomePageComponent } from './_pages/home-page/home-page.component';
     declarations: [
         AppComponent,
         AlertComponent,
-        HomePageComponent,
+        HomePageComponent
        // SelectLanguageComponent,
        
     ],
