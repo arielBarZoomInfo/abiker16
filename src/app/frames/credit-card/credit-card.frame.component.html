@@ -1,0 +1,166 @@
+
+
+
+<!-- <div class="panel panel-default" [style.direction] = "flds.direction">
+  <div class="panel-heading">{{flds.title}}</div>
+  <div class="panel-body"> -->
+    <div class="card col-12" [style.direction] = "flds.direction">    
+       
+
+        <!-- <div class="container">
+            <div class="row">
+                <div class="col-md-10 stackem">
+                    <div>
+                        <h4 class="card-header"><strong> 
+                            {{flds.title}}</strong>
+                       </h4> 
+           
+                    </div>
+                    <div>
+                        <h6 class="card-header" style="color:blue"> 
+                            <strong>{{flds.title2}}</strong></h6> 
+                    </div>
+                 </div>
+                <div class="col-md-2">
+                    <img src="assets/logoBikeBox.png" alt="BikeBox" style="height:100px">
+      
+                </div>
+            </div>
+        </div>
+     -->
+    
+        <form [formGroup]="paymentForm" 
+            form2keyb
+            #ref
+            (ngSubmit)="saveCardDetails()">  
+            <!-- 1 Row       -->
+            <div class="row">
+
+                <!-- ownerFirstName -->
+                <div class="col-4 form-group">
+                    
+                        <label for="id-label-ownerFirstName" class="form-label">
+                            <strong>{{flds.ownerFirstName.label}}*</strong>
+                        </label>
+                        <!-- <span class="input-group-text" id="id-label-ownerFirstName">
+                                <strong>{{flds.ownerFirstName.label}}</strong></span> -->
+                        <input to-keyb  type="text" formControlName="ownerFirstName"
+                            class="form-control"
+                            [ngClass]="getClasses('ownerFirstName')"
+                            [placeholder]="flds.ownerFirstName.placeholder" 
+                            aria-describedby="id-label-ownerFirstName"/>
+                    
+                        <and-err-input-panel name="ownerFirstName" [f]="f"></and-err-input-panel>
+                    
+                </div>
+
+                <!-- ownerLastName -->
+                <div class="col-4 form-group">
+                        
+                    <label for="id-label-ownerLastName" class="form-label">
+                        <strong>{{flds.ownerLastName.label}}*</strong>
+                    </label>
+                    <!-- <span class="input-group-text" id="id-label-ownerLastName">
+                            <strong>{{flds.ownerLastName.label}}</strong></span> -->
+                    <input to-keyb  type="text" formControlName="ownerLastName"
+                        class="form-control"
+                        [ngClass]="getClasses('ownerLastName')"
+                        [placeholder]="flds.ownerLastName.placeholder" 
+                        aria-describedby="id-label-ownerLastName"/>
+
+                    <and-err-input-panel name="ownerLastName" [f]="f"></and-err-input-panel>
+                    
+                </div>
+        
+                <!-- passport -->
+                <div class="col-4 form-group">
+                    <label for="id-label-ownerFirstName" class="form-label">
+                        <strong>{{flds.passport.label}}*</strong>
+                    </label>
+               
+                    <span class="input-group-text" ><strong>{{flds.passport.label}}</strong></span>
+                    <input class="form-control" to-keyb="dg" 
+                        type="text" 
+                        formControlName="passport"
+                        [textMask]="{mask: maskPassportNum}"
+                        id="id-credit-card-passport" 
+                        [ngClass]="getClasses('passport')"
+                        placeholder="XXXXXXXXX">                    
+                    <and-err-input-panel name="passport" [f]="f"></and-err-input-panel>
+                </div>
+
+            </div>
+            <!-- 2 Row       -->
+            <div class="row">
+                
+                <!-- cardNumber -->
+                <div class="col=5 form-group">
+                    <div class="form-group input-group row" >
+                        <label for="id-label-ownerFirstName" class="form-label">
+                            <strong>{{flds.cardNumber.label}}*</strong>
+                        </label>
+
+                        <input class="form-control" to-keyb="dg" 
+                            type="text" 
+                            formControlName="cardNumber"
+                            [textMask]="{mask: maskCardNum}"
+                            id="id-credit-card-card-number" 
+                            [ngClass]="getClasses('cardNumber')"
+                            placeholder="XXXX-XXXX-XXXX-XXXX">                    
+                    </div>
+                    
+                    <and-err-input-panel name="cardNumber" [f]="f"></and-err-input-panel>
+
+                </div>
+
+                <!-- tokef -->
+                <div class="col-3 form-group">
+                        
+                        <span class="input-group-text" ><strong>{{flds.tokef.label}}</strong></span>
+                        <input class="form-control" to-keyb="dg" 
+                            type="text" 
+                            formControlName="tokef"
+                            [textMask]="{mask: maskTokefNum}"
+                            id="id-credit-card-tokef" 
+                            [ngClass]="getClasses('tokef')"
+                            placeholder="MM/YY">                    
+               
+                    <and-err-input-panel name="tokef" [f]="f"></and-err-input-panel>
+
+                </div>
+
+                <!-- ccv  -->
+                <div class="col-4">
+                    <div class="form-group input-group row" >
+                        <label class="input-group-text" >
+                            <strong>{{flds.cvv.label}}</strong></label>
+                        <input class="form-control" to-keyb="dg" 
+                            type="text" 
+                            formControlName="cvv"
+                            [textMask]="{mask: maskCvvNum}"
+                            id="id-credit-card-cvv" 
+                            [ngClass]="getClasses('cvv')"
+                            placeholder="XXX">                    
+                    </div>
+                    <and-err-input-panel name="cvv" [f]="f"></and-err-input-panel>
+        
+                </div>
+            
+            </div>
+
+            <!-- BTNS       -->
+            <div class="row">
+                <div class="col-lg-4 col-md-4 xol-sm-4 col-xs-12">
+                    <div class="form-group"  style="padding-top:2rem;padding-bottom:2rem;">
+                        <button type="submit" class="btn btn-submit" style="margin-right: 10px ; color: white; background-color: blue;;">Save User</button>
+                        <button type="button" class="btn btn-primary" (click)="ClearCardDetails()">Clear</button>
+                    </div>
+                </div>
+            
+
+            </div>
+        </form>
+        
+    </div>
+    
+    

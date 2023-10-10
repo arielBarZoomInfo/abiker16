@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import '/node_modules/bootstrap/scss/bootstrap.scss';
 @import '/src/assets/fonts_googleapi.scss';
+@import 'assets/frames.common.scss';
+@import 'assets/slider.checkbox.scss';
+
 .attached-to-keyb {
     color: var(--bs-body-color);
     background-color: var(--bs-body-bg);
@@ -18,3 +21,17 @@ dialog:not([open]) {
     opacity: 0;
 }
   
+
+.btn-command{
+    font-size: 2rem ;
+    margin-left: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 4rem  ;
+   
+   
+}
+.btn-command-selected{
+    color: yellow ;
+    background-color: rgba(14, 99, 60,)
+}

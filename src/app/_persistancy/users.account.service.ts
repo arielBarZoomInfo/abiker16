@@ -11,7 +11,7 @@ import { ILogin } from './persistency.interface';
 
 export const USER_STORAGE_KEY = 'abiker16-registration-login-user';
 //Global Variables for read from anonher sites
-export var GPage: E = E.eSelectLang;//!!!
+export var GPage: E = E.eVoid;//!!!
 
 export var GUser: UserModel | undefined = undefined;
 
@@ -188,27 +188,27 @@ export class UsersAccountService {
    
     }
     async gotoRegistrate$() {
-        if(true || GPage === E.eSelectLang || GPage === E.eLogin){
+       // if(true || GPage === E.eSelectLang || GPage === E.eLogin){
             this.toPage(E.eRegistrate);
-        }
+       // }
        //  this.eFsm$.next(E.eRegistrate);
     }
-    async gotoLogin$() {
-        if(true || GPage === E.eSelectLang ){
-            this.toPage(E.eLogin);
-        }
-       //  this.eFsm$.next(E.eRegistrate);
-    }
+    // async gotoLogin$() {
+    //     //if(true || GPage === E.eSelectLang ){
+    //         this.toPage(E.eLogin);
+    //    // }
+    //    //  this.eFsm$.next(E.eRegistrate);
+    // }
     async gotoCreditCard$() {
-        if(true || GPage === E.eRegistrate || GPage === E.eLogin){
+      // if(true || GPage === E.eRegistrate || GPage === E.eLogin){
             this.toPage(E.eCredirCard);
 
-        }
+       // }
     }
 
-    async gotoExit$() {
+    async gotoHome() {
        // await this.gotoExit$();
-        this.toPage(E.eSelectLang);
+      this.toPage(E.eVoid);
         
     }
     //#endregion

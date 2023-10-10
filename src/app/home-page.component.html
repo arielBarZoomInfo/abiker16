@@ -1,32 +1,51 @@
 
  <div class="container col-md-10 offset-md-1 mt-5">
     <!-- <router-outlet></router-outlet> -->
-    <div class="row" *ngIf="page == E.eSelectLang">
+    <!-- <div class="row" *ngIf="page == E.eSelectLang">
         <and-select-language></and-select-language>
-    </div>
+    </div> -->
 
-    <div class="row" *ngIf="page === E.eLogin">
+    <!-- <div class="row" *ngIf="page === E.eLogin">
         <app-login-component></app-login-component>
+    </div> -->
+
+    <div  [ngSwitch]="page">
+      <div class="row" *ngSwitchCase="E.eRegistrate">
+        <app-frame-register></app-frame-register>
+      </div>
+
+      <div class="row" *ngSwitchCase="E.eCredirCard">
+        <app-frame-credit-card></app-frame-credit-card>
+      </div>
+
+      <div class="row" *ngSwitchDefault>
+        <div class="col-2"></div>
+        <div class="col-4">
+            <button type="button" class="btn btn-success btn-set-lang center"
+                (click)="gotoCredirCard()">Update Credit Card</button>
+    
+        </div>
+        <div class="col-4">
+            <button type="button" class="btn btn-success btn-set-lang center"
+                (click)="gotoRegistrate()">Registrate</button>
+    
+        </div>
+        <div class="col-2"></div>
+      </div>
     </div>
 
-    <div class="row" *ngIf="page === E.eRegistrate">
-        <and-register></and-register>
-    </div>
 
-    <div class="row" *ngIf="page === E.eCredirCard">
-        <and-credit-card></and-credit-card>
-    </div>
-
-    <dialog #myDialog>
+    
+  <dialog #myDialog>
         <div  style="width: 800px;height: 480px;border-width: 8px ;border-color: blue; background-color: lightcoral;"
         *ngIf="isDialogOpen">
-          <and-users-list-component></and-users-list-component>
+          <!-- <and-users-list-component></and-users-list-component> -->
         </div>
        <button class="btn btn-sm btn-primary me-1" (click)="myDialogClose()">
            Close
         </button>
      </dialog>
-    <button class="btn btn-sm btn-primary me-1" (click)="myDialogShow()">Show Users dialog</button>
+    <!-- <button class="btn btn-sm btn-primary me-1" (click)="myDialogShow()">Show Users dialog</button> -->
     <!-- <dialog id="MegaDialog" modal-mode="mega"  #myDialog>
         <form method="dialog">
           <header>

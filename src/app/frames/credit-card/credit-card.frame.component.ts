@@ -17,13 +17,12 @@ const TO_LOG = true;
 
 
 @Component({
-  selector: 'and-credit-card',
-  templateUrl: './credit-card.component.html',
-  styleUrls: ['./credit-card.component.scss']
+  selector: 'app-frame-credit-card',
+  templateUrl: 'credit-card.frame.component.html'
 })
-export class CreditCardComponent  
+export class CreditCardFrameComponent  
   implements OnInit, OnDestroy, AfterViewInit{
-    title = 'CreditCardValidation';
+    title = 'CreditCard';
 
     //#region Lang
     private _Lang !: TLangNames ;// = GlobalLangPipe$.value;;
@@ -86,13 +85,14 @@ export class CreditCardComponent
       this.alertSvc.clear();
  
 
-      if(!this.userSvc.userValue){
-       // throw new Error('User for credit card is undefined!!!');
-       this.alertSvc.error('User for credit card must be defined;');
-       await this.userSvc.gotoExit$();
-       return;
-      }
-      this.user = new UserModel(this.userSvc.userValue);
+      // if(!this.userSvc.userValue){
+      //  // throw new Error('User for credit card is undefined!!!');
+      //  this.alertSvc.error('User for credit card must be defined;');
+      //  await this.userSvc.gotoHome();
+      //  return;
+      // }
+      // this.user = new UserModel(this.userSvc.userValue);
+      this.user = new UserModel(undefined);
 
       this._onLangChange(G.Lang,false);// don't validate
       this.IntializePaymentForm();
@@ -129,6 +129,7 @@ export class CreditCardComponent
     ngOnDestroy(): void {
       this.subs.forEach(sub=>sub.unsubscribe());
       G.KeyboardVisible = false;
+      this.userSvc.gotoHome()
     }
    
   

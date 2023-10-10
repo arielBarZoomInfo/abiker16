@@ -6,21 +6,17 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // used to create fake backend
 import { FakeBackendProvider } from './_helpers';
 
-import { AppRoutingModule } from './app-routing.module';
-import { JwtInterceptor, ErrorInterceptor } from './_helpers';
+//import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
-
-
-import { AccountModule } from './account/account.module';
-
-
 
 import { KeyboardModule } from './keyboard/keyboard.module';
 import { TextMaskModule } from '@myndmanagement/text-mask';
 import { ToKeybModule } from './keyboard/to-keyb/to-keyb.module';
-import { UsersModule } from './users/users.module';
-import { HomePageComponent } from './_pages/home-page/home-page.component';
+import { RegisterFrameComponent } from './frames/register/register.frame.component';
+import { CreditCardFrameComponent } from './frames/credit-card/credit-card.frame.component';
+import { HomePageComponent } from './home-page.component';
+import { ErrInputPanelComponent } from './keyboard/to-keyb/err-input-panel.component';
 
 
 
@@ -28,28 +24,28 @@ import { HomePageComponent } from './_pages/home-page/home-page.component';
     declarations: [
         AppComponent,
         AlertComponent,
-        HomePageComponent
-       // SelectLanguageComponent,
+        HomePageComponent,
        
+        RegisterFrameComponent,
+        CreditCardFrameComponent
+
     ],
     imports: [
         BrowserModule,
         ReactiveFormsModule,
         HttpClientModule,
-        AppRoutingModule,
+       
         KeyboardModule,
         ToKeybModule,
         TextMaskModule,
        
-        AccountModule,
-        UsersModule,
-       
-        
     ],
    
     providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
+      // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
         // provider used to create fake backend
         FakeBackendProvider

@@ -55,8 +55,8 @@ export interface IInputFieldsMulti{
 
 export enum epg{
   
-    eSelectLang=0,
-    eLogin=1,
+    eVoid=0,
+    eReadCode=1,
     eLogout=2,
     eRegistrate=3,
     eCredirCard=4,

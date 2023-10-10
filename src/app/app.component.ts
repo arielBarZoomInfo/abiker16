@@ -57,7 +57,7 @@ export class AppComponent  implements OnInit, OnDestroy{
 
     async gotoExit$() {
        
-        await this.userSvc.gotoExit$();
+        await this.userSvc.gotoHome();
     }
 
     toShowKeyb(){

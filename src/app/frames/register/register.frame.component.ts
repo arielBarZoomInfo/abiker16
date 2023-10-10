@@ -15,13 +15,13 @@ const TO_TEST_USER = environment.toTestUsers;
 
 @Component({ 
   
-  selector: 'and-register',
+  selector: 'app-frame-register',
  
-  templateUrl: 'register.component.html',
-  styleUrls:  ['register.component.scss']
+  templateUrl: 'register.frame.component.html',
+  styleUrls:  ['/src/assets/frames.common.scss']
 
  })
-export class RegisterComponent implements OnInit ,OnDestroy{
+export class RegisterFrameComponent implements OnInit ,OnDestroy{
 //IEFM<UserModel>{
     readonly env = environment;
     form!: FormGroup;
@@ -66,6 +66,7 @@ export class RegisterComponent implements OnInit ,OnDestroy{
     ngOnDestroy(): void {
       this.subs.forEach(s=>s.unsubscribe());
       G.KeyboardVisible = false;
+      this.userSvc.gotoHome();
     }
 
     ngOnInit() {

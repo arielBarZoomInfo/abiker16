@@ -11,8 +11,8 @@ export interface ICreditCardFieldsData{
     direction:TDirection;
     title:string;
     title2:string;
-    ownerName:IInputFields;
-  //  ownerLastName:IInputFields;
+    ownerFirstName:IInputFields;
+    ownerLastName:IInputFields;
     passport:IInputFields;
     cardNumber:IInputFields;
     tokef:IInputFields;
@@ -27,19 +27,19 @@ export interface ICreditCardFieldsData{
    direction:'ltr',
    title:'Credit Card Details',
    title2:'Please enter credit card details',
-   ownerName: {
+   ownerFirstName: {
      name: 'name',
-     label:'Card owner name and family name',
+     label:'Credit card owner name ',
      placeholder:'First Name ',
   
   
   }, 
-//   ownerLastName: {
-//      name: 'name',
-//      label:'Card owner last name ',
-//      placeholder:'Last name '
+  ownerLastName: {
+     name: 'name',
+     label:'Credit last name ',
+     placeholder:'Last name '
   
-//   },
+  },
 
   passport:{
      name: 'passport',
@@ -72,19 +72,19 @@ const CREDIT_RU : ICreditCardFieldsData = {
    direction:'ltr',
    title:'Данные кредитной карты',
    title2:'Bведите данные кредитной карты',
-   ownerName: {
+   ownerFirstName: {
      name: 'name',
-     label:'Има и фамилия владельца карты',
+     label:'Има владельца карты',
      placeholder:'Имя владельца',
-  
-  
+ 
   }, 
-//   ownerLastName: {
-//      name: 'name',
-//      label:'Фамилия владельца карты',
-//      placeholder:'Фамилия владельца'
+
+  ownerLastName: {
+     name: 'name',
+     label:'Фамилия владельца карты',
+     placeholder:'Фамилия владельца карты'
   
-//   },
+  },
 
   passport:{
      name: 'passport',
@@ -119,19 +119,19 @@ const CREDIT_HE : ICreditCardFieldsData = {
    direction:'rtl',
    title:'פרטי כרטיס אשראי',
    title2:'נא להזין את פרטי כרטיס האשראי',
-   ownerName: {
+   ownerFirstName: {
      name: 'name',
-     label:'שם ושם משפחה של בעל הכרטיס',
-     placeholder:'שם פרטי',
+     label:'שם של בעל הכרט',
+     placeholder:'שם של בעל הכרט',
   
   
   }, 
-//   ownerLastName: {
-//      name: 'name',
-//      label:'שם משפחה של בעל הכרטיס',
-//      placeholder:'שם משפחה'
+  ownerLastName: {
+     name: 'name',
+     label:'שם משפחה של בעל הכרטיס',
+     placeholder:'שם משפחה'
   
-//   },
+  },
 
   passport:{
      name: 'passport',
@@ -165,19 +165,19 @@ const CREDIT_AR : ICreditCardFieldsData = {
    direction:'rtl',
    title:'تفاصيل بطاقة الائتمان',
    title2:'الرجاء إدخال تفاصيل بطاقة الائتمان',
-   ownerName: {
+   ownerFirstName: {
      name: 'name',
-     label: 'بطاقات إيما وعائلة',
-     placeholder:'الاسم الأول',
+     label: 'اسم مالك بطاقة الائتمان',
+     placeholder:'اسم مالك بطاقة الائتمان',
   
   
   }, 
-//   ownerLastName: {
-//      name: 'name',
-//      label:'الاسم الأخير لحامل البطاقة',
-//      placeholder:'اسم عائلة'
+  ownerLastName: {
+     name: 'name',
+     label:'الاسم الأخير لحامل البطاقة',
+     placeholder:'اسم عائلة'
   
-//   },
+  },
 
   passport:{
      name: 'passport',
